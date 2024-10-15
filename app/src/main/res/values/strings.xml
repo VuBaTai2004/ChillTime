@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChillTime</string>
+    <string name="student_sign_in">Sign in as student</string>
+    <string name="teacher_sign_in">Sign in as teacher</string>
+    <string name="admin_sign_in">Sign in as admin</string>
+    <string name="sign_in">Sign in</string>
 </resources>

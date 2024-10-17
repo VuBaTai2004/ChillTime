@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_schedule"
+        android:icon="@drawable/icon_schedule"
+        android:title="@string/schedule" />
+    <item
+        android:id="@+id/nav_transcript"
+        android:icon="@drawable/icon_transcript"
+        android:title="@string/transcript" />
+    <item
+        android:id="@+id/nav_class"
+        android:icon="@drawable/icon_class"
+        android:title="@string/classs" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/icon_profile"
+        android:title="@string/profile" />
+</menu>

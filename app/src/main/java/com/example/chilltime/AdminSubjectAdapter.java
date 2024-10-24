@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.chilltime.AdminSubject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdminSubjectAdapter extends RecyclerView.Adapter<AdminSubjectAdapter.SubjectViewHolder> {
 

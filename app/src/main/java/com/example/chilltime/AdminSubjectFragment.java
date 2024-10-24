@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
@@ -27,9 +28,11 @@ public class AdminSubjectFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         subjectList=new ArrayList<>();
-        subjectList.add(new AdminSubject("Nhap mon lap trinh", "IT001.P01"));
-        subjectList.add(new AdminSubject("Phat trien ung dung tren thiet bi di dong", "NT118.P21"));
-        subjectList.add(new AdminSubject("Khoa luan tot nghiep", "NT505.P51"));
+        subjectList.add(new AdminSubject("Nhập môn lập trình  ", "IT001.P01"));
+        subjectList.add(new AdminSubject("Phát triển ứng dụng trên thiết bị di động", "NT118.P21"));
+        subjectList.add(new AdminSubject("Công nghệ Internet Of Things hiện đại", "NT532.P13"));
+        subjectList.add(new AdminSubject("Lịch sử Đảng Cộng sản Việt Nam", "SS010.P30"));
+        subjectList.add(new AdminSubject("Khóa luận tốt nghiệp", "NT505.P51"));
 
         adapter=new AdminSubjectAdapter(getContext(),subjectList);
         recyclerView.setAdapter(adapter);

@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:background="@drawable/border_black">
     <TextView
-        android:id="@+id/admin_subject_adapter_order"
+        android:id="@+id/admin_room_adapter_order"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
@@ -16,7 +16,7 @@
         android:layout_gravity="center_vertical"/>
 
     <TextView
-        android:id="@+id/admin_subject_adapter_name"
+        android:id="@+id/admin_room_adapter_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -26,7 +26,7 @@
         android:layout_gravity="center_vertical"/>
 
     <TextView
-        android:id="@+id/admin_subject_adapter_class_id"
+        android:id="@+id/admin_room_adapter_class_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -36,7 +36,7 @@
         android:layout_gravity="center_vertical"/>
 
     <ImageButton
-        android:id="@+id/admin_subject_adapter_edit"
+        android:id="@+id/admin_room_adapter_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -46,7 +46,7 @@
         android:layout_gravity="center_vertical"/>
 
     <ImageButton
-        android:id="@+id/admin_subject_adapter_delete"
+        android:id="@+id/admin_room_adapter_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -2,13 +2,19 @@ package com.example.chilltime;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -19,15 +25,28 @@ public class AdminClassFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_class, container, false);
         ArrayList<AdminClass> adminClasses = new ArrayList<>();
+        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
+        Spinner spinner = view.findViewById(R.id.spn_class_search);
+        Button btn = view.findViewById(R.id.btn_class_add);
+        String[] find = {"Tìm theo mã lớp", "Tìm theo môn học"};
         adminClasses.add(new AdminClass("NT131.P13", "Hệ thống Nhúng mạng không dây"));
         adminClasses.add(new AdminClass("NT532.P11","Công nghệ Internet of things hiện đại"));
         adminClasses.add(new AdminClass("NT118.P13", "Phát triển ứng dụng trên thiết bị di động"));
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
         AdminClassAdapter adapter = new AdminClassAdapter(view.getContext(), adminClasses);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
 
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(view.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, find);
+        spinner.setAdapter(stringArrayAdapter);
+
+        btn.setOnClickListener(view1 -> {
+            FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new AdminClassAddFragment());
+            fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
+            fragmentTransaction.commit();
+        });
         return view;
     }
 }

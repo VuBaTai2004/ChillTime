@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:background="@drawable/border_black">
+    android:background="@drawable/border_1px">
     <TextView
         android:id="@+id/admin_room_adapter_order"
         android:layout_width="0dp"

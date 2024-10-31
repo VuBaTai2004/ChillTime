@@ -3,26 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TeacherScheduleFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        app:mcv_showOtherDates="none"
-        app:mcv_firstDayOfWeek="monday"
-        app:mcv_calendarMode="week"
-
-        app:mcv_arrowColor="@color/black"
-        app:mcv_selectionColor="@color/blue"
-        app:mcv_weekDayTextAppearance="@style/CalendarWeekDayText"
-        app:mcv_dateTextAppearance="@style/CalendarDateText" />
-
-
-
+        android:layout_height="match_parent"
+        android:text="Schedule Fragment"
+        android:textSize="40sp"
+        android:gravity="center"/>
 </FrameLayout>

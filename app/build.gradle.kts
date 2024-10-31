@@ -49,8 +49,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    implementation("com.github.prolificinteractive:material-calendarview:1.6.0"){
-        exclude(group = "com.android.tools.build", module = "gradle")
-    }
 }

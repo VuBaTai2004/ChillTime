@@ -46,7 +46,7 @@ public class TeacherActivity extends AppCompatActivity {
             }
         });
 
-        loadFragment(new TeacherScheduleFragment(), true);
+        loadFragment(new AdminTeacherFragment(), true);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

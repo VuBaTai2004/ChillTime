@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/teacher_add"
+        android:text="Thêm sinh viên"
         android:textSize="30sp"
         android:textAllCaps="true"
         android:textAlignment="center"
@@ -21,7 +21,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="10dp"/>
     <LinearLayout
-        android:id="@+id/ll_parent_admin_teacher_add"
+        android:id="@+id/ll_parent_admin_student_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -41,10 +41,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/teacher_id"
+                android:text="Mã số sinh viên:"
                 android:textSize="15sp"/>
             <EditText
-                android:id="@+id/admin_et_teacher_id"
+                android:id="@+id/admin_et_student_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="15sp"/>
@@ -58,10 +58,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/teacher_name"
+                android:text="Họ tên:"
                 android:textSize="15sp"/>
             <EditText
-                android:id="@+id/admin_et_teacher_name"
+                android:id="@+id/admin_et_student_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"/>
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:text="Email:"/>
             <EditText
-                android:id="@+id/admin_et_teacher_mail"
+                android:id="@+id/admin_et_student_mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -94,17 +94,17 @@
                 android:layout_height="wrap_content"
                 android:text="Số điện thoại:"/>
             <EditText
-                android:id="@+id/admin_et_teacher_phone"
+                android:id="@+id/admin_et_student_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:inputType="text"/>
         </LinearLayout>
         <Button
-            android:id="@+id/admin_btn_add_teacher"
+            android:id="@+id/admin_btn_add_student"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/teacher_add"/>
+            android:text="Thêm sinh viên"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

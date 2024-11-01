@@ -23,18 +23,18 @@ public class AdminStudentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_admin_teacher, container, false);
-        ArrayList<AdminTeacher> teacherArrayList = new ArrayList<>();
+        View view = inflater.inflate(R.layout.fragment_admin_student, container, false);
+        ArrayList<AdminStudent> studentArrayList = new ArrayList<>();
         String[] spnStr = {"Tìm theo mã số", "Tìm theo tên"};
-        RecyclerView rv = view.findViewById(R.id.rv_teacher_list);
-        Spinner spn = view.findViewById(R.id.spn_teacher_search);
-        Button btn = view.findViewById(R.id.btn_teacher_add);
+        RecyclerView rv = view.findViewById(R.id.rv_student_list);
+        Spinner spn = view.findViewById(R.id.spn_student_search);
+        Button btn = view.findViewById(R.id.btn_student_add);
 
-        teacherArrayList.add(new AdminTeacher("1", "Nguyễn Văn A", "anv1@gmail.com", "0123456787"));
-        teacherArrayList.add(new AdminTeacher("2", "Nguyễn Văn B", "anv2@gmail.com", "0123456788"));
-        teacherArrayList.add(new AdminTeacher("3", "Nguyễn Văn C", "anv3@gmail.com", "0123456789"));
+        studentArrayList.add(new AdminStudent("1", "Nguyễn Văn A", "anv1@gmail.com", "0123456787"));
+        studentArrayList.add(new AdminStudent("2", "Nguyễn Văn B", "anv2@gmail.com", "0123456788"));
+        studentArrayList.add(new AdminStudent("3", "Nguyễn Văn C", "anv3@gmail.com", "0123456789"));
 
-        AdminTeacherAdapter adapter = new AdminTeacherAdapter(view.getContext(), teacherArrayList);
+        AdminStudentAdapter adapter = new AdminStudentAdapter(view.getContext(), studentArrayList);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rv.setAdapter(adapter);
 
@@ -44,7 +44,7 @@ public class AdminStudentFragment extends Fragment {
         btn.setOnClickListener(view1 -> {
             FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new AdminTeacherAddFragment());
+            fragmentTransaction.replace(R.id.fragment_container, new AdminStudentAddFragment());
             fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
             fragmentTransaction.commit();
         });

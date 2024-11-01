@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,15 @@ public class AdminTeacherModifyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_teacher_modify, container, false);
         Button btn = view.findViewById(R.id.admin_btn_modify_teacher);
         ImageView iv = view.findViewById(R.id.admin_iv_back_modify);
+        EditText et_id = view.findViewById(R.id.admin_et_teacher_id);
+        EditText et_name = view.findViewById(R.id.admin_et_teacher_name);
+        EditText et_mail = view.findViewById(R.id.admin_et_teacher_mail);
+        EditText et_phone = view.findViewById(R.id.admin_et_teacher_phone);
+
+        et_id.setText(adminTeacher.getTeacherId().toString());
+        et_name.setText(adminTeacher.getTeacherName().toString());
+        et_mail.setText(adminTeacher.getTeacherEmail().toString());
+        et_phone.setText(adminTeacher.getTeacherPhone().toString());
         iv.setOnClickListener(view1 -> {
             FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

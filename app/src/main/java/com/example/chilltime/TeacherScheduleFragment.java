@@ -20,12 +20,15 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TeacherScheduleFragment extends Fragment {
     private RecyclerView recyclerView;
     private ActivityAdapter activityAdapter;
     private List<Activity> activityList;
+    private Map<CalendarDay, List<Activity>> scheduleMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,35 +42,50 @@ public class TeacherScheduleFragment extends Fragment {
         activityList = new ArrayList<>();
         activityAdapter = new ActivityAdapter(activityList);
         recyclerView.setAdapter(activityAdapter);
-        loadActivitiesForDate(CalendarDay.today());
 
+        scheduleMap = new HashMap<>();
+
+        addActivityToDate(CalendarDay.from(2024, 9, 28), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 9, 28), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 9, 29), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+        // October is 9th month in Calendar constants (0-based) so it is 0ct 28th and 29th
+
+        loadActivitiesForDate(CalendarDay.today());
+        calendarView.setCurrentDate(CalendarDay.today());
         calendarView.state().edit()
-                .setFirstDayOfWeek(Calendar.MONDAY)   // Set Monday as the first day of the week
-                .setCalendarDisplayMode(CalendarMode.WEEKS) // Display mode to week
+                .setFirstDayOfWeek(Calendar.MONDAY)
+                .setCalendarDisplayMode(CalendarMode.WEEKS)
                 .commit();
 
-        calendarView.setTopbarVisible(false); // Hide the top bar with month and year
+        calendarView.setTopbarVisible(false);
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(MaterialCalendarView widget, CalendarDay date, boolean selected) {
-                // Load activities for the selected date
                 loadActivitiesForDate(date);
             }
         });
-
+        calendarView.setSelectedDate(CalendarDay.today());
         return view;
     }
 
+    private void addActivityToDate(CalendarDay date, Activity activity) {
+        if (!scheduleMap.containsKey(date)) {
+            scheduleMap.put(date, new ArrayList<>());
+        }
+        scheduleMap.get(date).add(activity);
+    }
+
     private void loadActivitiesForDate(CalendarDay date) {
-        // Clear the existing activities
         activityList.clear();
 
-        // Sample data for demonstration; replace with your data source
-        activityList.add(new Activity("08:00 - 09:30", "NT532.P11"));
-        activityList.add(new Activity("10:00 - 11:30", "NT118.P13"));
-        activityList.add(new Activity("13:00 - 14:30", "NT113.P11"));
+        List<Activity> activitiesForDate = scheduleMap.get(date);
 
-        // Notify adapter of data changes
+        if (activitiesForDate != null) {
+            activityList.addAll(activitiesForDate);
+        } else {
+            Toast.makeText(requireContext(), "No activities for this date", Toast.LENGTH_SHORT).show();
+        }
+
         activityAdapter.notifyDataSetChanged();
     }
 

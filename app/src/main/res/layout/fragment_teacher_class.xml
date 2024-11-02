@@ -12,60 +12,47 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Danh sách lớp học"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Danh sách lớp học"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Spinner
-                android:id="@+id/spinnerYear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView" />
-
-            <Spinner
-                android:id="@+id/spinnerGrade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                app:layout_constraintLeft_toRightOf="@id/spinnerYear"
-                app:layout_constraintTop_toBottomOf="@id/textView" />
-
-            <Button
-                android:id="@+id/btnRegisterClass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:text="@string/class_add"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/spinnerYear"
-                app:layout_constraintTop_toBottomOf="@id/spinnerGrade" />
-
-            <Button
-                android:id="@+id/btnSearchClass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:text="@string/class_search"
-                app:layout_constraintLeft_toRightOf="@id/btnRegisterClass"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spinnerGrade" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <Spinner
+                        android:id="@+id/spn_class_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/class_search"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/et_class_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/btn_class_search"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/icon_search" />
+
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_text_information"
             android:layout_width="match_parent"

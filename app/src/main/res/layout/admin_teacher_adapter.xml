@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:id="@+id/ll_adapter_classlist"
+        android:id="@+id/ll_adapter_teacherlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -14,7 +14,7 @@
         android:background="@drawable/border_1px">
 
         <TextView
-            android:id="@+id/tv_class_id"
+            android:id="@+id/tv_teacher_id"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -22,7 +22,7 @@
             android:gravity="center"
             android:background="@drawable/border_1px" />
         <TextView
-            android:id="@+id/tv_class_subject"
+            android:id="@+id/tv_teacher_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"

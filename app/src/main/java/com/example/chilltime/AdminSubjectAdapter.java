@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.chilltime.AdminSubject;
 
 import java.util.ArrayList;
 
@@ -34,16 +35,17 @@ public class AdminSubjectAdapter extends RecyclerView.Adapter<AdminSubjectAdapte
     public void onBindViewHolder(@NonNull SubjectViewHolder holder, int position) {
         AdminSubject subject = subjectList.get(position);
 
-        // Hiển thị STT
-        holder.order.setText(String.valueOf(position + 1));
-
         // Hiển thị tên môn học và mã lớp
+        holder.subjectId.setText(subject.getSubjectId());
         holder.name.setText(subject.getName());
-        holder.classId.setText(subject.getClassId());
 
         // Xử lý sự kiện khi nhấn nút chỉnh sửa và xóa (nếu cần)
         holder.editButton.setOnClickListener(v -> {
-            // Xử lý chỉnh sửa môn học
+            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new AdminSubjectModifyFragment(subject));
+            fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
+            fragmentTransaction.commit();
         });
 
         holder.deleteButton.setOnClickListener(v -> {
@@ -57,14 +59,13 @@ public class AdminSubjectAdapter extends RecyclerView.Adapter<AdminSubjectAdapte
     }
 
     public static class SubjectViewHolder extends RecyclerView.ViewHolder {
-        TextView order, name, classId;
+        TextView name, subjectId;
         ImageButton editButton, deleteButton;
 
         public SubjectViewHolder(@NonNull View itemView) {
             super(itemView);
-            order = itemView.findViewById(R.id.admin_subject_adapter_order);
             name = itemView.findViewById(R.id.admin_subject_adapter_name);
-            classId = itemView.findViewById(R.id.admin_subject_adapter_class_id);
+            subjectId = itemView.findViewById(R.id.admin_subject_adapter_id);
             editButton = itemView.findViewById(R.id.admin_subject_adapter_edit);
             deleteButton = itemView.findViewById(R.id.admin_subject_adapter_delete);
         }

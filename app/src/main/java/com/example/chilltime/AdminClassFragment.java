@@ -37,7 +37,7 @@ public class AdminClassFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
 
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(view.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, find);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, find);
         spinner.setAdapter(stringArrayAdapter);
 
         btn.setOnClickListener(view1 -> {

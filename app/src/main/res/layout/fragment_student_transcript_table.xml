@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/table_student_transcript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+            <TextView android:id="@+id/tv_class_id" style="@style/TableItemStyle" android:layout_width="0dp" android:layout_weight="2" android:layout_height="match_parent"/>
+            <TextView android:id="@+id/tv_credit" style="@style/TableItemStyle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent"/>
+            <TextView android:id="@+id/tv_progress_grade" style="@style/TableItemStyle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent"/>
+            <TextView android:id="@+id/tv_practice_grade" style="@style/TableItemStyle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent"/>
+            <TextView android:id="@+id/tv_midterm_grade" style="@style/TableItemStyle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent"/>
+            <TextView android:id="@+id/tv_term_grade" style="@style/TableItemStyle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent"/>
+            <TextView android:id="@+id/tv_final_grade" style="@style/TableItemStyle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent"/>
+            </TableRow>
+    </TableLayout>
+</LinearLayout>

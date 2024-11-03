@@ -3,13 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".StudentScheduleFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Schedule Fragment"
-        android:textSize="40sp"
-        android:gravity="center"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Thời khóa biểu"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="0dp"
+            app:mcv_arrowColor="@color/black"
+            app:mcv_calendarMode="week"
+            app:mcv_dateTextAppearance="@style/CalendarDateText"
+            app:mcv_firstDayOfWeek="monday"
+            app:mcv_selectionColor="@color/blue"
+            app:mcv_showOtherDates="none"
+            app:mcv_weekDayTextAppearance="@style/CalendarWeekDayText">
+
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </FrameLayout>

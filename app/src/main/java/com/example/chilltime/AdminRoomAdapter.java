@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -31,16 +34,17 @@ public class AdminRoomAdapter extends RecyclerView.Adapter<AdminRoomAdapter.Room
     public void onBindViewHolder(@NonNull AdminRoomAdapter.RoomViewHolder holder, int position) {
         AdminRoom room = rooms.get(position);
 
-        // Hiển thị STT
-        holder.order.setText(String.valueOf(position + 1));
-
         // Hiển thị phòng và lớp học phòng đó
         holder.roomID.setText(room.getRoomId());
         holder.classId.setText(room.getClassId());
 
         // Xử lý sự kiện khi nhấn nút chỉnh sửa và xóa (nếu cần)
         holder.editButton.setOnClickListener(v -> {
-            // Xử lý chỉnh sửa môn học
+            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new AdminRoomModifyFragment(room));
+            fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
+            fragmentTransaction.commit();
         });
 
         holder.deleteButton.setOnClickListener(v -> {
@@ -54,12 +58,11 @@ public class AdminRoomAdapter extends RecyclerView.Adapter<AdminRoomAdapter.Room
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
-        TextView order, roomID, classId;
+        TextView roomID, classId;
         ImageButton editButton, deleteButton;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
-            order = itemView.findViewById(R.id.admin_room_adapter_order);
             roomID = itemView.findViewById(R.id.admin_room_adapter_name);
             classId = itemView.findViewById(R.id.admin_room_adapter_class_id);
             editButton = itemView.findViewById(R.id.admin_room_adapter_edit);

@@ -25,21 +25,11 @@ public class AdminClassFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_class, container, false);
         ArrayList<AdminClass> adminClasses = new ArrayList<>();
-        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
-        Spinner spinner = view.findViewById(R.id.spn_class_search);
-        Button btn = view.findViewById(R.id.btn_class_add);
-        String[] find = {"Tìm theo mã lớp", "Tìm theo môn học"};
         adminClasses.add(new AdminClass("NT131.P13", "Hệ thống Nhúng mạng không dây"));
         adminClasses.add(new AdminClass("NT532.P11","Công nghệ Internet of things hiện đại"));
         adminClasses.add(new AdminClass("NT118.P13", "Phát triển ứng dụng trên thiết bị di động"));
 
-        AdminClassAdapter adapter = new AdminClassAdapter(view.getContext(), adminClasses);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(adapter);
-
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, find);
-        spinner.setAdapter(stringArrayAdapter);
-
+        Button btn = view.findViewById(R.id.btn_class_add);
         btn.setOnClickListener(view1 -> {
             FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -47,6 +37,17 @@ public class AdminClassFragment extends Fragment {
             fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
             fragmentTransaction.commit();
         });
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
+        AdminClassAdapter adapter = new AdminClassAdapter(view.getContext(), adminClasses);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(adapter);
+
+        Spinner spn = view.findViewById(R.id.spn_class_search);
+        String[] spnStr = {"Tìm theo mã số", "Tìm theo tên"};
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, spnStr);
+        spn.setAdapter(stringArrayAdapter);
+
         return view;
     }
 }

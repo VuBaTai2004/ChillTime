@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class SemesterTranscriptAdapter extends RecyclerView.Adapter<SemesterTranscriptAdapter.ViewHolder> {
-    private List<List<StudentTranscript>> semesters;
+    private List<StudentSemesterTranscript> semesters;
 
-    public SemesterTranscriptAdapter(List<List<StudentTranscript>> semesters) {
+
+    public SemesterTranscriptAdapter(List<StudentSemesterTranscript> semesters) {
         this.semesters = semesters;
     }
 
@@ -28,13 +29,12 @@ public class SemesterTranscriptAdapter extends RecyclerView.Adapter<SemesterTran
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        List<StudentTranscript> semester = semesters.get(position);
-        StudentTranscriptAdapter studentTranscriptAdapter = new StudentTranscriptAdapter(semester);
+        StudentSemesterTranscript semester = semesters.get(position);
+        holder.tvStudentSemester.setText(semester.getCurrentSemester());
+
+        StudentTranscriptAdapter studentTranscriptAdapter = new StudentTranscriptAdapter(semester.getStudentTranscripts());
         holder.rvStudentTranscript.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.rvStudentTranscript.setAdapter(studentTranscriptAdapter);
-
-        // Cập nhật tên học kỳ
-        holder.tvStudentSemester.setText(semester.get(0).getSemester());
     }
 
     @Override

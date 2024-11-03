@@ -69,7 +69,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="4"
                 android:background="@color/blue"
                 android:gravity="center"
                 android:text="@string/student_name"
@@ -122,7 +122,7 @@
                 android:layout_weight="1"
                 android:background="@color/blue"
                 android:gravity="center"
-                android:text="Điểm"
+                android:text="TB"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -132,7 +132,7 @@
                 android:layout_weight="1"
                 android:background="@color/blue"
                 android:gravity="center"
-                android:text="@string/modify"
+                android:text="Sửa"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 

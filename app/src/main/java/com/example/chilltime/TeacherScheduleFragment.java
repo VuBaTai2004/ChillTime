@@ -50,6 +50,42 @@ public class TeacherScheduleFragment extends Fragment {
         addActivityToDate(CalendarDay.from(2024, 9, 28), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
         addActivityToDate(CalendarDay.from(2024, 9, 29), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
 
+        addActivityToDate(CalendarDay.from(2024, 9, 30), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 9, 30), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 9, 31), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 1), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 1), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 2), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 3), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 3), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 4), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 5), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 5), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 6), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 7), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 7), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 8), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 9), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 9), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 10), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 11), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 11), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 12), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 13), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 13), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 14), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 15), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 15), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 16), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
         loadActivitiesForDate(CalendarDay.today());
         calendarView.setCurrentDate(CalendarDay.today());
         calendarView.state().edit()

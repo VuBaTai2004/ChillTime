@@ -67,6 +67,7 @@ public class TeacherTransciptAdapter extends RecyclerView.Adapter<TeacherTransci
         holder.studentMidtermTextView.setText(currentItem.getStudentMidterm());
         holder.studentFinalTextView.setText(currentItem.getStudentFinal());
         holder.studentTotalTextView.setText(currentItem.getStudentTotal());
+
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

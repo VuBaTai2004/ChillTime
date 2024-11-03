@@ -29,6 +29,7 @@ public class TeacherScheduleFragment extends Fragment {
     private ActivityAdapter activityAdapter;
     private List<Activity> activityList;
     private Map<CalendarDay, List<Activity>> scheduleMap;
+    private CustomSelectorDecorator customSelectorDecorator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +49,6 @@ public class TeacherScheduleFragment extends Fragment {
         addActivityToDate(CalendarDay.from(2024, 9, 28), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
         addActivityToDate(CalendarDay.from(2024, 9, 28), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
         addActivityToDate(CalendarDay.from(2024, 9, 29), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-        // October is 9th month in Calendar constants (0-based) so it is 0ct 28th and 29th
 
         loadActivitiesForDate(CalendarDay.today());
         calendarView.setCurrentDate(CalendarDay.today());
@@ -58,12 +58,20 @@ public class TeacherScheduleFragment extends Fragment {
                 .commit();
 
         calendarView.setTopbarVisible(false);
+
+        customSelectorDecorator = new CustomSelectorDecorator(CalendarDay.today());
+        calendarView.addDecorator(customSelectorDecorator);
+
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(MaterialCalendarView widget, CalendarDay date, boolean selected) {
                 loadActivitiesForDate(date);
+
+                customSelectorDecorator.setSelectedDate(date);
+                calendarView.invalidateDecorators();
             }
         });
+
         calendarView.setSelectedDate(CalendarDay.today());
         return view;
     }

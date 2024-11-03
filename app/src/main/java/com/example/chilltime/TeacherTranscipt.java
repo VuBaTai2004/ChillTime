@@ -7,16 +7,18 @@ public class TeacherTranscipt {
     private String studentPratice;
     private String studentMidterm;
     private String studentFinal;
+    private String studentTotal;
     private String year;
     private String studentClass;
 
-    public TeacherTranscipt(String studentId, String studentName, String studentProcess, String studentPratice, String studentMidterm, String studentFinal, String year, String studentClass) {
+    public TeacherTranscipt(String studentId, String studentName, String studentProcess, String studentPratice, String studentMidterm, String studentFinal, String studentTotal, String year, String studentClass) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.studentProcess = studentProcess;
         this.studentPratice = studentPratice;
         this.studentMidterm = studentMidterm;
         this.studentFinal = studentFinal;
+        this.studentTotal = studentTotal ;
         this.year = year;
         this.studentClass = studentClass;
     }
@@ -44,6 +46,10 @@ public class TeacherTranscipt {
 
     public String getStudentFinal() {
         return studentFinal;
+    }
+
+    public String getStudentTotal() {
+        return studentTotal;
     }
 
     public String getYear() {

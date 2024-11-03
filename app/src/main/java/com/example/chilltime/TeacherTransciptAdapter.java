@@ -33,6 +33,7 @@ public class TeacherTransciptAdapter extends RecyclerView.Adapter<TeacherTransci
         public TextView studentPraticeTextView;
         public TextView studentMidtermTextView;
         public TextView studentFinalTextView;
+        public TextView studentTotalTextView;
         public ImageView editButton;
 
         public TeacherTransciptViewHolder(View itemView) {
@@ -43,6 +44,7 @@ public class TeacherTransciptAdapter extends RecyclerView.Adapter<TeacherTransci
             studentPraticeTextView = itemView.findViewById(R.id.tv_practice_point);
             studentMidtermTextView = itemView.findViewById(R.id.tv_midterm_point);
             studentFinalTextView = itemView.findViewById(R.id.tv_final_point);
+            studentTotalTextView = itemView.findViewById(R.id.tv_total_point);
             editButton = itemView.findViewById(R.id.iv_modify);
         }
     }
@@ -64,7 +66,7 @@ public class TeacherTransciptAdapter extends RecyclerView.Adapter<TeacherTransci
         holder.studentPraticeTextView.setText(currentItem.getStudentPratice());
         holder.studentMidtermTextView.setText(currentItem.getStudentMidterm());
         holder.studentFinalTextView.setText(currentItem.getStudentFinal());
-
+        holder.studentTotalTextView.setText(currentItem.getStudentTotal());
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

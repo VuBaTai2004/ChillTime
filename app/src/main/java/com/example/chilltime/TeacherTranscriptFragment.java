@@ -74,9 +74,9 @@ public class TeacherTranscriptFragment extends Fragment {
     }
 
     private void addSampleData() {
-        transcriptList.add(new TeacherTranscipt("22521243", "Nguyễn Văn I", "8", "7", "8", "9", "2023", "Class A"));
-        transcriptList.add(new TeacherTranscipt("22521324", "Phạm Minh Z", "9", "6", "7", "8", "2023", "Class B"));
-        transcriptList.add(new TeacherTranscipt("22524123", "Vũ Bá W", "7", "8", "9", "10", "2024", "Class A"));
+        transcriptList.add(new TeacherTranscipt("22521243", "Nguyễn Văn I", "8", "7", "8", "9","8.2", "2023", "Class A"));
+        transcriptList.add(new TeacherTranscipt("22521324", "Phạm Minh Z", "9", "6", "7", "8","7.4", "2023", "Class B"));
+        transcriptList.add(new TeacherTranscipt("22524123", "Vũ Bá W", "7", "8", "9", "10", "9","2024", "Class A"));
 
     }
 

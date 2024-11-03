@@ -3,25 +3,217 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TeacherProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/admin_btn_setting_back"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/icon_back"
-        android:padding="20dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/admin_btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        android:textSize="40sp"
-        android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Hồ sơ"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/icon_teacher1"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            app:civ_border_color="@android:color/black"
+            app:civ_border_width="4dp"/>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Giáo viên"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và tên: "
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp"
+            android:padding="8dp"
+            android:backgroundTint="#E0E0E0"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Văn A"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_marginStart="16dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txt_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên tài khoản: "
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp"
+            android:padding="8dp"
+            android:backgroundTint="#E0E0E0"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/text_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user123"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_marginStart="16dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txt_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mật khẩu:"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp"
+            android:padding="8dp"
+            android:backgroundTint="#E0E0E0"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/text_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="••••••••"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_marginStart="16dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txt_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại:"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="8dp"
+            android:padding="8dp"
+            android:backgroundTint="#E0E0E0"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/text_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0123456789"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_marginStart="16dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:padding="8dp"
+            android:backgroundTint="#E0E0E0"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/text_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="teacher@example.com"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_marginStart="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp">
+
+            <Button
+                android:id="@+id/teacher_btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logout"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
 </FrameLayout>

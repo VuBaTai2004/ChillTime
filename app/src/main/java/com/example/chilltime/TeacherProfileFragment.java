@@ -21,9 +21,16 @@ public class TeacherProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_teacher_profile, container, false);
 
 
+        Button btn = view.findViewById(R.id.teacher_btn_logout);
 
-
-
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

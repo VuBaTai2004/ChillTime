@@ -23,27 +23,26 @@ public class StudentTranscriptFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.rv_student_transcript);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<List<StudentTranscript>> allSemesters = getAllSemestersTranscript();
+        List<StudentSemesterTranscript> allSemesters = getAllSemestersTranscript();
         SemesterTranscriptAdapter adapter = new SemesterTranscriptAdapter(allSemesters);
         recyclerView.setAdapter(adapter);
 
         return view;
     }
 
-    private List<List<StudentTranscript>> getAllSemestersTranscript(){
-        List<List<StudentTranscript>> semesters = new ArrayList<>();
+    private List<StudentSemesterTranscript> getAllSemestersTranscript() {
+        List<StudentSemesterTranscript> semesters = new ArrayList<>();
 
-        // Ví dụ: Học kỳ 1 năm học 2023-2024
-        List<StudentTranscript> semester1 = new ArrayList<>();
-        semester1.add(new StudentTranscript("IDSV1", "HK1 2023-2024", "IT001.P11", 4, 8.0f, 7.5f, 7.0f, 7.5f));
-        semester1.add(new StudentTranscript("IDSV1", "HK1 2023-2024", "IT002.P12", 4, 8.0f, 7.5f, 7.0f, 7.5f));
+        // Semester 1 example
+        List<StudentTranscript> semester1Courses = new ArrayList<>();
+        semester1Courses.add(new StudentTranscript("IDSV1","IT001.P11", 4, 8.0f, 7.5f, 7.0f, 7.5f));
+        semester1Courses.add(new StudentTranscript("IDSV1","IT002.P12", 4, 8.0f, 7.5f, 7.0f, 7.5f));
+        semesters.add(new StudentSemesterTranscript("HK1 2023-2024", semester1Courses));
 
-        // Học kỳ 2 năm học 2023-2024
-        List<StudentTranscript> semester2 = new ArrayList<>();
-        semester2.add(new StudentTranscript("IDSV1", "HK2 2023-2024", "IT003.P13", 3, 7.5f, 8.0f, 7.8f, 8.2f));
-
-        semesters.add(semester1);
-        semesters.add(semester2);
+        // Semester 2 example
+        List<StudentTranscript> semester2Courses = new ArrayList<>();
+        semester2Courses.add(new StudentTranscript("IDSV1","IT003.P13", 3, 7.5f, 8.0f, 7.8f, 8.2f));
+        semesters.add(new StudentSemesterTranscript("HK2 2023-2024", semester2Courses));
 
         return semesters;
     }

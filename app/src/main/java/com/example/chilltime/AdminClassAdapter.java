@@ -18,10 +18,12 @@ import java.util.ArrayList;
 public class AdminClassAdapter extends RecyclerView.Adapter<AdminClassAdapter.AdminClassViewHolder> {
     private final Context context;
     private final ArrayList<AdminClass> adminClassList;
+    private ArrayList<AdminClass> filteredList;
 
     public AdminClassAdapter(Context context, ArrayList<AdminClass> adminClassList) {
         this.adminClassList = adminClassList;
         this.context = context;
+        this.filteredList = new ArrayList<>(adminClassList);
     }
 
     public static class AdminClassViewHolder extends RecyclerView.ViewHolder {
@@ -75,6 +77,24 @@ public class AdminClassAdapter extends RecyclerView.Adapter<AdminClassAdapter.Ad
 
     @Override
     public int getItemCount() {
-        return adminClassList.size();
+        if (filteredList != null) {
+            return filteredList.size();
+        } else return adminClassList.size();
+
+    }
+
+    public void filter(String query, String filterType) {
+        filteredList.clear();
+        if (query.isEmpty()) {
+            filteredList.addAll(adminClassList);
+        } else {
+            for (AdminClass item : adminClassList) {
+                if ((filterType.equals("Tìm theo mã số") && item.getClassId().toLowerCase().contains(query.toLowerCase())) ||
+                        (filterType.equals("Tìm theo tên") && item.getClassSubject().toLowerCase().contains(query.toLowerCase()))) {
+                    filteredList.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

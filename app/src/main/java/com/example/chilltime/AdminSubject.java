@@ -1,19 +1,19 @@
 package com.example.chilltime;
 
 public class AdminSubject {
-    private String className;
-    private String classId;
+    private String subjectId;
+    private String subjectName;
 
-    public AdminSubject(String className, String classId) {
-        this.className = className;
-        this.classId = classId;
+    public AdminSubject(String subjectId, String subjectName) {
+        this.subjectId = subjectId;
+        this.subjectName = subjectName;
+    }
+
+    public String getSubjectId() {
+        return subjectId;
     }
 
     public String getName() {
-        return className;
-    }
-
-    public String getClassId() {
-        return classId;
+        return subjectName;
     }
 }

@@ -13,38 +13,46 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class AdminClassModifyFragment extends Fragment {
-    protected final AdminClass adminClass;
-    public AdminClassModifyFragment(AdminClass currentItem) {
-        this.adminClass = currentItem;
-    }
-
+public class TeacherTranscipModifyFragment extends Fragment {
+    private final TeacherTranscipt teacherTranscipt;
+    public TeacherTranscipModifyFragment(TeacherTranscipt currentItem) {this.teacherTranscipt = currentItem;}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_admin_class_modify, container, false);
+        View view = inflater.inflate(R.layout.fragment_teacher_transcipt_modify, container, false);
         Button btn = view.findViewById(R.id.admin_btn_modify_class);
         ImageView iv = view.findViewById(R.id.admin_iv_back_modify);
+        EditText et_id = view.findViewById(R.id.admin_et_student_id);
+        EditText et_name = view.findViewById(R.id.admin_et_student_name);
+        EditText et_process = view.findViewById(R.id.admin_et_student_process);
+        EditText et_practice = view.findViewById(R.id.admin_et_student_practice);
+        EditText et_midterm = view.findViewById(R.id.admin_et_student_midterm);
+        EditText et_final = view.findViewById(R.id.admin_et_student_final);
 
-        EditText et_id = view.findViewById(R.id.admin_et_class_id);
-        EditText et_subject = view.findViewById(R.id.admin_et_class_subject);
+        et_process.setText(teacherTranscipt.getStudentProcess().toString());
+        et_practice.setText(teacherTranscipt.getStudentPratice().toString());
+        et_midterm.setText(teacherTranscipt.getStudentMidterm().toString());
+        et_final.setText(teacherTranscipt.getStudentFinal().toString());
+        et_id.setText(teacherTranscipt.getStudentId().toString());
+        et_name.setText(teacherTranscipt.getStudentName().toString());
 
-        et_id.setText(adminClass.getClassId().toString());
-        et_subject.setText(adminClass.getClassSubject().toString());
+
         iv.setOnClickListener(view1 -> {
             FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new AdminClassFragment());
+            fragmentTransaction.replace(R.id.fragment_container, new TeacherTranscriptFragment());
             fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
             fragmentTransaction.commit();
         });
         btn.setOnClickListener(view2 -> {
             FragmentManager fragmentManager = ((AppCompatActivity) view2.getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new AdminClassFragment());
+            fragmentTransaction.replace(R.id.fragment_container, new TeacherTranscriptFragment());
             fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
             fragmentTransaction.commit();
         });
+
+
 
         return view;
     }

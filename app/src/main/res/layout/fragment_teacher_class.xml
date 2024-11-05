@@ -20,7 +20,9 @@
             android:text="Danh sách lớp học"
             android:textSize="40sp"
             android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
 
 
         <LinearLayout

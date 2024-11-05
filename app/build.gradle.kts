@@ -53,4 +53,6 @@ dependencies {
     implementation("com.github.prolificinteractive:material-calendarview:1.6.0"){
         exclude(group = "com.android.tools.build", module = "gradle")
     }
+
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }

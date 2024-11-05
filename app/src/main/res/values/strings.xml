@@ -26,6 +26,8 @@
     <string name="teacher_add">Thêm giảng viên</string>
     <string name="teacher_id">Mã GV</string>
     <string name="teacher_name">Tên GV</string>
+    <string name="student_id">Mã HS</string>
+    <string name="student_name">Tên HS</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

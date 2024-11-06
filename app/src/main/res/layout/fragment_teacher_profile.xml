@@ -19,9 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Hồ sơ"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -35,7 +34,7 @@
             app:civ_border_width="4dp"/>
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/classIdTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -104,43 +103,6 @@
                 android:layout_marginStart="16dp"/>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/txt_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mật khẩu:"
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="#E0E0E0"
-            android:elevation="2dp"
-            android:padding="8dp"
-            app:cardCornerRadius="8dp">
-
-            <TextView
-                android:id="@+id/text_password"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:text="12345"
-                android:textColor="#000"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/btn_view_password"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icon_eye"
-                android:layout_gravity="end"/>
-        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/txt_phone"

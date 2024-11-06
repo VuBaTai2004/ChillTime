@@ -29,7 +29,7 @@ public class TeacherClassFragment extends Fragment {
         adminClasses.add(new AdminClass("NT118.P13", "Phát triển ứng dụng trên thiết bị di động"));
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_student_class);
         AdminClassAdapter adapter = new AdminClassAdapter(view.getContext(), adminClasses);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);

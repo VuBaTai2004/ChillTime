@@ -9,7 +9,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="Thêm sinh viên"
         android:textSize="30sp"
-        android:textAllCaps="true"
         android:textAlignment="center"
         android:layout_margin="10dp"/>
     <ImageView

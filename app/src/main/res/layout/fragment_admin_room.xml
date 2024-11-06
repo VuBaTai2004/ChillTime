@@ -19,7 +19,8 @@
             android:textSize="30sp"
             android:layout_gravity="top"
             android:gravity="center_vertical|center_horizontal"
-            android:text="Phòng học"/>
+            android:text="Phòng học"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btn_admin_add_room"
@@ -116,7 +117,8 @@
             app:layout_constraintTop_toBottomOf="@id/admin_room_attr_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center_horizontal|center_vertical"/>
+            android:gravity="center_horizontal|center_vertical"
+            android:background="@drawable/border_1dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

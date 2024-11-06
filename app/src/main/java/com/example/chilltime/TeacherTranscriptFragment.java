@@ -33,7 +33,7 @@ public class TeacherTranscriptFragment extends Fragment {
 
         yearSpinner = view.findViewById(R.id.spn_year_search);
         classSpinner = view.findViewById(R.id.spn_class_search);
-        recyclerView = view.findViewById(R.id.rv_class_list);
+        recyclerView = view.findViewById(R.id.rv_student_class);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TeacherTransciptAdapter(getContext(), transcriptList);

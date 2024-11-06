@@ -14,20 +14,31 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StudentClassFragment extends Fragment {
+    private RecyclerView recyclerView;
+    private StudentClassAdapter adapter;
+    private List<StudentClass> studentClassList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_class, container, false);
         // Class list
-        ArrayList<AdminClass> StudentClasses = new ArrayList<>();
-        StudentClasses.add(new AdminClass("NT131.P13", "Hệ thống Nhúng mạng không dây"));
-        StudentClasses.add(new AdminClass("NT532.P11","Công nghệ Internet of things hiện đại"));
-        StudentClasses.add(new AdminClass("NT118.P13", "Phát triển ứng dụng trên thiết bị di động"));
 
+        recyclerView = view.findViewById(R.id.rv_student_class);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        // Initialize data
+        studentClassList = new ArrayList<>();
+        studentClassList.add(new StudentClass("001", "Mạng xã hội", "15/3/2024", "20/9/2024"));
+        studentClassList.add(new StudentClass("002", "Toán cao cấp", "15/3/2024", "15/9/2024"));
+        studentClassList.add(new StudentClass("002", "Kinh tế", "15/3/2024", "15/9/2024"));
+        // Thêm dữ liệu mẫu khác vào danh sách studentClassList
+
+        adapter = new StudentClassAdapter(view.getContext(), studentClassList);
+        recyclerView.setAdapter(adapter);
 
         Spinner spinnerYear = view.findViewById(R.id.spn_year);
         ArrayList<String> arrayYear = new ArrayList<String>();

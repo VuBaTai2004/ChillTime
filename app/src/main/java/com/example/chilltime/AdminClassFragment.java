@@ -38,7 +38,7 @@ public class AdminClassFragment extends Fragment {
             fragmentTransaction.commit();
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_student_class);
         AdminClassAdapter adapter = new AdminClassAdapter(view.getContext(), adminClasses);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);

@@ -3,7 +3,6 @@ package com.example.chilltime;
 public class StudentTranscript {
 
     private String studentId;
-    private String semester;;
     private String classId;
     private int credit;
     private float progressGrade;
@@ -12,9 +11,8 @@ public class StudentTranscript {
     private float termGrade;
     private float finalGrade;
 
-    public StudentTranscript(String studentId, String semester, String classId, int credit, float progressGrade, float practiceGrade, float midtermGrade, float termGrade, float finalGrade) {
+    public StudentTranscript(String studentId, String classId, int credit, float progressGrade, float practiceGrade, float midtermGrade, float termGrade, float finalGrade) {
         this.studentId = studentId;
-        this.semester = semester;
         this.classId = classId;
         this.credit = credit;
         this.progressGrade = progressGrade;
@@ -24,9 +22,8 @@ public class StudentTranscript {
         this.finalGrade = finalGrade;
     }
 
-    public StudentTranscript(String studentId, String semester, String classId, int credit, float progressGrade, float practiceGrade, float midtermGrade, float termGrade) {
+    public StudentTranscript(String studentId, String classId, int credit, float progressGrade, float practiceGrade, float midtermGrade, float termGrade) {
         this.studentId = studentId;
-        this.semester = semester;
         this.classId = classId;
         this.credit = credit;
         this.progressGrade = progressGrade;
@@ -44,13 +41,6 @@ public class StudentTranscript {
         this.studentId=studentId;
     }
 
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
 
     public String getClassId() {
         return classId;

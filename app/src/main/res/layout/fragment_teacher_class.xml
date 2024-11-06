@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TeacherClassFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -18,18 +18,16 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Danh sách lớp học"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_gravity="center" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
-
 
                     <Spinner
                         android:id="@+id/spn_class_search"
@@ -51,6 +49,7 @@
                         android:id="@+id/btn_class_search"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
+                        android:layout_gravity="center"
                         android:background="@drawable/icon_search" />
 
         </LinearLayout>

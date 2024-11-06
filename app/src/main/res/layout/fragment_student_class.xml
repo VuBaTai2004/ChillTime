@@ -15,9 +15,10 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="DANH SÁCH LỚP ĐANG HỌC"
-            android:textSize="24sp" />
+            android:layout_gravity="center"
+            android:text="Danh sách lớp học"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +47,7 @@
             android:id="@+id/ll_class_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:background="@drawable/border_1dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/btn_class_add"

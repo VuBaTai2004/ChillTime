@@ -19,9 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Hồ sơ"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView

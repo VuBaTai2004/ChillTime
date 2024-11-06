@@ -77,7 +77,13 @@ public class AdminActivity extends AppCompatActivity {
         if (isAppInitialized){
             fragmentTransaction.add(R.id.fragment_container, fragment);
         }
-        else fragmentTransaction.replace(R.id.fragment_container, fragment);
+        else {
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            if(fragmentManager.getBackStackEntryCount() > 0){
+                FragmentManager.BackStackEntry first = fragmentManager.getBackStackEntryAt(0);
+                fragmentManager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        }
 
         fragmentTransaction.commit();
     }

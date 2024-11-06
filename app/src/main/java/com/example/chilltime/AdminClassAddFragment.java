@@ -23,7 +23,6 @@ public class AdminClassAddFragment extends Fragment {
             FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, new AdminClassFragment());
-            fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
             fragmentTransaction.commit();
         });
         btn.setOnClickListener(view2 -> {
@@ -31,7 +30,6 @@ public class AdminClassAddFragment extends Fragment {
             FragmentManager fragmentManager = ((AppCompatActivity) view2.getContext()).getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, new AdminClassFragment());
-            fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
             fragmentTransaction.commit();
         });
 

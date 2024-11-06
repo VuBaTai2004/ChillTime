@@ -21,12 +21,12 @@
             android:layout_gravity="center"
             android:text="Bảng điểm"
             android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:textStyle="bold" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="16dp">
 
 
             <Spinner

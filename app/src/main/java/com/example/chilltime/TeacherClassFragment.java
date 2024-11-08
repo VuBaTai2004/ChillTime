@@ -30,7 +30,7 @@ public class TeacherClassFragment extends Fragment {
 
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_student_class);
-        AdminClassAdapter adapter = new AdminClassAdapter(view.getContext(), adminClasses);
+        TeacherClassAdapter adapter = new TeacherClassAdapter(view.getContext(), adminClasses);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(adapter);
 

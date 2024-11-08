@@ -92,25 +92,25 @@
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_1px"
-                    android:gravity="center"
-                    android:text="@string/modify"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/border_1px"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/modify"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="15sp" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_1px"
-                    android:gravity="center"
-                    android:text="@string/delete"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/border_1px"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/delete"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="15sp" />-->
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

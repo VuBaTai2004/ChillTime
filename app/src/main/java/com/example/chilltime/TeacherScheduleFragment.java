@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -30,13 +31,14 @@ public class TeacherScheduleFragment extends Fragment {
     private List<Activity> activityList;
     private Map<CalendarDay, List<Activity>> scheduleMap;
     private CustomSelectorDecorator customSelectorDecorator;
-
+    private TextView txtDay;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_teacher_schedule, container, false);
         MaterialCalendarView calendarView = view.findViewById(R.id.calendarView);
+        txtDay = view.findViewById(R.id.txtDay);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -105,6 +107,27 @@ public class TeacherScheduleFragment extends Fragment {
 
                 customSelectorDecorator.setSelectedDate(date);
                 calendarView.invalidateDecorators();
+                updateDayText(date);
+            }
+        });
+        calendarView.setWeekDayFormatter(dayOfWeek -> {
+            switch (dayOfWeek) {
+                case Calendar.SUNDAY:
+                    return "CN";
+                case Calendar.MONDAY:
+                    return "T2";
+                case Calendar.TUESDAY:
+                    return "T3";
+                case Calendar.WEDNESDAY:
+                    return "T4";
+                case Calendar.THURSDAY:
+                    return "T5";
+                case Calendar.FRIDAY:
+                    return "T6";
+                case Calendar.SATURDAY:
+                    return "T7";
+                default:
+                    return ""; 
             }
         });
 
@@ -130,7 +153,24 @@ public class TeacherScheduleFragment extends Fragment {
             Toast.makeText(requireContext(), "No activities for this date", Toast.LENGTH_SHORT).show();
         }
 
+        updateDayText(date);
         activityAdapter.notifyDataSetChanged();
+    }
+
+    private void updateDayText(CalendarDay date) {
+        String[] daysOfWeek = {"Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"};
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(date.getYear(), date.getMonth() , date.getDay());
+
+        String dayOfWeek = daysOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+
+        int day = date.getDay();
+        int month = date.getMonth();
+        int year = date.getYear();
+
+        String formattedDate = String.format("%s ngày %02d tháng %02d năm %d", dayOfWeek, day, month + 1, year);
+        txtDay.setText(formattedDate);
     }
 
 }

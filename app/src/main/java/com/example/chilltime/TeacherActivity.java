@@ -39,9 +39,6 @@ public class TeacherActivity extends AppCompatActivity {
                 else if (itemId == R.id.nav_class) {
                     loadFragment(new TeacherClassFragment(), false);
                 }
-                else if (itemId == R.id.nav_transcript) {
-                    loadFragment(new TeacherTranscriptFragment(), false);
-                }
                 else if (itemId == R.id.nav_profile) {
                     loadFragment(new TeacherProfileFragment(), false);
                 }

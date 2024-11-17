@@ -45,6 +45,11 @@
         <activity android:name=".SignInAdminActivity" />
         <activity android:name=".SignInTeacherActivity" />
         <activity android:name=".SignInStudentActivity" />
+        <activity android:name=".TeacherOpenClass" />
+        <activity android:name=".TeacherOpenList" />
+        <activity android:name=".TeacherProfileFragment" />
+        <activity android:name=".TeacherClassFragment" />
+        <activity android:name=".TeacherListInfo" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

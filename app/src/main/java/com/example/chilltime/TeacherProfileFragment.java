@@ -18,6 +18,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import java.sql.Timestamp;
+
 public class TeacherProfileFragment extends Fragment {
     private TeacherProfile teacherProfile;
 
@@ -26,17 +28,20 @@ public class TeacherProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_teacher_profile, container, false);
 
-        teacherProfile = new TeacherProfile("Pham Minh E", "nauqpm", "0868480060", "quanpham0405@gmail.com");
+        String dateTimeString = "2024-11-16 15:30:00";
+        Timestamp timestamp = Timestamp.valueOf(dateTimeString);
+        teacherProfile = new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp);
 
         TextView tv_name = view.findViewById(R.id.text_name);
-        TextView tv_user = view.findViewById(R.id.text_username);
         TextView tv_phone = view.findViewById(R.id.text_phone);
         TextView tv_email = view.findViewById(R.id.text_email);
+        TextView tv_created_at = view.findViewById(R.id.text_created_at);
 
-        tv_name.setText(teacherProfile.getName());
-        tv_user.setText(teacherProfile.getUsername());
-        tv_phone.setText(teacherProfile.getPhone());
-        tv_email.setText(teacherProfile.getEmail());
+
+        tv_name.setText("Họ và tên: " + teacherProfile.getName());
+        tv_phone.setText("Số điện thoại: " + teacherProfile.getPhone());
+        tv_email.setText("Email: " + teacherProfile.getEmail());
+        tv_created_at.setText("Thời gian tham gia: " + teacherProfile.getCreated_at());
 
         ImageView imageView = view.findViewById(R.id.profile_image);
         imageView.setImageResource(R.drawable.icon_teacher1);

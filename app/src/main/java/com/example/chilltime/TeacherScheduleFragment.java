@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -88,8 +90,38 @@ public class TeacherScheduleFragment extends Fragment {
         addActivityToDate(CalendarDay.from(2024, 10, 15), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
         addActivityToDate(CalendarDay.from(2024, 10, 16), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
 
+        addActivityToDate(CalendarDay.from(2024, 10, 17), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 17), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 18), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 19), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 19), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 20), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 21), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 21), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 22), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 23), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 23), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 24), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 25), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 25), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 26), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 27), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 27), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 28), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
+        addActivityToDate(CalendarDay.from(2024, 10, 29), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
+        addActivityToDate(CalendarDay.from(2024, 10, 30), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
+        addActivityToDate(CalendarDay.from(2024, 10, 30), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+
         loadActivitiesForDate(CalendarDay.today());
+        calendarView.setSelectedDate(CalendarDay.today());
         calendarView.setCurrentDate(CalendarDay.today());
+
         calendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setCalendarDisplayMode(CalendarMode.WEEKS)
@@ -107,6 +139,7 @@ public class TeacherScheduleFragment extends Fragment {
 
                 customSelectorDecorator.setSelectedDate(date);
                 calendarView.invalidateDecorators();
+                calendarView.setCurrentDate(date, true);
                 updateDayText(date);
             }
         });
@@ -127,7 +160,7 @@ public class TeacherScheduleFragment extends Fragment {
                 case Calendar.SATURDAY:
                     return "T7";
                 default:
-                    return ""; 
+                    return "";
             }
         });
 
@@ -172,5 +205,6 @@ public class TeacherScheduleFragment extends Fragment {
         String formattedDate = String.format("%s ngày %02d tháng %02d năm %d", dayOfWeek, day, month + 1, year);
         txtDay.setText(formattedDate);
     }
+
 
 }

@@ -51,8 +51,8 @@
         <activity android:name=".TeacherClassFragment" />
         <activity android:name=".TeacherListInfo" />
         <activity android:name=".TeacherOpenBoard" />
-        <activity android:name=".TeacherOpenExercise" />
         <activity android:name=".TeacherOpenNotification" />
+        <activity android:name=".TeacherOpenExercise" />
 
 
         <activity

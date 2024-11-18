@@ -6,6 +6,10 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class TeacherOpenExercise extends AppCompatActivity {
     @Override
@@ -32,6 +36,18 @@ public class TeacherOpenExercise extends AppCompatActivity {
         backArrow.setOnClickListener(v -> {
             onBackPressed();
         });
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView1);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<Exercise> exercises = new ArrayList<>();
+        TeacherExerciseAdapter adapter = new TeacherExerciseAdapter(exercises, this);
+        recyclerView.setAdapter(adapter);
+
+        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
+        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
+
+        adapter.notifyDataSetChanged();
 
 
     }

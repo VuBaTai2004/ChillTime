@@ -20,7 +20,19 @@ public class TeacherOpenBoard extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.teacher_open_board);
 
+        // Lấy dữ liệu từ Intent
+        String classId = getIntent().getStringExtra("classId");
+        String classSubject = getIntent().getStringExtra("classSubject");
+        String numStu = getIntent().getStringExtra("numStu");
 
+        // Gán dữ liệu vào TextView (hoặc bất kỳ phần tử UI nào khác)
+        TextView classIdTextView = findViewById(R.id.course_code);
+        TextView classSubjectTextView = findViewById(R.id.course_title);
+        TextView numStuTextView = findViewById(R.id.number_stu);
+
+        classIdTextView.setText(classId);
+        classSubjectTextView.setText(classSubject);
+        numStuTextView.setText(numStu);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHeader);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

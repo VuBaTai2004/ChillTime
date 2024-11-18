@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 public class TeacherOpenClass extends AppCompatActivity {
     @Override
@@ -52,15 +54,66 @@ public class TeacherOpenClass extends AppCompatActivity {
         arrowIcon2.setOnClickListener(v -> {
             // Xử lý sự kiện khi arrow_icon2 được nhấn
             Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenBoard.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
             startActivity(intent);
         });
 
         arrowIcon3.setOnClickListener(v -> {
             // Xử lý sự kiện khi arrow_icon3 được nhấn
+            Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenExercise.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
+            startActivity(intent);
         });
 
         arrowIcon4.setOnClickListener(v -> {
             // Xử lý sự kiện khi arrow_icon4 được nhấn
+            Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenNotification.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
+            startActivity(intent);
+        });
+
+        ConstraintLayout classListContainer = findViewById(R.id.class_list_container1);
+        classListContainer.setOnClickListener(v -> {
+            Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenList.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
+            startActivity(intent);
+        });
+
+        ConstraintLayout classListContainer2 = findViewById(R.id.class_list_container2);
+        classListContainer2.setOnClickListener(v -> {
+            Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenBoard.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
+            startActivity(intent);
+        });
+
+        ConstraintLayout classListContainer3 = findViewById(R.id.class_list_container3);
+        classListContainer3.setOnClickListener(v -> {
+            // Xử lý sự kiện khi arrow_icon3 được nhấn
+            Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenExercise.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
+            startActivity(intent);
+        });
+
+        ConstraintLayout classListContainer4 = findViewById(R.id.class_list_container4);
+        classListContainer4.setOnClickListener(v -> {
+            // Xử lý sự kiện khi arrow_icon4 được nhấn
+            Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenNotification.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
+            startActivity(intent);
         });
 
 

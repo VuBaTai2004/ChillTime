@@ -124,7 +124,10 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingRight="16dp"
+            android:id="@+id/class_list_container1"
+            android:clickable="true"
+            android:focusable="true">
 
             <FrameLayout
                 android:id="@+id/circle_container1"
@@ -173,10 +176,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/class_list_container2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:clickable="true"
+            android:focusable="true"
             android:paddingLeft="16dp"
+            android:paddingTop="16dp"
             android:paddingRight="16dp">
 
             <FrameLayout
@@ -185,9 +191,9 @@
                 android:layout_height="61dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_background"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/icon2"
@@ -202,35 +208,38 @@
                 android:id="@+id/class_list_text2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Bảng điểm"
-                android:textSize="18sp"
-                android:textColor="#4A5568"
-                android:gravity="center_vertical"
-                android:textStyle="bold"
                 android:layout_marginLeft="16dp"
-                app:layout_constraintStart_toEndOf="@id/circle_container2"
-                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center_vertical"
+                android:text="Bảng điểm"
+                android:textColor="#4A5568"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/arrow_icon2" />
+                app:layout_constraintEnd_toStartOf="@id/arrow_icon2"
+                app:layout_constraintStart_toEndOf="@id/circle_container2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/arrow_icon2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/keyboard_arrow_right"
                 android:contentDescription="Arrow"
+                android:src="@drawable/keyboard_arrow_right"
                 android:tint="#A0AEC0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/class_list_container3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:clickable="true"
+            android:focusable="true">
 
             <FrameLayout
                 android:id="@+id/circle_container3"
@@ -238,9 +247,9 @@
                 android:layout_height="61dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_background"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/icon3"
@@ -255,35 +264,38 @@
                 android:id="@+id/class_list_text3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Bài tập"
-                android:textSize="18sp"
-                android:textColor="#4A5568"
-                android:gravity="center_vertical"
-                android:textStyle="bold"
                 android:layout_marginLeft="16dp"
-                app:layout_constraintStart_toEndOf="@id/circle_container3"
-                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center_vertical"
+                android:text="Bài tập"
+                android:textColor="#4A5568"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/arrow_icon3" />
+                app:layout_constraintEnd_toStartOf="@id/arrow_icon3"
+                app:layout_constraintStart_toEndOf="@id/circle_container3"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/arrow_icon3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/keyboard_arrow_right"
                 android:contentDescription="Arrow"
+                android:src="@drawable/keyboard_arrow_right"
                 android:tint="#A0AEC0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/class_list_container4"
+            android:clickable="true"
+            android:focusable="true">
 
             <FrameLayout
                 android:id="@+id/circle_container4"
@@ -291,9 +303,9 @@
                 android:layout_height="61dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_background"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/icon4"
@@ -308,27 +320,27 @@
                 android:id="@+id/class_list_text4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Thông báo"
-                android:textSize="18sp"
-                android:textColor="#4A5568"
-                android:gravity="center_vertical"
-                android:textStyle="bold"
                 android:layout_marginLeft="16dp"
-                app:layout_constraintStart_toEndOf="@id/circle_container4"
-                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center_vertical"
+                android:text="Thông báo"
+                android:textColor="#4A5568"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/arrow_icon4" />
+                app:layout_constraintEnd_toStartOf="@id/arrow_icon4"
+                app:layout_constraintStart_toEndOf="@id/circle_container4"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/arrow_icon4"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/keyboard_arrow_right"
                 android:contentDescription="Arrow"
+                android:src="@drawable/keyboard_arrow_right"
                 android:tint="#A0AEC0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

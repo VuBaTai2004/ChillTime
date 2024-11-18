@@ -1,5 +1,6 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +47,13 @@ public class TeacherOpenNotification extends AppCompatActivity {
 
         notifications.add(new Notification("Thông báo 1", "Nội dung thông báo 1"));
         notifications.add(new Notification("Thông báo 2", "Nội dung thông báo 2"));
+        notifications.add(new Notification("Thông báo 3", "Nội dung thông báo 3"));
+
+        ImageView add = findViewById(R.id.add);
+        add.setOnClickListener(v -> {
+            Intent intent = new Intent(TeacherOpenNotification.this, TeacherAddNotification.class);
+            startActivity(intent);
+        });
 
         adapter.notifyDataSetChanged();
     }

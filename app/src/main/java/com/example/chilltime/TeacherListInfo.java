@@ -1,6 +1,8 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +37,17 @@ public class TeacherListInfo extends AppCompatActivity {
         backArrow.setOnClickListener(v -> {
             onBackPressed();
         });
+
+        Button editBtn = findViewById(R.id.teacher_btn_edit);
+        editBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(TeacherListInfo.this, TeacherListEdit.class);
+            intent.putExtra("teacherName", name);
+            intent.putExtra("teacherPhone", phone);
+            intent.putExtra("teacherEmail", email);
+            intent.putExtra("teacherCreatedAt", createdAt);
+            startActivity(intent);
+        });
+
 
     }
 

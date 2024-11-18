@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -141,7 +142,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:contentDescription="Icon"
-                    android:src="@drawable/contract" />
+                    android:src="@drawable/contract1" />
             </FrameLayout>
 
             <TextView
@@ -194,7 +195,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:contentDescription="Icon"
-                    android:src="@drawable/font_download" />
+                    android:src="@drawable/font_download1" />
             </FrameLayout>
 
             <TextView
@@ -247,7 +248,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:contentDescription="Icon"
-                    android:src="@drawable/book_4" />
+                    android:src="@drawable/book_41" />
             </FrameLayout>
 
             <TextView
@@ -300,7 +301,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:contentDescription="Icon"
-                    android:src="@drawable/circle_notifications" />
+                    android:src="@drawable/circle_notifications1" />
             </FrameLayout>
 
             <TextView

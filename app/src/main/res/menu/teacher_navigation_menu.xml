@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_schedule"
-        android:icon="@drawable/calendar_month"
+        android:icon="@drawable/calendar_month1"
         android:title="@string/schedule" />
 
     <item
         android:id="@+id/nav_class"
-        android:icon="@drawable/format_list_bulleted"
+        android:icon="@drawable/format_list_bulleted1"
         android:title="@string/classs" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/account_circle"
+        android:icon="@drawable/account_circle1"
         android:title="@string/profile" />
 </menu>

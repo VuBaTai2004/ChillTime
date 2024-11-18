@@ -41,7 +41,7 @@ public class TeacherProfileFragment extends Fragment {
         tv_name.setText("Họ và tên: " + teacherProfile.getName());
         tv_phone.setText("Số điện thoại: " + teacherProfile.getPhone());
         tv_email.setText("Email: " + teacherProfile.getEmail());
-        tv_created_at.setText("Thời gian tham gia: " + teacherProfile.getCreated_at());
+        tv_created_at.setText("Thời gian tham gia: " + teacherProfile.getCreatedAt());
 
         ImageView imageView = view.findViewById(R.id.profile_image);
         imageView.setImageResource(R.drawable.icon_teacher1);

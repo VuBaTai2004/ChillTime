@@ -23,7 +23,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:contentDescription="Icon"
-            android:src="@drawable/account_circle" />
+            android:src="@drawable/account_circle1" />
     </FrameLayout>
 
     <TextView

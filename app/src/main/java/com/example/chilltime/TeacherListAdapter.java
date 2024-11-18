@@ -50,6 +50,10 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TeacherListInfo.class);
+                intent.putExtra("teacherName", currentItem.getName());
+                intent.putExtra("teacherPhone", currentItem.getPhone());
+                intent.putExtra("teacherEmail", currentItem.getEmail());
+                intent.putExtra("teacherCreatedAt", currentItem.getCreatedAt());
                 context.startActivity(intent);
 
             }

@@ -51,6 +51,8 @@ public class TeacherOpenClass extends AppCompatActivity {
 
         arrowIcon2.setOnClickListener(v -> {
             // Xử lý sự kiện khi arrow_icon2 được nhấn
+            Intent intent = new Intent(TeacherOpenClass.this, TeacherOpenBoard.class);
+            startActivity(intent);
         });
 
         arrowIcon3.setOnClickListener(v -> {

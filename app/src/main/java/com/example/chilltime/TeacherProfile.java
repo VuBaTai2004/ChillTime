@@ -24,7 +24,7 @@ public class TeacherProfile {
     public String getEmail(){
         return email;
     }
-    public Timestamp getCreated_at() {
+    public Timestamp getCreatedAt() {
         return created_at;
     }
 

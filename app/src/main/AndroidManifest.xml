@@ -45,6 +45,7 @@
         <activity android:name=".SignInAdminActivity" />
         <activity android:name=".SignInTeacherActivity" />
         <activity android:name=".SignInStudentActivity" />
+        <activity android:name=".StudentOpenClass" />
         <activity android:name=".TeacherOpenClass" />
         <activity android:name=".TeacherOpenList" />
         <activity android:name=".TeacherProfileFragment" />

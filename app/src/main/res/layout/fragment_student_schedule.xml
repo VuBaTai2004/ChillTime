@@ -3,42 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".StudentScheduleFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Thời khóa biểu"
-            android:textSize="40sp"
-            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:orientation="vertical"
+            android:background="#7073C9">
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="THỜI KHÓA BIỂU"
+                android:textSize="32dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="44dp"/>
+        </LinearLayout>
+
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:textStyle="bold"
             app:mcv_arrowColor="@color/black"
             app:mcv_calendarMode="week"
             app:mcv_dateTextAppearance="@style/CalendarDateText"
             app:mcv_firstDayOfWeek="monday"
-            app:mcv_selectionColor="@color/blue"
+            app:mcv_selectionColor="#7073C9"
             app:mcv_showOtherDates="none"
             app:mcv_weekDayTextAppearance="@style/CalendarWeekDayText">
 
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+        <TextView
+            android:id="@+id/txtDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Thứ 2 ngày 11 tháng 11 năm 2024"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
+
 </FrameLayout>

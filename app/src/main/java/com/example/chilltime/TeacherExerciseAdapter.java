@@ -26,9 +26,9 @@ public class TeacherExerciseAdapter extends RecyclerView.Adapter<TeacherExercise
 
         public ExerciseViewHolder(View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.tvTitle);
-            timeTextView = itemView.findViewById(R.id.tvTime);
-            documentTextView = itemView.findViewById(R.id.tvDocument);
+            titleTextView = itemView.findViewById(R.id.tvExerciseTitle);
+            timeTextView = itemView.findViewById(R.id.tvExerciseTime);
+            documentTextView = itemView.findViewById(R.id.tvExerciseDocument);
         }
 
     }

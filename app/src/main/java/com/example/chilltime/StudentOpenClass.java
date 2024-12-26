@@ -12,4 +12,6 @@ public class StudentOpenClass extends AppCompatActivity {
         setContentView(R.layout.teacher_open_class);
         EdgeToEdge.enable(this);
     }
+
+
 }

@@ -52,7 +52,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
                 holder.ivArrow.setImageResource(R.drawable.keyboard_arrow_down); // Đổi mũi tên xuống
             } else {
                 holder.recyclerViewDetails.setVisibility(View.GONE);
-                holder.ivArrow.setImageResource(R.drawable.keyboard_arrow_right); // Đổi mũi tên phải
+                holder.ivArrow.setImageResource(R.drawable.keyboard_arrow_left); // Đổi mũi tên phải
             }
         });
     }

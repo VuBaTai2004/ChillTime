@@ -64,8 +64,8 @@ public class DetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         NotificationViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvContent = itemView.findViewById(R.id.tvContent);
+            tvTitle = itemView.findViewById(R.id.tvNotificationTitle);
+            tvContent = itemView.findViewById(R.id.tvNotificationContent);
         }
 
         void bind(Notification notification) {
@@ -79,9 +79,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvTime = itemView.findViewById(R.id.tvTime);
-            tvContent = itemView.findViewById(R.id.tvContent);
+            tvTitle = itemView.findViewById(R.id.tvExerciseTitle);
+            tvTime = itemView.findViewById(R.id.tvExerciseTime);
+            tvContent = itemView.findViewById(R.id.tvExerciseDocument);
         }
 
         void bind(Exercise exercise) {

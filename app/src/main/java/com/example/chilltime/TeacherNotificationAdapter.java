@@ -25,8 +25,8 @@ public class TeacherNotificationAdapter extends RecyclerView.Adapter<TeacherNoti
 
         public NotificationViewHolder(View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.tvTitle);
-            contentTextView = itemView.findViewById(R.id.tvContent);
+            titleTextView = itemView.findViewById(R.id.tvNotificationTitle);
+            contentTextView = itemView.findViewById(R.id.tvNotificationContent);
         }
 
     }

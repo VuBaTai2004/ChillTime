@@ -17,7 +17,7 @@
 
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvExerciseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Developing Network Management"
@@ -40,7 +40,7 @@
             android:src="@drawable/acute1" />
 
         <TextView
-            android:id="@+id/tvTime"
+            android:id="@+id/tvExerciseTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dealine: 08:00 - 09:30"
@@ -65,7 +65,7 @@
             android:src="@drawable/article1" />
 
         <TextView
-            android:id="@+id/tvDocument"
+            android:id="@+id/tvExerciseDocument"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"

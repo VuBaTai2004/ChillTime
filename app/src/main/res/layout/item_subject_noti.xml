@@ -37,7 +37,7 @@
                 android:id="@+id/ivArrow"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/keyboard_arrow_right"/>
+                android:src="@drawable/keyboard_arrow_left"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

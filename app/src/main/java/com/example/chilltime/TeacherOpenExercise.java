@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class TeacherOpenExercise extends AppCompatActivity {
@@ -48,8 +50,17 @@ public class TeacherOpenExercise extends AppCompatActivity {
         exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
         exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
         exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
+        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
+        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
+        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
+        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
+        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
+        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
+        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
+        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
+        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
 
-        ImageView add = findViewById(R.id.add1);
+        FloatingActionButton add = findViewById(R.id.add1);
         add.setOnClickListener(v -> {
             Intent intent = new Intent(TeacherOpenExercise.this, TeacherAddExercise.class);
             startActivity(intent);

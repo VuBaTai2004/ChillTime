@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class TeacherOpenNotification extends AppCompatActivity {
@@ -49,7 +51,7 @@ public class TeacherOpenNotification extends AppCompatActivity {
         notifications.add(new Notification("Thông báo 2", "Nội dung thông báo 2"));
         notifications.add(new Notification("Thông báo 3", "Nội dung thông báo 3"));
 
-        ImageView add = findViewById(R.id.add);
+        FloatingActionButton add = findViewById(R.id.add);
         add.setOnClickListener(v -> {
             Intent intent = new Intent(TeacherOpenNotification.this, TeacherAddNotification.class);
             startActivity(intent);

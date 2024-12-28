@@ -52,6 +52,15 @@ public class TeacherOpenList extends AppCompatActivity {
         Timestamp timestamp = Timestamp.valueOf(dateTimeString);
         students.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
 
+        String dateTimeString1 = "2024-11-16 15:30:00";
+        Timestamp timestamp1 = Timestamp.valueOf(dateTimeString1);
+        students.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp1));
+
+        String dateTimeString2 = "2024-11-16 15:30:00";
+        Timestamp timestamp2 = Timestamp.valueOf(dateTimeString2);
+        students.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp2));
+
+
         adapter.notifyDataSetChanged();
 
 

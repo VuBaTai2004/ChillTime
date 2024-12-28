@@ -36,17 +36,14 @@ public class AdminActivity extends AppCompatActivity {
                 if (itemId == R.id.nav_teacher) {
                     loadFragment(new AdminTeacherFragment(), false);
                 }
-                else if (itemId == R.id.nav_class) {
-                    loadFragment(new AdminClassFragment(), false);
-                }
                 else if (itemId == R.id.nav_student) {
                     loadFragment(new AdminStudentFragment(), false);
                 }
-                else if (itemId == R.id.nav_room) {
-                    loadFragment(new AdminRoomFragment(), false);
-                }
                 else if (itemId == R.id.nav_subject) {
                     loadFragment(new AdminSubjectFragment(), false);
+                }
+                else if (itemId == R.id.nav_setting) {
+                    loadFragment(new AdminSettingFragment(), false);
                 }
                 return true;
             }
@@ -54,20 +51,7 @@ public class AdminActivity extends AppCompatActivity {
 
         loadFragment(new AdminTeacherFragment(), true);
 
-        ImageView btnSetting = findViewById(R.id.admin_btn_setting);
-        btnSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AdminActivity.this, AdminSettingFragment.class);
-                startActivity(intent);
-            }
-        });
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
 
     private void loadFragment(Fragment fragment, boolean isAppInitialized){

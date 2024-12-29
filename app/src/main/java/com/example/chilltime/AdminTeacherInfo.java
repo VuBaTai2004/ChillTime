@@ -1,6 +1,8 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +36,22 @@ public class AdminTeacherInfo extends AppCompatActivity {
             onBackPressed();
         });
 
+        Button btnModify = findViewById(R.id.teacher_btn_edit);
+        btnModify.setOnClickListener(v -> {
+            // Handle edit button click event
+            Intent intent = new Intent(AdminTeacherInfo.this, AdminModifyTeacher.class);
+            intent.putExtra("teacherName", name);
+            intent.putExtra("teacherPhone", phone);
+            intent.putExtra("teacherEmail", email);
+            startActivity(intent);
+        });
+
+        Button btnDelete = findViewById(R.id.teacher_btn_delete);
+        btnDelete.setOnClickListener(v -> {
+            // Handle delete button click event
+
+        });
         TextView title = findViewById(R.id.title_text);
-        title.setText("Giáo viên");
+        title.setText("Giảng viên");
     }
 }

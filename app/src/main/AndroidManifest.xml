@@ -61,6 +61,13 @@
         <activity android:name=".AdminStudentInfo" />
         <activity android:name=".AdminTeacherFragment" />
         <activity android:name=".AdminStudentFragment" />
+        <activity android:name=".AdminSubjectFragment" />
+        <activity android:name=".AdminModifyTeacher" />
+        <activity android:name=".AdminAddTeacher" />
+        <activity android:name=".AdminModifyStudent" />
+        <activity android:name=".AdminAddStudent" />
+
+
 
 
         <activity

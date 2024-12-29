@@ -1,5 +1,6 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -42,6 +45,12 @@ public class AdminTeacherFragment extends Fragment {
         Timestamp timestamp = Timestamp.valueOf(dateTimeString);
         students.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
 
+        FloatingActionButton add = view.findViewById(R.id.add);
+        add.setOnClickListener(v -> {
+            // Handle add button click event
+            Intent intent = new Intent(getContext(), AdminAddTeacher.class);
+            startActivity(intent);
+        });
 
         adapter.notifyDataSetChanged();
         return view;

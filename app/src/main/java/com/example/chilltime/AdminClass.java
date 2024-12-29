@@ -1,32 +1,19 @@
 package com.example.chilltime;
 
-public class AdminClass {
-    private String classId;
-    private String classSubject;
+import android.os.Bundle;
 
-    public String getClassId() {
-        return classId;
-    }
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 
-    public String getClassSubject() {
-        return classSubject;
-    }
+public class AdminClass extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.admin_class);
+        EdgeToEdge.enable(this);
 
-    public void setClassId(String classId) {
-        this.classId = classId;
-    }
 
-    public void setClassSubject(String classSubject) {
-        this.classSubject = classSubject;
-    }
 
-    public AdminClass(String classId, String classSubject) {
-        this.classId = classId;
-        this.classSubject = classSubject;
-    }
 
-    public AdminClass() {
-        this.classId = "null";
-        this.classSubject = "null";
     }
 }

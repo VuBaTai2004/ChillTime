@@ -2,22 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_teacher"
-        android:icon="@drawable/icon_teacher"
+        android:icon="@drawable/interactive_space"
         android:title="@string/teacher" />
     <item
         android:id="@+id/nav_student"
-        android:icon="@drawable/icon_student"
+        android:icon="@drawable/groups"
         android:title="@string/student" />
     <item
-        android:id="@+id/nav_class"
-        android:icon="@drawable/icon_class"
-        android:title="@string/classs" />
-    <item
-        android:id="@+id/nav_room"
-        android:icon="@drawable/icon_room"
-        android:title="@string/room" />
-    <item
         android:id="@+id/nav_subject"
-        android:icon="@drawable/icon_subject"
-        android:title="@string/subject" />
+        android:icon="@drawable/code_blocks"
+        android:title="Môn học" />
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/instant_mix"
+        android:title="Cài đặt" />
 </menu>

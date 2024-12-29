@@ -12,36 +12,45 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.Timestamp;
+
 public class StudentProfileFragment extends Fragment {
+    private StudentProfile studentProfile;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View itemView = inflater.inflate(R.layout.fragment_student_profile, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        StudentProfile studentProfile = new StudentProfile("Vu Ba F", "vubatai", "02131832", "abcdxyz@gmail.com");
+        View view = inflater.inflate(R.layout.fragment_student_profile, container, false);
 
-        TextView tv_name = itemView.findViewById(R.id.text_name);
-        TextView tv_user = itemView.findViewById(R.id.text_username);
-        TextView tv_phone = itemView.findViewById(R.id.text_phone);
-        TextView tv_email = itemView.findViewById(R.id.text_email);
+        String dateTimeString = "2024-11-16 15:30:00";
+        Timestamp timestamp = Timestamp.valueOf(dateTimeString);
+        studentProfile = new StudentProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp);
 
-        tv_name.setText(studentProfile.getName());
-        tv_user.setText(studentProfile.getUsername());
-        tv_phone.setText(studentProfile.getPhone());
-        tv_email.setText(studentProfile.getEmail());
+        TextView tv_name = view.findViewById(R.id.text_name);
+        TextView tv_phone = view.findViewById(R.id.text_phone);
+        TextView tv_email = view.findViewById(R.id.text_email);
+        TextView tv_created_at = view.findViewById(R.id.text_created_at);
 
-        ImageView imageView = itemView.findViewById(R.id.profile_image);
+
+        tv_name.setText("Họ và tên: " + studentProfile.getName());
+        tv_phone.setText("Số điện thoại: " + studentProfile.getPhone());
+        tv_email.setText("Email: " + studentProfile.getEmail());
+        tv_created_at.setText("Thời gian tham gia: " + studentProfile.getCreatedAt());
+
+        ImageView imageView = view.findViewById(R.id.profile_image);
         imageView.setImageResource(R.drawable.icon_student1);
 
+        Button btn = view.findViewById(R.id.student_btn_logout);
 
-        Button btn = itemView.findViewById(R.id.student_btn_logout);
-        btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
         });
 
-        return itemView;
+        return view;
     }
 }

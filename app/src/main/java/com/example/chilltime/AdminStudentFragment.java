@@ -1,5 +1,6 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class AdminStudentFragment extends Fragment {
@@ -25,30 +29,26 @@ public class AdminStudentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_admin_student, container, false);
-        ArrayList<AdminStudent> studentArrayList = new ArrayList<>();
-        String[] spnStr = {"Tìm theo mã số", "Tìm theo tên"};
-        RecyclerView rv = view.findViewById(R.id.rv_student_list);
-        Spinner spn = view.findViewById(R.id.spn_student_search);
-        Button btn = view.findViewById(R.id.btn_student_add);
 
-        studentArrayList.add(new AdminStudent("1", "Nguyễn Văn A", "anv1@gmail.com", "0123456787"));
-        studentArrayList.add(new AdminStudent("2", "Nguyễn Văn B", "anv2@gmail.com", "0123456788"));
-        studentArrayList.add(new AdminStudent("3", "Nguyễn Văn C", "anv3@gmail.com", "0123456789"));
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        AdminStudentAdapter adapter = new AdminStudentAdapter(view.getContext(), studentArrayList);
-        rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        rv.setAdapter(adapter);
+        ArrayList<TeacherProfile> students = new ArrayList<>();
+        AdminStudentAdapter adapter = new AdminStudentAdapter(getContext(), students);
+        recyclerView.setAdapter(adapter);
 
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, spnStr);
-        spn.setAdapter(stringArrayAdapter);
+        String dateTimeString = "2024-11-16 15:30:00";
+        Timestamp timestamp = Timestamp.valueOf(dateTimeString);
+        students.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
 
-        btn.setOnClickListener(view1 -> {
-            FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new AdminStudentAddFragment());
-            fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
-            fragmentTransaction.commit();
+        FloatingActionButton add = view.findViewById(R.id.add);
+        add.setOnClickListener(v -> {
+            // Handle add button click event
+            Intent intent = new Intent(getContext(), AdminAddStudent.class);
+            startActivity(intent);
         });
+
+        adapter.notifyDataSetChanged();
         return view;
     }
 }

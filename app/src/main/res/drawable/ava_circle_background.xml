@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#BCC4E2" /> <!-- Màu nền (tím nhạt) -->
+    <size
+        android:width="130dp"
+        android:height="123dp" /> <!-- Kích thước hình nền -->
+    <corners android:radius="100dp" /> <!-- Bo tròn hoàn toàn -->
+</shape>

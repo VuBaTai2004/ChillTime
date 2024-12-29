@@ -12,13 +12,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1" >
 
-        <ImageView
-            android:id="@+id/admin_btn_setting"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="top|end"
-            android:src="@drawable/icon_setting"
-            android:layout_margin="10dp" />
     </FrameLayout>
 
     <!-- BottomNavigationView để điều hướng giữa các Fragment -->
@@ -28,6 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="0dp"
-        app:menu="@menu/admin_navigation_menu" />
+        app:itemIconTint="@menu/bottom_nav_item_color"
+        app:itemTextColor="@menu/bottom_nav_item_color"
+        app:menu="@menu/admin_navigation_menu"
+        app:labelVisibilityMode="selected"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

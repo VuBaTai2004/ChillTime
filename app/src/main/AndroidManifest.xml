@@ -45,6 +45,31 @@
         <activity android:name=".SignInAdminActivity" />
         <activity android:name=".SignInTeacherActivity" />
         <activity android:name=".SignInStudentActivity" />
+        <activity android:name=".StudentOpenClass" />
+        <activity android:name=".TeacherOpenClass" />
+        <activity android:name=".TeacherOpenList" />
+        <activity android:name=".TeacherProfileFragment" />
+        <activity android:name=".TeacherClassFragment" />
+        <activity android:name=".TeacherListInfo" />
+        <activity android:name=".TeacherOpenBoard" />
+        <activity android:name=".TeacherOpenNotification" />
+        <activity android:name=".TeacherOpenExercise" />
+        <activity android:name=".TeacherListEdit" />
+        <activity android:name=".TeacherAddExercise" />
+        <activity android:name=".TeacherAddNotification" />
+        <activity android:name=".AdminTeacherInfo" />
+        <activity android:name=".AdminStudentInfo" />
+        <activity android:name=".AdminTeacherFragment" />
+        <activity android:name=".AdminStudentFragment" />
+        <activity android:name=".AdminSubjectFragment" />
+        <activity android:name=".AdminModifyTeacher" />
+        <activity android:name=".AdminAddTeacher" />
+        <activity android:name=".AdminModifyStudent" />
+        <activity android:name=".AdminAddStudent" />
+
+
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

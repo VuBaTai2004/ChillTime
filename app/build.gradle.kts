@@ -51,8 +51,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
     implementation("com.github.prolificinteractive:material-calendarview:1.6.1")
-
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.sun.mail:android-mail:1.6.0")
+    implementation("com.sun.mail:android-activation:1.6.0")
 }

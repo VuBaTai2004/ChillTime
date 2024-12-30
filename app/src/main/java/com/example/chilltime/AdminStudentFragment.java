@@ -9,17 +9,21 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.Spinner;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
 public class AdminStudentFragment extends Fragment {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,9 +35,22 @@ public class AdminStudentFragment extends Fragment {
         Spinner spn = view.findViewById(R.id.spn_student_search);
         Button btn = view.findViewById(R.id.btn_student_add);
 
-        studentArrayList.add(new AdminStudent("1", "Nguyễn Văn A", "anv1@gmail.com", "0123456787"));
-        studentArrayList.add(new AdminStudent("2", "Nguyễn Văn B", "anv2@gmail.com", "0123456788"));
-        studentArrayList.add(new AdminStudent("3", "Nguyễn Văn C", "anv3@gmail.com", "0123456789"));
+        db.collection("students")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            AdminStudent student = new AdminStudent(document.getString("id").toString(), document.getString("name"),
+                                    document.getString("email"), document.getString("phone"));
+                            studentArrayList.add(student);
+                        }
+                        AdminStudentAdapter adapter = new AdminStudentAdapter(view.getContext(), studentArrayList);
+                        rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                        rv.setAdapter(adapter);
+                    } else {
+                        Log.w("err", "Error getting documents.", task.getException());
+                    }
+                });
 
         AdminStudentAdapter adapter = new AdminStudentAdapter(view.getContext(), studentArrayList);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));

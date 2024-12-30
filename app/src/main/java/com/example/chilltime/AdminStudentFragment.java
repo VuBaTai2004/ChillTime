@@ -32,13 +32,13 @@ public class AdminStudentFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList<TeacherProfile> students = new ArrayList<>();
+        ArrayList<StudentProfile> students = new ArrayList<>();
         AdminStudentAdapter adapter = new AdminStudentAdapter(getContext(), students);
         recyclerView.setAdapter(adapter);
 
         String dateTimeString = "2024-11-16 15:30:00";
         Timestamp timestamp = Timestamp.valueOf(dateTimeString);
-        students.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
+        students.add(new StudentProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
 
         FloatingActionButton add = view.findViewById(R.id.add);
         add.setOnClickListener(v -> {

@@ -66,6 +66,11 @@
         <activity android:name=".AdminAddTeacher" />
         <activity android:name=".AdminModifyStudent" />
         <activity android:name=".AdminAddStudent" />
+        <activity android:name=".AdminClass" />
+        <activity android:name=".AdminAddSubject" />
+        <activity android:name=".AdminAddStudentToClass" />
+        <activity android:name=".AdminOpenClass" />
+
 
 
 

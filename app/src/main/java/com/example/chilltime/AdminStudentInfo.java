@@ -16,20 +16,20 @@ public class AdminStudentInfo extends AppCompatActivity {
         setContentView(R.layout.admin_people_info);
         EdgeToEdge.enable(this);
 
-        TextView teacherName = findViewById(R.id.text_name);
-        TextView teacherPhone = findViewById(R.id.text_phone);
-        TextView teacherEmail = findViewById(R.id.text_email);
-        TextView teacherCreatedAt = findViewById(R.id.text_created_at);
+        TextView studentName = findViewById(R.id.text_name);
+        TextView studentPhone = findViewById(R.id.text_phone);
+        TextView studentEmail = findViewById(R.id.text_email);
+        TextView studentCreatedAt = findViewById(R.id.text_created_at);
 
-        String name = getIntent().getStringExtra("teacherName");
-        String phone = getIntent().getStringExtra("teacherPhone");
-        String email = getIntent().getStringExtra("teacherEmail");
-        String createdAt = getIntent().getStringExtra("teacherCreatedAt");
+        String name = getIntent().getStringExtra("studentName");
+        String phone = getIntent().getStringExtra("studentPhone");
+        String email = getIntent().getStringExtra("studentEmail");
+        String createdAt = getIntent().getStringExtra("studentCreatedAt");
 
-        teacherName.setText(name);
-        teacherPhone.setText(phone);
-        teacherCreatedAt.setText(createdAt);
-        teacherEmail.setText(email);
+        studentName.setText(name);
+        studentPhone.setText(phone);
+        studentCreatedAt.setText(createdAt);
+        studentEmail.setText(email);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {

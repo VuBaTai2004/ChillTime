@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "521865238566",
+    "firebase_url": "https://project-courses-management-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "project-courses-management",
+    "storage_bucket": "project-courses-management.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521865238566:android:6aa4df4967cf655b092ee7",
+        "android_client_info": {
+          "package_name": "com.example.chilltime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA28Qjj7dlsh1hbdBx8A-nObuCy0TC5P7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521865238566:android:cf10693086bd7ecf092ee7",
+        "android_client_info": {
+          "package_name": "com.example.lab3_22521289_vubatai1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA28Qjj7dlsh1hbdBx8A-nObuCy0TC5P7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521865238566:android:92178c4df2ab575b092ee7",
+        "android_client_info": {
+          "package_name": "com.example.testdatabase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA28Qjj7dlsh1hbdBx8A-nObuCy0TC5P7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521865238566:android:520d7274e3145d5a092ee7",
+        "android_client_info": {
+          "package_name": "com.example.testfirestore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA28Qjj7dlsh1hbdBx8A-nObuCy0TC5P7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521865238566:android:0e814de3ffa11a85092ee7",
+        "android_client_info": {
+          "package_name": "com.google.firebase.example.fireeats"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA28Qjj7dlsh1hbdBx8A-nObuCy0TC5P7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

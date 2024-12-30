@@ -21,9 +21,6 @@
         <activity android:name=".TeacherActivity"/>
         <activity android:name=".AdminSettingFragment"/>
         <activity android:name=".AdminActivity"/>
-        <activity android:name=".SignInAdminActivity" />
-        <activity android:name=".SignInTeacherActivity" />
-        <activity android:name=".SignInStudentActivity" />
         <activity android:name=".StudentOpenClass" />
         <activity android:name=".TeacherOpenClass" />
         <activity android:name=".TeacherOpenList" />
@@ -45,6 +42,14 @@
         <activity android:name=".AdminAddTeacher" />
         <activity android:name=".AdminModifyStudent" />
         <activity android:name=".AdminAddStudent" />
+        <activity android:name=".AdminOpenClass" />
+        <activity android:name=".AdminClass" />
+        <activity android:name=".AdminAddStudentIntoClass" />
+        <activity android:name=".AdminAddSubject" />
+        <activity android:name=".AdminAddClass" />
+        <activity android:name=".AdminAddTeacherIntoClass" />
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -59,8 +59,7 @@
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -72,8 +71,9 @@
                 android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="80dp"
+                android:layout_marginBottom="96dp"
                 android:background="@drawable/circle_background"
                 android:clickable="true"
                 android:layout_gravity="bottom|end"

@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">ChillTime</string>
-    <string name="student_sign_in">Sign in as student</string>
-    <string name="teacher_sign_in">Sign in as teacher</string>
-    <string name="admin_sign_in">Sign in as admin</string>
-    <string name="sign_in">Sign in</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="student_sign_in">Đăng nhập sinh viên</string>
+    <string name="teacher_sign_in">Đăng nhập giảng viên</string>
+    <string name="admin_sign_in">Đăng nhập admin</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="username">Tài khoản</string>
+    <string name="password">Mật khẩu</string>
     <string name="teacher">Giảng viên</string>
     <string name="student">Sinh viên</string>
     <string name="classs">Lớp học</string>
@@ -28,7 +28,6 @@
     <string name="teacher_name">Tên GV</string>
     <string name="student_id">Mã HS</string>
     <string name="student_name">Tên HS</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="forgot_password"><u>Quên mật khẩu</u></string>
 </resources>

@@ -14,50 +14,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class AdminSubjectFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private AdminSubjectAdapter adminSubjectAdapter;
-    private ArrayList<AdminSubject> subjectList;
-    private Button btn_add_subject;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_admin_subject, container,false);
+        View view = inflater.inflate(R.layout.fragment_admin_subject, container,false);
 
-        recyclerView=rootView.findViewById(R.id.rv_admin_subject_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        subjectList=new ArrayList<>();
-        subjectList.add(new AdminSubject("IT001", "Nhập môn lập trình  "));
-        subjectList.add(new AdminSubject( "NT118","Phát triển ứng dụng trên thiết bị di động"));
-        subjectList.add(new AdminSubject("NT532", "Công nghệ Internet Of Things hiện đại"));
-        subjectList.add(new AdminSubject("SS010", "Lịch sử Đảng Cộng sản Việt Nam"));
-        subjectList.add(new AdminSubject("NT505", "Khóa luận tốt nghiệp"));
+        ArrayList<StudentClass> subjects = new ArrayList<>();
+        AdminSubjectAdapter adapter = new AdminSubjectAdapter(getContext(), subjects);
+        recyclerView.setAdapter(adapter);
 
-        adminSubjectAdapter =new AdminSubjectAdapter(getContext(),subjectList);
-        recyclerView.setAdapter(adminSubjectAdapter);
 
-        String[] searchList = {"Tìm tên môn","Tìm mã lớp"};
-        Spinner spinner_admin_subject_search = rootView.findViewById(R.id.spinner_admin_subject_search);;
-        ArrayAdapter<String>adapterSearchList = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,searchList);
-        adapterSearchList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_admin_subject_search.setAdapter(adapterSearchList);
+        subjects.add(new StudentClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
+        subjects.add(new StudentClass("NT532.P11", "Công nghệ Internet of things hiện đại",  "10", "Nguyễn Văn B"));
 
-        btn_add_subject=rootView.findViewById(R.id.btn_admin_add_subject);
-        btn_add_subject.setOnClickListener(view1 -> {
-            FragmentManager fragmentManager = ((AppCompatActivity) view1.getContext()).getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new AdminSubjectAddFragment());
-            fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
-            fragmentTransaction.commit();
-        });
 
-        return rootView;
+        EditText et = view.findViewById(R.id.et_class_search);
+        adapter.notifyDataSetChanged();
+        return view;
     }
 }

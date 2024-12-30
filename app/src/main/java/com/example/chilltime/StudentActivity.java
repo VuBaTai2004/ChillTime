@@ -49,6 +49,9 @@ public class StudentActivity extends AppCompatActivity {
                 else if (itemId == R.id.nav_transcript) {
                     loadFragment(new StudentTranscriptFragment(), false);
                 }
+                else if (itemId == R.id.nav_notification) {
+                    loadFragment(new StudentNotificationFragment(), false);
+                }
                 else if (itemId == R.id.nav_profile) {
                     loadFragment(new StudentProfileFragment(), false);
                 }
@@ -57,13 +60,6 @@ public class StudentActivity extends AppCompatActivity {
         });
 
         loadFragment(new StudentScheduleFragment(), true);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
 
     }
 

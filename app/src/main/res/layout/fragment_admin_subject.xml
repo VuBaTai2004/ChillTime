@@ -3,122 +3,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AdminRoomFragment">
+    tools:context=".AdminSubjectFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_admin_subject_title"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="30sp"
-            android:layout_gravity="top"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Danh sách môn học"
-            android:textStyle="bold"/>
 
-        <Button
-            android:id="@+id/btn_admin_add_subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="15dp"
-            android:text="Thêm môn"
-            app:layout_constraintTop_toBottomOf="@id/rv_admin_subject_list"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/shape_button"
-            android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/admin_subject_search_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_admin_subject_title"
-            android:orientation="horizontal">
-            <Spinner
-                android:id="@+id/spinner_admin_subject_search"
+            android:layout_height="101dp"
+            android:orientation="vertical"
+            android:background="#7073C9">
+
+
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"/>
-
-            <EditText
-                android:id="@+id/et_admin_subject_search"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"/>
-
-            <ImageButton
-                android:id="@+id/imgbtn_admin_subject_search"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/icon_search"
-                android:background="@android:color/transparent"
-                android:layout_weight="0.01"/>
-            </LinearLayout>
-
+                android:layout_gravity="center"
+                android:text="MÔN HỌC"
+                android:textSize="32dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="44dp"/>
+        </LinearLayout>
         <LinearLayout
-            android:id="@+id/admin_subject_attr_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/admin_subject_search_view"
-            android:background="@drawable/border_black_bg_blue">
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text="Mã môn"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:background="@drawable/border_black"
-                android:gravity="center_horizontal|center_vertical"/>
+            <EditText
+                android:id="@+id/et_class_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"                android:layout_weight="5"
+                android:background="@drawable/search_edittext_background"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="8dp"
+                android:hint="Tìm môn học"
+                android:padding="12dp"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:ellipsize="end"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:text="Môn học"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:background="@drawable/border_black"
-                android:gravity="center_horizontal|center_vertical"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Chỉnh sửa"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:background="@drawable/border_black"
-                android:gravity="center_horizontal|center_vertical"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Xóa"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:background="@drawable/border_black"
-                android:gravity="center_horizontal|center_vertical"/>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_admin_subject_list"
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/admin_subject_attr_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center_horizontal|center_vertical"
-            android:background="@drawable/border_1dp"/>
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="80dp"
+                android:background="@drawable/circle_background"
+                android:clickable="true"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/add_2" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
 </FrameLayout>

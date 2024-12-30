@@ -53,9 +53,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation("com.github.prolificinteractive:material-calendarview:1.6.0"){
-        exclude(group = "com.android.tools.build", module = "gradle")
-    }
+    implementation("com.github.prolificinteractive:material-calendarview:1.6.1")
 
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation(libs.play.services.base)

@@ -1,100 +1,78 @@
 package com.example.chilltime;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdminClassAdapter extends RecyclerView.Adapter<AdminClassAdapter.AdminClassViewHolder> {
+public class AdminClassAdapter extends RecyclerView.Adapter<AdminClassAdapter.ClassViewHolder> {
     private final Context context;
-    private final ArrayList<AdminClass> adminClassList;
-    private ArrayList<AdminClass> filteredList;
+    private final ArrayList<TeacherClass> classList;
 
-    public AdminClassAdapter(Context context, ArrayList<AdminClass> adminClassList) {
-        this.adminClassList = adminClassList;
+    public AdminClassAdapter(Context context, ArrayList<TeacherClass> classList) {
+        this.classList = classList;
         this.context = context;
-        this.filteredList = new ArrayList<>(adminClassList);
     }
 
-    public static class AdminClassViewHolder extends RecyclerView.ViewHolder {
+    public static class ClassViewHolder extends RecyclerView.ViewHolder {
         public TextView classIdTextView;
         public TextView classSubjectTextView;
-        public ImageView editButton;
-        public ImageView deleteButton;
-        // ... other views
+        public TextView numStuTextView;
+        public TextView classTeacherTextView;
+        public Button openButton;
 
-        public AdminClassViewHolder(View itemView) {
+        public ClassViewHolder(View itemView) {
             super(itemView);
-            classIdTextView = itemView.findViewById(R.id.tv_class_id);
-            classSubjectTextView = itemView.findViewById(R.id.tv_class_subject);
-            editButton = itemView.findViewById(R.id.iv_modify);
-            deleteButton = itemView.findViewById(R.id.iv_delete);
-            // ... initialize other views
+            classIdTextView = itemView.findViewById(R.id.course_code);
+            classSubjectTextView = itemView.findViewById(R.id.course_title);
+            numStuTextView = itemView.findViewById(R.id.number_stu);
+            classTeacherTextView = itemView.findViewById(R.id.lecturer_name);
+            openButton = itemView.findViewById(R.id.open_button);
+
         }
+
     }
 
-    @NonNull
     @Override
-    public AdminClassAdapter.AdminClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.admin_class_adapter, parent, false);
-        return new AdminClassViewHolder(itemView);
+                .inflate(R.layout.teacher_class_adapter, parent, false);
+        return new ClassViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdminClassViewHolder holder, int position) {
-        AdminClass currentItem = adminClassList.get(position);
+    public void onBindViewHolder(@NonNull ClassViewHolder holder, int position) {
+        TeacherClass currentItem = classList.get(position);
         holder.classIdTextView.setText(currentItem.getClassId());
         holder.classSubjectTextView.setText(currentItem.getClassSubject());
-        holder.editButton.setOnClickListener(new View.OnClickListener() {
+        holder.numStuTextView.setText(String.valueOf(currentItem.getNumStu()));
+        holder.classTeacherTextView.setText(currentItem.getClassTeacher());
+        holder.openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle edit button click
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new AdminClassModifyFragment(currentItem));
-                fragmentTransaction.addToBackStack(null); // Optional: adds the transaction to the back stack
-                fragmentTransaction.commit();
-            }
-        });
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle delete button click
+                Intent intent = new Intent(context, AdminOpenClass.class);
+
+                intent.putExtra("classId", currentItem.getClassId());
+                intent.putExtra("classSubject", currentItem.getClassSubject());
+                intent.putExtra("numStu", currentItem.getNumStu());
+                intent.putExtra("classTeacher", currentItem.getClassTeacher());
+
+                context.startActivity(intent);
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if (filteredList != null) {
-            return filteredList.size();
-        } else return adminClassList.size();
-
-    }
-
-    public void filter(String query, String filterType) {
-        filteredList.clear();
-        if (query.isEmpty()) {
-            filteredList.addAll(adminClassList);
-        } else {
-            for (AdminClass item : adminClassList) {
-                if ((filterType.equals("Tìm theo mã số") && item.getClassId().toLowerCase().contains(query.toLowerCase())) ||
-                        (filterType.equals("Tìm theo tên") && item.getClassSubject().toLowerCase().contains(query.toLowerCase()))) {
-                    filteredList.add(item);
-                }
-            }
-        }
-        notifyDataSetChanged();
+        return classList.size();
     }
 }

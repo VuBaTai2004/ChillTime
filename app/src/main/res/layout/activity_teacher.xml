@@ -20,6 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="0dp"
-        app:menu="@menu/teacher_navigation_menu" />
+        app:itemIconTint="@menu/bottom_nav_item_color"
+        app:itemTextColor="@menu/bottom_nav_item_color"
+        app:menu="@menu/teacher_navigation_menu"
+        app:labelVisibilityMode="selected"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

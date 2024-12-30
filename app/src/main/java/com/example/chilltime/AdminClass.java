@@ -1,32 +1,33 @@
 package com.example.chilltime;
 
-public class AdminClass {
-    private String classId;
-    private String classSubject;
+import android.os.Bundle;
 
-    public String getClassId() {
-        return classId;
-    }
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-    public String getClassSubject() {
-        return classSubject;
-    }
+import java.util.ArrayList;
 
-    public void setClassId(String classId) {
-        this.classId = classId;
-    }
+public class AdminClass extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.admin_class);
+        EdgeToEdge.enable(this);
 
-    public void setClassSubject(String classSubject) {
-        this.classSubject = classSubject;
-    }
 
-    public AdminClass(String classId, String classSubject) {
-        this.classId = classId;
-        this.classSubject = classSubject;
-    }
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ArrayList<TeacherClass> classes = new ArrayList<>();
+        TeacherClassAdapter adapter = new TeacherClassAdapter(this, classes);
+        recyclerView.setAdapter(adapter);
 
-    public AdminClass() {
-        this.classId = "null";
-        this.classSubject = "null";
+        classes.add(new TeacherClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
+        classes.add(new TeacherClass("NT131.P14", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
+
+        adapter.notifyDataSetChanged();
+
+
     }
 }

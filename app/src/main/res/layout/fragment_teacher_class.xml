@@ -9,118 +9,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Danh sách lớp học"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_gravity="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:orientation="vertical"
+            android:background="#7073C9">
 
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="LỚP HỌC"
+                android:textSize="32dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="44dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/spn_class_search"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@string/class_search"
-                        android:textSize="15sp" />
 
                     <EditText
                         android:id="@+id/et_class_search"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp"
                         android:layout_weight="5"
-                        android:textSize="15sp" />
+                        android:background="@drawable/search_edittext_background"
+                        android:drawableStart="@drawable/search"
+                        android:drawablePadding="8dp"
+                        android:hint="Tìm lớp"
+                        android:padding="12dp"
+                        android:textColorHint="@color/black"
+                        android:textSize="16sp"
+                        android:inputType="text"
+                        android:ellipsize="end"/>
 
-                    <Button
-                        android:id="@+id/btn_class_search"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/icon_search" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_class_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/btn_class_add"
-            app:layout_constraintTop_toBottomOf="@id/ll_class_features"
-            android:background="@drawable/border_1dp">
-
-            <LinearLayout
-                android:id="@+id/ll_text_information"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/blue"
-                >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:background="@drawable/border_1px"
-                    android:gravity="center"
-                    android:text="@string/class_id"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:background="@drawable/border_1px"
-                    android:gravity="center"
-                    android:text="@string/class_subject"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_1px"
-                    android:gravity="center"
-                    android:text="@string/modify"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_1px"
-                    android:gravity="center"
-                    android:text="@string/delete"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_student_class"
+                android:id="@+id/rv_class_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_class_features" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_class_features"
+                />
 
-        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

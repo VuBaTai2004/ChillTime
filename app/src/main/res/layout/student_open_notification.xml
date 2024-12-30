@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -27,7 +28,7 @@
             android:id="@+id/title_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="BÀI TẬP"
+            android:text="THÔNG BÁO"
             android:textSize="32dp"
             android:textStyle="bold"
             android:textColor="@color/xxx"
@@ -86,7 +87,6 @@
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
                 android:text="Hệ thống Nhúng"
-                android:maxWidth="250dp"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
@@ -107,11 +107,21 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12dp" />
 
-
+            <TextView
+                android:id="@+id/lecturer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/course_title"
+                android:layout_alignStart="@id/course_title"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="0dp"
+                android:text="Giảng viên: Vũ Bá Tài"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
         </RelativeLayout>
 
     </FrameLayout>
-
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -119,22 +129,12 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView1"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/circle_background"
-            android:clickable="true"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/add_2" />
+
 
 
     </FrameLayout>
-
 </LinearLayout>

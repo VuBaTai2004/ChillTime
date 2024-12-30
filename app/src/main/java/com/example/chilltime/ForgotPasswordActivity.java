@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    private Button sendEmailButton, backButton;
+    private Button sendEmailButton;
+    ImageView backButton;
     private FirebaseFirestore db;
     private EditText usernameEditText;
     String email = "";

@@ -2,42 +2,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/usernameEditText"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên tài khoản"
-        android:inputType="text" />
+        android:paddingTop="28dp"
+        android:paddingBottom="9dp">
 
-    <EditText
-        android:id="@+id/passwordEditText"
+        <ImageView
+            android:id="@+id/fpButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/arrow_back_ios_new"
+            android:contentDescription="Back"
+            android:layout_marginLeft="9dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mật khẩu"
-        android:inputType="textPassword"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Đăng nhập"
-        android:layout_marginTop="16dp"/>
+        <ImageView
+            android:layout_width="268dp"
+            android:layout_height="268dp"
+            android:src="@drawable/ic_launcher1">
 
-    <TextView
-        android:id="@+id/forgotPasswordTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot_password"
-        android:textColor="#0000FF"
-        android:textSize="14sp"
-        android:gravity="end"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:focusable="true" />
+        </ImageView>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/usernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_weight="5"
+                android:background="@drawable/search_edittext_background"
+                android:drawableStart="@drawable/account_circle"
+                android:drawablePadding="8dp"
+                android:hint="Tên tài khoản"
+                android:padding="12dp"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:ellipsize="end" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@drawable/search_edittext_background"
+                android:drawableStart="@drawable/lock"
+                android:drawablePadding="8dp"
+                android:hint="Mật khẩu"
+                android:padding="12dp"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                android:ellipsize="end"
+                android:inputType="textPassword"
+                android:layout_marginTop="18dp"/>
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng nhập"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:backgroundTint="#7073C9"
+            app:cornerRadius="12dp"
+            android:layout_marginTop="39dp"/>
+
+        <TextView
+            android:id="@+id/forgotPasswordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
+            android:textColor="@color/xxx"
+            android:textSize="14sp"
+            android:gravity="end"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+    </LinearLayout>

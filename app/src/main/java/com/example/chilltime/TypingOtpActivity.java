@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +13,8 @@ import com.example.chilltime.R;
 
 public class TypingOtpActivity extends AppCompatActivity {
     private EditText otpEditText;
-    private Button confirmOtpButton, backButton;
+    private Button confirmOtpButton;
+    private ImageView backButton;
     private String receivedOTP;
     private String username;
 

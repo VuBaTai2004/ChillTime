@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,14 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class AdminStudentFragment extends Fragment {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class AdminStudentFragment extends Fragment {
 
         String dateTimeString = "2024-11-16 15:30:00";
         Timestamp timestamp = Timestamp.valueOf(dateTimeString);
-        students.add(new StudentProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
+//        students.add(new StudentProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
 
         FloatingActionButton add = view.findViewById(R.id.add);
         add.setOnClickListener(v -> {
@@ -46,6 +50,22 @@ public class AdminStudentFragment extends Fragment {
             Intent intent = new Intent(getContext(), AdminAddStudent.class);
             startActivity(intent);
         });
+
+        db.collection("students").orderBy("id")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        students.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            StudentProfile student = new StudentProfile(document.getString("name").toString(), document.getString("0000000000"),
+                                    document.getString("email"), timestamp);
+                            students.add(student);
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.w("err", "Error getting documents.", task.getException());
+                    }
+                });
 
         adapter.notifyDataSetChanged();
         return view;

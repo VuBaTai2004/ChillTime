@@ -42,14 +42,15 @@ public class AdminClass extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         String subject = intent.getStringExtra("classId");
-        db.collection("courses").document(subject).collection("course_list")
+        assert subject != null;
+        db.collection("courses").document(subject).collection("class_list")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         classes.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            TeacherClass student = new TeacherClass(document.getString("id"), document.getString("subject"),
-                                    document.getString("numberStudent").toString(), document.getString("teacher"));
+                            TeacherClass student = new TeacherClass(document.getId(), document.getString("subject"),
+                                    document.getString("studentNum"), document.getString("teacher"));
                             Log.d("test", document.getData().toString());
                             classes.add(student);
                         }

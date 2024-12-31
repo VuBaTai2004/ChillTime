@@ -1,20 +1,28 @@
 package com.example.chilltime;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class TeacherOpenList extends AppCompatActivity {
     private TeacherProfile teacherProfile;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +60,37 @@ public class TeacherOpenList extends AppCompatActivity {
         students.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
         students.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
 
+        db.collection("courses_detail").document(classId).collection("student_list")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        students.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            db.collection("students").whereEqualTo("id", document.getId()).get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                String name, phone, email;
+                                                for (QueryDocumentSnapshot document1 : task.getResult()) {
+                                                    name = document1.getString("name");
+                                                    phone = document1.getString("phone");
+                                                    email = document1.getString("email");
+                                                    TeacherProfile student = new TeacherProfile(name, phone,
+                                                            email, timestamp);
+                                                    students.add(student);
+                                                    Log.d("test", document1.getData().toString());
+                                                    adapter.notifyDataSetChanged();
+                                                }
+                                            }
+                                        }
+                                    });
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.w("err", "Error getting documents.", task.getException());
+                    }
+                });
 
         adapter.notifyDataSetChanged();
 

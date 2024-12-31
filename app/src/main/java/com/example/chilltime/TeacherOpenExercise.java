@@ -2,19 +2,28 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class TeacherOpenExercise extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +75,21 @@ public class TeacherOpenExercise extends AppCompatActivity {
             startActivity(intent);
         });
 
+        db.collection("excercises").whereEqualTo("classId", classId).get()
+                        .addOnCompleteListener(task -> {
+                            if(task.isSuccessful()){
+                                exercises.clear();
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    String title = document.getString("title");
+                                    String time = document.getString("deadline");
+                                    String message = document.getString("message");
+                                    exercises.add(new Exercise(title, time, message));
+                                    Log.d("FirestoreDebug", "Number of documents: " + task.getResult().size());
+
+                                };
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
 
         adapter.notifyDataSetChanged();
 

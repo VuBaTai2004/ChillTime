@@ -48,8 +48,6 @@ public class AdminOpenClass extends AppCompatActivity {
         TeacherProfile teacherProfile = new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com");
         TextView tvTeacherName = findViewById(R.id.teacher_name);
 
-        tvTeacherName.setText(teacherProfile.getName());
-
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -62,7 +60,22 @@ public class AdminOpenClass extends AppCompatActivity {
         String classSubject = in.getStringExtra("classSubject");
         String numStu = in.getStringExtra("numStu");
         String classTeacher = in.getStringExtra("classTeacher");
-
+        db.collection("teachers").whereEqualTo("id", classTeacher)
+                .get()
+                .addOnCompleteListener(task2 -> {
+                    if(task2.isSuccessful()) {
+                        String name, email, id;
+                        TeacherProfile teacher;
+                        for (QueryDocumentSnapshot document2 : task2.getResult()) {
+                            name = document2.getString("name");
+                            email = document2.getString("email");
+                            id = document2.getString("id");
+                            teacher = new TeacherProfile(name, id, "0868480060",
+                                    email);
+                            tvTeacherName.setText(name);
+                        }
+                    }
+                });
         db.collection("courses_detail").document(classId).collection("student_list")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -82,8 +95,8 @@ public class AdminOpenClass extends AppCompatActivity {
                                                         email);
                                                 students.add(student);
                                                 Log.d("test", document1.getData().toString());
-                                                adapter.notifyDataSetChanged();
                                             }
+                                            adapter.notifyDataSetChanged();
                                         }
                                     });
                         }
@@ -92,8 +105,6 @@ public class AdminOpenClass extends AppCompatActivity {
                         Log.w("err", "Error getting documents.", task.getException());
                     }
                 });
-        students.add(new StudentProfile("Pham Minh Quan","120", "0868480060", "quanpham0405@gmail.com"));
-        students.add(new StudentProfile("Pham Minh Quan","120", "0868480060", "quanpham0405@gmail.com"));
 
 
         FloatingActionButton add = findViewById(R.id.add);

@@ -54,7 +54,7 @@ public class AdminClass extends AppCompatActivity {
                                         if (task1.isSuccessful()) {
                                             for (QueryDocumentSnapshot document1 : task1.getResult()) {
                                                 TeacherClass teacherClass = new TeacherClass(document1.getId(),document.getString("subject")
-                                                        ,document1.getString("studentNum"), document.getString("teacher"));
+                                                        ,document1.getString("studentNum"), document1.getString("teacherId"));
                                                 classes.add(teacherClass);
                                             }
                                             adapter.notifyDataSetChanged();

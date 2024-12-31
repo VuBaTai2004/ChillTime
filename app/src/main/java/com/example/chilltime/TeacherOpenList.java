@@ -76,8 +76,8 @@ public class TeacherOpenList extends AppCompatActivity {
                                                     name = document1.getString("name");
                                                     phone = document1.getString("phone");
                                                     email = document1.getString("email");
-                                                    TeacherProfile student = new TeacherProfile(name, phone,
-                                                            email, timestamp);
+                                                    TeacherProfile student = new TeacherProfile(name, "123", phone,
+                                                            email);
                                                     students.add(student);
                                                     Log.d("test", document1.getData().toString());
                                                     adapter.notifyDataSetChanged();

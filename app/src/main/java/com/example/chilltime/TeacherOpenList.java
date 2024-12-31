@@ -1,6 +1,7 @@
 package com.example.chilltime;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,12 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class TeacherOpenList extends AppCompatActivity {
     private TeacherProfile teacherProfile;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,22 @@ public class TeacherOpenList extends AppCompatActivity {
         Timestamp timestamp2 = Timestamp.valueOf(dateTimeString2);
         students.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp2));
 
+        db.collection("courses_detail").document(classId).collection("student_list")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        students.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            TeacherProfile student = new TeacherProfile(document.getId(), document.getString("subject"),
+                                    document.getString("studentNum"), timestamp);
+                            Log.d("test", document.getData().toString());
+                            students.add(student);
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.w("err", "Error getting documents.", task.getException());
+                    }
+                });
 
         adapter.notifyDataSetChanged();
 

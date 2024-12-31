@@ -22,20 +22,18 @@ public class StudentProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_student_profile, container, false);
 
-        String dateTimeString = "2024-11-16 15:30:00";
-        Timestamp timestamp = Timestamp.valueOf(dateTimeString);
-        studentProfile = new StudentProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp);
+        studentProfile = new StudentProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com");
 
         TextView tv_name = view.findViewById(R.id.text_name);
+        TextView tv_id = view.findViewById(R.id.text_id);
         TextView tv_phone = view.findViewById(R.id.text_phone);
         TextView tv_email = view.findViewById(R.id.text_email);
-        TextView tv_created_at = view.findViewById(R.id.text_created_at);
 
 
         tv_name.setText("Họ và tên: " + studentProfile.getName());
+        tv_id.setText("Mã học viên: " + studentProfile.getId());
         tv_phone.setText("Số điện thoại: " + studentProfile.getPhone());
         tv_email.setText("Email: " + studentProfile.getEmail());
-        tv_created_at.setText("Thời gian tham gia: " + studentProfile.getCreatedAt());
 
         ImageView imageView = view.findViewById(R.id.profile_image);
         imageView.setImageResource(R.drawable.icon_student1);

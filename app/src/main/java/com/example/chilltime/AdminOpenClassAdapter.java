@@ -24,9 +24,9 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView studentNameTextView;
+        public TextView studentIdTextView;
         public TextView studentPhoneTextView;
         public TextView studentEmailTextView;
-        public TextView studentCreatedAtTextView;
         public ImageView arrowIcon;
         ConstraintLayout itemPeople;
 
@@ -55,9 +55,9 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
                 // Handle arrow icon click event
                 Intent intent = new Intent(context, AdminStudentInClass.class);
                 intent.putExtra("studentName", currentItem.getName());
+                intent.putExtra("studentId", currentItem.getId());
                 intent.putExtra("studentPhone", currentItem.getPhone());
                 intent.putExtra("studentEmail", currentItem.getEmail());
-                intent.putExtra("studentCreatedAt", currentItem.getCreatedAt());
                 context.startActivity(intent);
             }
         });
@@ -67,9 +67,9 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
                 // Handle arrow icon click event
                 Intent intent = new Intent(context, AdminStudentInClass.class);
                 intent.putExtra("studentName", currentItem.getName());
+                intent.putExtra("studentId", currentItem.getId());
                 intent.putExtra("studentPhone", currentItem.getPhone());
                 intent.putExtra("studentEmail", currentItem.getEmail());
-                intent.putExtra("studentCreatedAt", currentItem.getCreatedAt());
                 context.startActivity(intent);
             }
         });

@@ -17,18 +17,18 @@ public class AdminStudentInClass extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         TextView studentName = findViewById(R.id.text_name);
+        TextView studentId = findViewById(R.id.text_id);
         TextView studentPhone = findViewById(R.id.text_phone);
         TextView studentEmail = findViewById(R.id.text_email);
-        TextView studentCreatedAt = findViewById(R.id.text_created_at);
 
         String name = getIntent().getStringExtra("studentName");
+        String id = getIntent().getStringExtra("studentId");
         String phone = getIntent().getStringExtra("studentPhone");
         String email = getIntent().getStringExtra("studentEmail");
-        String createdAt = getIntent().getStringExtra("studentCreatedAt");
 
         studentName.setText(name);
+        studentId.setText(id);
         studentPhone.setText(phone);
-        studentCreatedAt.setText(createdAt);
         studentEmail.setText(email);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
@@ -41,6 +41,7 @@ public class AdminStudentInClass extends AppCompatActivity {
             // Handle edit button click event
             Intent intent = new Intent(AdminStudentInClass.this, AdminModifyStudent.class);
             intent.putExtra("studentName", name);
+            intent.putExtra("studentId", id);
             intent.putExtra("studentPhone", phone);
             intent.putExtra("studentEmail", email);
             startActivity(intent);

@@ -16,14 +16,17 @@ public class AdminModifyStudent extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         EditText studentName = findViewById(R.id.et_name);
+        EditText studentId = findViewById(R.id.et_id);
         EditText studentPhone = findViewById(R.id.et_phone);
         EditText studentEmail = findViewById(R.id.et_email);
 
         String name = getIntent().getStringExtra("studentName");
+        String id = getIntent().getStringExtra("studentId");
         String phone = getIntent().getStringExtra("studentPhone");
         String email = getIntent().getStringExtra("studentEmail");
 
         studentName.setText(name);
+        studentId.setText(id);
         studentPhone.setText(phone);
         studentEmail.setText(email);
 

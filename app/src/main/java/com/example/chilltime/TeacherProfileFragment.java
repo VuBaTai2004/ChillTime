@@ -28,20 +28,18 @@ public class TeacherProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_teacher_profile, container, false);
 
-        String dateTimeString = "2024-11-16 15:30:00";
-        Timestamp timestamp = Timestamp.valueOf(dateTimeString);
-        teacherProfile = new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp);
+        teacherProfile = new TeacherProfile("Pham Minh E", "120","0868480060", "quanpham0405@gmail.com");
 
         TextView tv_name = view.findViewById(R.id.text_name);
+        TextView tv_id = view.findViewById(R.id.text_id);
         TextView tv_phone = view.findViewById(R.id.text_phone);
         TextView tv_email = view.findViewById(R.id.text_email);
-        TextView tv_created_at = view.findViewById(R.id.text_created_at);
 
 
         tv_name.setText("Họ và tên: " + teacherProfile.getName());
+        tv_id.setText("Mã giảng viên: " + teacherProfile.getId());
         tv_phone.setText("Số điện thoại: " + teacherProfile.getPhone());
         tv_email.setText("Email: " + teacherProfile.getEmail());
-        tv_created_at.setText("Thời gian tham gia: " + teacherProfile.getCreatedAt());
 
         ImageView imageView = view.findViewById(R.id.profile_image);
         imageView.setImageResource(R.drawable.icon_teacher1);

@@ -62,8 +62,8 @@ public class AdminClass extends AppCompatActivity {
         FloatingActionButton add = findViewById(R.id.add);
         add.setOnClickListener(v -> {
             // Handle add button click event
-            Intent intent = new Intent(AdminClass.this, AdminAddClass.class);
-            startActivity(intent);
+            Intent intent1 = new Intent(AdminClass.this, AdminAddClass.class);
+            startActivity(intent1);
         });
 
         adapter.notifyDataSetChanged();

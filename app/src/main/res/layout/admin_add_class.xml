@@ -169,7 +169,7 @@
             app:layout_constraintRight_toRightOf="parent"/>
 
         <Button
-            android:id="@+id/teacher_btn_add_teacher"
+            android:id="@+id/btn_add_teacher"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="Thêm G.Viên"

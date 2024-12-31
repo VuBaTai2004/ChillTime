@@ -23,9 +23,9 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
 
     public static class TeacherViewHolder extends RecyclerView.ViewHolder {
         public TextView teacherNameTextView;
+        public TextView teacherIdTextView;
         public TextView teacherPhoneTextView;
         public TextView teacherEmailTextView;
-        public TextView teacherCreatedAtTextView;
         public ImageView arrowIcon;
         public TeacherViewHolder(View itemView) {
             super(itemView);
@@ -51,9 +51,9 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
             public void onClick(View v) {
                 Intent intent = new Intent(context, TeacherListInfo.class);
                 intent.putExtra("teacherName", currentItem.getName());
+                intent.putExtra("teacherId", currentItem.getId());
                 intent.putExtra("teacherPhone", currentItem.getPhone());
                 intent.putExtra("teacherEmail", currentItem.getEmail());
-                intent.putExtra("teacherCreatedAt", currentItem.getCreatedAt());
                 context.startActivity(intent);
 
             }

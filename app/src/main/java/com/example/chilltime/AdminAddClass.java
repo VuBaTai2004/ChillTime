@@ -25,7 +25,7 @@ public class AdminAddClass extends AppCompatActivity {
             // Handle add button click event
         });
 
-        Button classBtnAddTeacher = findViewById(R.id.teacher_btn_add_teacher);
+        Button classBtnAddTeacher = findViewById(R.id.btn_add_teacher);
         classBtnAddTeacher.setOnClickListener(v -> {
             // Handle add button click event
             Intent intent = new Intent(this, AdminAddTeacherIntoClass.class);

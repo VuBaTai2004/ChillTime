@@ -35,9 +35,7 @@ public class AdminTeacherFragment extends Fragment {
         AdminTeacherAdapter adapter = new AdminTeacherAdapter(getContext(), teachers);
         recyclerView.setAdapter(adapter);
 
-        String dateTimeString = "2024-11-16 15:30:00";
-        Timestamp timestamp = Timestamp.valueOf(dateTimeString);
-        teachers.add(new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp));
+        teachers.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
 
         FloatingActionButton add = view.findViewById(R.id.add);
         add.setOnClickListener(v -> {
@@ -50,11 +48,15 @@ public class AdminTeacherFragment extends Fragment {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        students.clear();
+                        teachers.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            TeacherProfile student = new TeacherProfile(document.getString("name").toString(), "0000000000",
-                                    document.getString("email"), timestamp);
-                            students.add(student);
+                            TeacherProfile student = new TeacherProfile(
+                                    document.getString("name"),
+                                    document.getString("id"),  // Thêm trường id
+                                    "0000000000",
+                                    document.getString("email")
+                            );
+                            teachers.add(student);
                         }
                         adapter.notifyDataSetChanged();
                     } else {

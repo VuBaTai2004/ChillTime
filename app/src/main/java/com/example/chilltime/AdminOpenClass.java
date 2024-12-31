@@ -37,9 +37,7 @@ public class AdminOpenClass extends AppCompatActivity {
         tvClass.setText("Lớp: " + activity.getClassName());
         tvRoom.setText("Phòng: " + activity.getRoom());
 
-        String dateTimeString = "2024-11-16 15:30:00";
-        Timestamp timestamp = Timestamp.valueOf(dateTimeString);
-        TeacherProfile teacherProfile = new TeacherProfile("Pham Minh E", "0868480060", "quanpham0405@gmail.com", timestamp);
+        TeacherProfile teacherProfile = new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com");
         TextView tvTeacherName = findViewById(R.id.teacher_name);
 
         tvTeacherName.setText(teacherProfile.getName());
@@ -51,8 +49,8 @@ public class AdminOpenClass extends AppCompatActivity {
         AdminOpenClassAdapter adapter = new AdminOpenClassAdapter(this, students);
         recyclerView.setAdapter(adapter);
 
-        students.add(new StudentProfile("Pham Minh Quan", "0868480060", "quanpham0405@gmail.com", timestamp));
-        students.add(new StudentProfile("Pham Minh Quan", "0868480060", "quanpham0405@gmail.com", timestamp));
+        students.add(new StudentProfile("Pham Minh Quan","120", "0868480060", "quanpham0405@gmail.com"));
+        students.add(new StudentProfile("Pham Minh Quan","120", "0868480060", "quanpham0405@gmail.com"));
 
 
         FloatingActionButton add = findViewById(R.id.add);
@@ -67,9 +65,9 @@ public class AdminOpenClass extends AppCompatActivity {
             // Handle arrow icon click event
             Intent intent = new Intent(this, AdminTeacherInClass.class);
             intent.putExtra("teacherName", teacherProfile.getName());
+            intent.putExtra("teacherId", teacherProfile.getId());
             intent.putExtra("teacherPhone", teacherProfile.getPhone());
             intent.putExtra("teacherEmail", teacherProfile.getEmail());
-            intent.putExtra("teacherCreatedAt", teacherProfile.getCreatedAt());
             startActivity(intent);
         });
 
@@ -78,9 +76,9 @@ public class AdminOpenClass extends AppCompatActivity {
             // Handle arrow icon click event
             Intent intent = new Intent(this, AdminTeacherInClass.class);
             intent.putExtra("teacherName", teacherProfile.getName());
+            intent.putExtra("teacherId", teacherProfile.getId());
             intent.putExtra("teacherPhone", teacherProfile.getPhone());
             intent.putExtra("teacherEmail", teacherProfile.getEmail());
-            intent.putExtra("teacherCreatedAt", teacherProfile.getCreatedAt());
             startActivity(intent);
         });
 

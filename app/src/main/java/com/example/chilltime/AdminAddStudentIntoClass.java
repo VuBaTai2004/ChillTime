@@ -50,11 +50,9 @@ public class AdminAddStudentIntoClass extends AppCompatActivity {
     private List<StudentProfile> getSampleStudents() {
         List<StudentProfile> students = new ArrayList<>();
 
-        List<TeacherProfile> teacherList = new ArrayList<>();
-        String dateTimeString = "2024-11-16 15:30:00";
-        students.add(new StudentProfile("Nguyen Van A", "0123456789", "a@example.com", new Timestamp(System.currentTimeMillis())));
-        students.add(new StudentProfile("Tran Thi B", "0987654321", "b@example.com", new Timestamp(System.currentTimeMillis())));
-        students.add(new StudentProfile("Le Van C", "0112233445", "c@example.com", new Timestamp(System.currentTimeMillis())));
+        students.add(new StudentProfile("Nguyen Van A","120", "0123456789", "a@example.com"));
+        students.add(new StudentProfile("Tran Thi B","120", "0987654321", "b@example.com"));
+        students.add(new StudentProfile("Le Van C","120", "0112233445", "c@example.com"));
         return students;
     }
 }

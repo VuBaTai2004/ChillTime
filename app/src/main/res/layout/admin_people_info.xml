@@ -70,6 +70,15 @@
             android:layout_marginTop="11dp"/>
 
         <TextView
+            android:id="@+id/text_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:text="ID: 202"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/text_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,17 +94,10 @@
             android:text="Gmail: teacher@example.com"
             android:textSize="18sp"
             android:textColor="#000"
-            android:layout_marginStart="27dp"/>
-
-        <TextView
-            android:id="@+id/text_created_at"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
-            android:layout_marginBottom="11dp"
-            android:text="Thời gian tham gia: 2020"
-            android:textColor="#000"
-            android:textSize="18sp" />
+            android:layout_marginBottom="11dp"/>
+
+
 
     </LinearLayout>
 

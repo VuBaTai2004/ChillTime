@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                             if (!snapshot.isEmpty()) {
                                 String storedHash = snapshot.getDocuments().get(0).getString("password");
                                 if (passwordHash.equals(storedHash)) {
-                                    navigateToActivity(collection);
+                                    navigateToActivity(collection, username);
                                 } else {
                                     Toast.makeText(this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
                                 }
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void navigateToActivity(String collection) {
+    private void navigateToActivity(String collection, String username) {
         Intent intent;
         switch (collection) {
             case "admins":
@@ -100,9 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "teachers":
                 intent = new Intent(this, TeacherActivity.class);
+                intent.putExtra("username", username);
                 break;
             case "students":
                 intent = new Intent(this, StudentActivity.class);
+                intent.putExtra("username", username);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + collection);

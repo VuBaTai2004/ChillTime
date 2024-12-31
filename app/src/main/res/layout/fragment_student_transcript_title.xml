@@ -1,68 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_student_semester"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:gravity="center_horizontal"
+        android:text="Học kỳ 1 2023-2024"
+        android:gravity="center"
         android:padding="5dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/border_black_bg_blue"
-        android:textColor="@color/white"/>
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_background"        android:textColor="@color/white"
+        android:backgroundTint="#7073C9"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
+        />
 
     <TableLayout
         android:id="@+id/table_student_transcript"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:stretchColumns="*"
+        android:paddingTop="8dp">
 
         <TableRow>
             <TextView
                 android:text="Mã lớp"
                 style="@style/TableHeaderStyle"
+                android:textColor="@color/black"
+                android:backgroundTint="#DCE1EF"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"/>
             <TextView
-                android:text="TC"
-                style="@style/TableHeaderStyle"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"/>
-            <TextView
                 android:text="QT"
                 style="@style/TableHeaderStyle"
+                android:textColor="@color/black"
+                android:backgroundTint="#DCE1EF"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"/>
             <TextView
                 android:text="TH"
                 style="@style/TableHeaderStyle"
+                android:textColor="@color/black"
+                android:backgroundTint="#DCE1EF"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"/>
             <TextView
                 android:text="GK"
                 style="@style/TableHeaderStyle"
+                android:textColor="@color/black"
+                android:backgroundTint="#DCE1EF"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"/>
             <TextView
                 android:text="CK"
                 style="@style/TableHeaderStyle"
+                android:textColor="@color/black"
+                android:backgroundTint="#DCE1EF"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"/>
             <TextView
                 android:text="Điểm"
                 style="@style/TableHeaderStyle"
+                android:textColor="@color/black"
+                android:backgroundTint="#DCE1EF"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"/>

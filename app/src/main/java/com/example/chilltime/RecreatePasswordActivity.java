@@ -1,7 +1,10 @@
 package com.example.chilltime;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +20,9 @@ public class RecreatePasswordActivity extends AppCompatActivity {
     private Button confirmButton;
     private FirebaseFirestore db;
     private String username;
+
+    private boolean isPasswordVisible = false;
+    private boolean isConfirmPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,58 @@ public class RecreatePasswordActivity extends AppCompatActivity {
                 updatePassword(username, password);
             }
         });
+
+        // Gắn toggle mật khẩu cho passwordEditText
+        passwordEditText.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (passwordEditText.getRight() - passwordEditText.getCompoundDrawables()[2].getBounds().width())) {
+                    togglePasswordVisibility(passwordEditText, true);
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        // Gắn toggle mật khẩu cho confirmPasswordEditText
+        confirmPasswordEditText.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (confirmPasswordEditText.getRight() - confirmPasswordEditText.getCompoundDrawables()[2].getBounds().width())) {
+                    togglePasswordVisibility(confirmPasswordEditText, false);
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    private void togglePasswordVisibility(EditText editText, boolean isPasswordField) {
+        if (isPasswordField) {
+            if (isPasswordVisible) {
+                // Ẩn mật khẩu
+                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.visibility_off, 0);
+            } else {
+                // Hiển thị mật khẩu
+                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.visibility, 0);
+            }
+            isPasswordVisible = !isPasswordVisible;
+        } else {
+            if (isConfirmPasswordVisible) {
+                // Ẩn mật khẩu
+                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.visibility_off, 0);
+            } else {
+                // Hiển thị mật khẩu
+                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                editText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.visibility, 0);
+            }
+            isConfirmPasswordVisible = !isConfirmPasswordVisible;
+        }
+
+        // Đặt lại phông chữ và con trỏ
+        editText.setTypeface(Typeface.DEFAULT);
+        editText.setSelection(editText.getText().length());
     }
 
     private void updatePassword(String username, String newPassword) {

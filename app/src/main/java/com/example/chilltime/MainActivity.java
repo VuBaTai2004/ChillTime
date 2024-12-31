@@ -1,8 +1,11 @@
 package com.example.chilltime;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private FirebaseFirestore db;
     private TextView btnForgotPassword;
+
+    // Biến trạng thái hiển thị mật khẩu
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
         btnForgotPassword.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
+        });
+
+        // Thêm sự kiện hiển thị/ẩn mật khẩu khi nhấn vào drawableEnd
+        etPassword.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                // Kiểm tra xem người dùng có nhấn vào drawableEnd không
+                if (event.getRawX() >= (etPassword.getRight() - etPassword.getCompoundDrawables()[2].getBounds().width())) {
+                    togglePasswordVisibility();
+                    return true;
+                }
+            }
+            return false;
         });
     }
 
@@ -90,5 +108,21 @@ public class MainActivity extends AppCompatActivity {
                 throw new IllegalStateException("Unexpected value: " + collection);
         }
         startActivity(intent);
+    }
+
+    private void togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            // Nếu mật khẩu đang hiển thị, chuyển sang ẩn
+            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            etPassword.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.visibility_off, 0);
+        } else {
+            // Nếu mật khẩu đang ẩn, chuyển sang hiển thị
+            etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            etPassword.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.visibility, 0);
+        }
+        // Đặt lại phông chữ và con trỏ
+        etPassword.setTypeface(Typeface.DEFAULT);
+        etPassword.setSelection(etPassword.getText().length());
+        isPasswordVisible = !isPasswordVisible;
     }
 }

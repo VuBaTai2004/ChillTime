@@ -72,6 +72,7 @@
                 android:layout_weight="5"
                 android:background="@drawable/search_edittext_background"
                 android:drawableStart="@drawable/lock"
+                android:drawableEnd="@drawable/visibility_off"
                 android:drawablePadding="8dp"
                 android:hint="Mật khẩu"
                 android:padding="12dp"

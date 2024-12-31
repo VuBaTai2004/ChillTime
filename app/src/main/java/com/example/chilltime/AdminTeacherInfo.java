@@ -26,10 +26,12 @@ public class AdminTeacherInfo extends AppCompatActivity {
         String email = getIntent().getStringExtra("teacherEmail");
         String createdAt = getIntent().getStringExtra("teacherCreatedAt");
 
-        teacherName.setText(name);
-        teacherPhone.setText(phone);
-        teacherCreatedAt.setText(createdAt);
-        teacherEmail.setText(email);
+
+        teacherName.setText("Họ và tên: " + name);
+        teacherPhone.setText("Số điện thoại: " + phone);
+        teacherEmail.setText("Email: " + email);
+        teacherCreatedAt.setText("Thời gian tham gia: " + createdAt);
+
 
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {

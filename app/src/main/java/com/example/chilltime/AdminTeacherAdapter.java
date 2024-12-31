@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -28,10 +29,12 @@ public class AdminTeacherAdapter extends RecyclerView.Adapter<AdminTeacherAdapte
         public TextView teacherEmailTextView;
         public TextView teacherCreatedAtTextView;
         public ImageView arrowIcon;
+        ConstraintLayout itemPeople;
         public ViewHolder(View itemView) {
             super(itemView);
             teacherNameTextView = itemView.findViewById(R.id.people_name);
             arrowIcon = itemView.findViewById(R.id.arrow_icon1);
+            itemPeople = itemView.findViewById(R.id.item_people_child);
         }
     }
 
@@ -47,6 +50,18 @@ public class AdminTeacherAdapter extends RecyclerView.Adapter<AdminTeacherAdapte
         TeacherProfile currentItem = teachers.get(position);
         holder.teacherNameTextView.setText(currentItem.getName());
         holder.arrowIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle arrow icon click event
+                Intent intent = new Intent(context, AdminTeacherInfo.class);
+                intent.putExtra("teacherName", currentItem.getName());
+                intent.putExtra("teacherPhone", currentItem.getPhone());
+                intent.putExtra("teacherEmail", currentItem.getEmail());
+                intent.putExtra("teacherCreatedAt", currentItem.getCreatedAt());
+                context.startActivity(intent);
+            }
+        });
+        holder.itemPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle arrow icon click event

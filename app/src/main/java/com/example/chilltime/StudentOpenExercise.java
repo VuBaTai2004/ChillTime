@@ -44,7 +44,7 @@ public class StudentOpenExercise extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<Exercise> exercises = new ArrayList<>();
-        TeacherExerciseAdapter adapter = new TeacherExerciseAdapter(exercises, this);
+        StudentExerciseAdapter adapter = new StudentExerciseAdapter(exercises, this);
         recyclerView.setAdapter(adapter);
 
         exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));

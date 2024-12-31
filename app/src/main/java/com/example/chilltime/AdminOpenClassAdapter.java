@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
         public TextView studentEmailTextView;
         public TextView studentCreatedAtTextView;
         public ImageView arrowIcon;
+        ConstraintLayout itemPeople;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -48,6 +50,18 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
         StudentProfile currentItem = students.get(position);
         holder.studentNameTextView.setText(currentItem.getName());
         holder.arrowIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle arrow icon click event
+                Intent intent = new Intent(context, AdminStudentInClass.class);
+                intent.putExtra("studentName", currentItem.getName());
+                intent.putExtra("studentPhone", currentItem.getPhone());
+                intent.putExtra("studentEmail", currentItem.getEmail());
+                intent.putExtra("studentCreatedAt", currentItem.getCreatedAt());
+                context.startActivity(intent);
+            }
+        });
+        holder.itemPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle arrow icon click event

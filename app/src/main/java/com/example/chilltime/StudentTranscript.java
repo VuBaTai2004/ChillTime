@@ -4,17 +4,15 @@ public class StudentTranscript {
 
     private String studentId;
     private String classId;
-    private int credit;
     private float progressGrade;
     private float practiceGrade;
     private float midtermGrade;
     private float termGrade;
     private float finalGrade;
 
-    public StudentTranscript(String studentId, String classId, int credit, float progressGrade, float practiceGrade, float midtermGrade, float termGrade, float finalGrade) {
+    public StudentTranscript(String studentId, String classId,  float progressGrade, float practiceGrade, float midtermGrade, float termGrade, float finalGrade) {
         this.studentId = studentId;
         this.classId = classId;
-        this.credit = credit;
         this.progressGrade = progressGrade;
         this.practiceGrade = practiceGrade;
         this.midtermGrade = midtermGrade;
@@ -22,10 +20,9 @@ public class StudentTranscript {
         this.finalGrade = finalGrade;
     }
 
-    public StudentTranscript(String studentId, String classId, int credit, float progressGrade, float practiceGrade, float midtermGrade, float termGrade) {
+    public StudentTranscript(String studentId, String classId, float progressGrade, float practiceGrade, float midtermGrade, float termGrade) {
         this.studentId = studentId;
         this.classId = classId;
-        this.credit = credit;
         this.progressGrade = progressGrade;
         this.practiceGrade = practiceGrade;
         this.midtermGrade = midtermGrade;
@@ -48,14 +45,6 @@ public class StudentTranscript {
 
     public void setClassId(String classId) {
         this.classId = classId;
-    }
-
-    public int getCredit() {
-        return credit;
-    }
-
-    public void setCredit(int credit) {
-        this.credit = credit;
     }
 
     public float getProgressGrade() {
@@ -99,7 +88,9 @@ public class StudentTranscript {
     }
 
     public float calculateFinalGrade() {
-        return (progressGrade + practiceGrade + midtermGrade + termGrade) / 4;
+        float finalGrade = (float) ((progressGrade * 0.15) + (practiceGrade * 0.15) + (midtermGrade * 0.30) + (termGrade * 0.40));
+
+        return finalGrade;
     }
 
 }

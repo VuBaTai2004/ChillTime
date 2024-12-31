@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,6 +72,18 @@ public class AdminOpenClass extends AppCompatActivity {
             intent.putExtra("teacherCreatedAt", teacherProfile.getCreatedAt());
             startActivity(intent);
         });
+
+        ConstraintLayout itemTeacher = findViewById(R.id.teacherlayout);
+        itemTeacher.setOnClickListener(v -> {
+            // Handle arrow icon click event
+            Intent intent = new Intent(this, AdminTeacherInClass.class);
+            intent.putExtra("teacherName", teacherProfile.getName());
+            intent.putExtra("teacherPhone", teacherProfile.getPhone());
+            intent.putExtra("teacherEmail", teacherProfile.getEmail());
+            intent.putExtra("teacherCreatedAt", teacherProfile.getCreatedAt());
+            startActivity(intent);
+        });
+
 
     }
 }

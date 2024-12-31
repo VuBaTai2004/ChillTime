@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ public class StudentExerciseDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.student_exercise_details);
+
         // Lấy dữ liệu từ Intent
         String exerciseTitle = getIntent().getStringExtra("exerciseTitle");
         String exerciseTime = getIntent().getStringExtra("exerciseTime");
@@ -21,7 +23,8 @@ public class StudentExerciseDetail extends AppCompatActivity {
         // Gán dữ liệu vào TextView (hoặc bất kỳ phần tử UI nào khác)
 
         // Đặt tiêu đề cho Activity
-        setTitle(exerciseTitle);
+        TextView title = findViewById(R.id.txt_title);
+        title.setText(exerciseTitle);
 
         EditText etTime = findViewById(R.id.et_deadline);
         EditText etContent = findViewById(R.id.et_content);

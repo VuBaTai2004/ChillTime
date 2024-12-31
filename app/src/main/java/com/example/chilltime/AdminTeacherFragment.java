@@ -53,7 +53,7 @@ public class AdminTeacherFragment extends Fragment {
                             TeacherProfile student = new TeacherProfile(
                                     document.getString("name"),
                                     document.getString("id"),  // Thêm trường id
-                                    "0000000000",
+                                    document.getString("phone"),
                                     document.getString("email")
                             );
                             teachers.add(student);

@@ -34,6 +34,7 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
             super(itemView);
             studentNameTextView = itemView.findViewById(R.id.people_name);
             arrowIcon = itemView.findViewById(R.id.arrow_icon1);
+            itemPeople = itemView.findViewById(R.id.item_people_child);
         }
     }
 

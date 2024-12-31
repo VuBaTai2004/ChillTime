@@ -71,14 +71,13 @@ public class TeacherOpenList extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if (task.isSuccessful()) {
-                                                String name, phone, email, id;
+                                                String name, phone, email;
                                                 for (QueryDocumentSnapshot document1 : task.getResult()) {
-                                                    id = document1.getString("id");
                                                     name = document1.getString("name");
                                                     phone = document1.getString("phone");
                                                     email = document1.getString("email");
-                                                    TeacherProfile student = new TeacherProfile(name, id, phone,
-                                                            email);
+                                                    TeacherProfile student = new TeacherProfile(name, phone,
+                                                            email, timestamp);
                                                     students.add(student);
                                                     Log.d("test", document1.getData().toString());
                                                     adapter.notifyDataSetChanged();

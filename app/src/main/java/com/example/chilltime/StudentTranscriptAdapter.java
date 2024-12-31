@@ -31,7 +31,6 @@ public class StudentTranscriptAdapter extends RecyclerView.Adapter<StudentTransc
     public void onBindViewHolder(@NonNull ViewHolder holder, int position){
         StudentTranscript studentTranscript = studentTranscripts.get(position);
         holder.classId.setText(studentTranscript.getClassId());
-        holder.credit.setText(String.valueOf(studentTranscript.getCredit()));
         holder.progressGrade.setText(String.valueOf(studentTranscript.getProgressGrade()));
         holder.praticeGrade.setText(String.valueOf(studentTranscript.getPracticeGrade()));
         holder.midtermGrade.setText(String.valueOf(studentTranscript.getMidtermGrade()));
@@ -49,7 +48,6 @@ public class StudentTranscriptAdapter extends RecyclerView.Adapter<StudentTransc
         public ViewHolder(View itemView) {
             super(itemView);
             classId = itemView.findViewById(R.id.tv_class_id);
-            credit = itemView.findViewById(R.id.tv_credit);
             progressGrade = itemView.findViewById(R.id.tv_progress_grade);
             praticeGrade = itemView.findViewById(R.id.tv_practice_grade);
             midtermGrade = itemView.findViewById(R.id.tv_midterm_grade);

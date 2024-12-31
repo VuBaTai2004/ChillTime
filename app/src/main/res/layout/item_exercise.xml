@@ -7,7 +7,11 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    android:id="@+id/item_exercise_child"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground"> >
 
     <LinearLayout
         android:layout_width="match_parent"

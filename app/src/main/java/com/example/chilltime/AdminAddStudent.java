@@ -25,8 +25,8 @@ public class AdminAddStudent extends AppCompatActivity {
             onBackPressed();
         });
 
-        Button teacherBtnAdd = findViewById(R.id.teacher_btn_add);
-        teacherBtnAdd.setOnClickListener(v -> {
+        Button studentBtnAdd = findViewById(R.id.teacher_btn_add);
+        studentBtnAdd.setOnClickListener(v -> {
             // Handle add button click event
         });
 

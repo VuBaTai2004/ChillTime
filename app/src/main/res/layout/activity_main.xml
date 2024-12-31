@@ -1,66 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/thumbnail_sign_in"
-        android:layout_width="250dp"
-        android:layout_height="210dp"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/thumbnail_sign_in"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tv_sign_in"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sign_in"
-        android:textSize="30sp"
-        android:textAllCaps="true"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail_sign_in"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:paddingTop="28dp"
+        android:paddingBottom="9dp">
 
-    <Button
-        android:id="@+id/btn_sign_in_as_student"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/student_sign_in"
-        android:textSize="20sp"
-        android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sign_in"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageView
+            android:id="@+id/fpButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/arrow_back_ios_new"
+            android:contentDescription="Back"
+            android:layout_marginLeft="9dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/btn_sign_in_as_teacher"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/teacher_sign_in"
-        android:textSize="20sp"
-        android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_as_student"
-        app:layout_constraintStart_toStartOf="@+id/btn_sign_in_as_student"/>
+        <ImageView
+            android:layout_width="268dp"
+            android:layout_height="268dp"
+            android:src="@drawable/ic_launcher1">
 
-    <Button
-        android:id="@+id/btn_sign_in_as_admin"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/admin_sign_in"
-        android:textSize="20sp"
-        android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_as_teacher"
-        app:layout_constraintStart_toStartOf="@id/btn_sign_in_as_student"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/usernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_weight="5"
+                android:background="@drawable/search_edittext_background"
+                android:drawableStart="@drawable/account_circle"
+                android:drawablePadding="8dp"
+                android:hint="Tên tài khoản"
+                android:padding="12dp"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:ellipsize="end" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@drawable/search_edittext_background"
+                android:drawableStart="@drawable/lock"
+                android:drawableEnd="@drawable/visibility_off"
+                android:drawablePadding="8dp"
+                android:hint="Mật khẩu"
+                android:padding="12dp"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                android:ellipsize="end"
+                android:inputType="textPassword"
+                android:layout_marginTop="18dp"/>
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng nhập"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:backgroundTint="#7073C9"
+            app:cornerRadius="12dp"
+            android:layout_marginTop="39dp"/>
+
+        <TextView
+            android:id="@+id/forgotPasswordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
+            android:textColor="@color/xxx"
+            android:textSize="14sp"
+            android:gravity="end"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+    </LinearLayout>

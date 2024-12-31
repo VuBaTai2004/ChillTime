@@ -17,19 +17,21 @@ public class AdminTeacherInfo extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         TextView teacherName = findViewById(R.id.text_name);
+        TextView teacherId = findViewById(R.id.text_id);
         TextView teacherPhone = findViewById(R.id.text_phone);
         TextView teacherEmail = findViewById(R.id.text_email);
-        TextView teacherCreatedAt = findViewById(R.id.text_created_at);
 
         String name = getIntent().getStringExtra("teacherName");
+        String id = getIntent().getStringExtra("teacherId");
         String phone = getIntent().getStringExtra("teacherPhone");
         String email = getIntent().getStringExtra("teacherEmail");
-        String createdAt = getIntent().getStringExtra("teacherCreatedAt");
 
-        teacherName.setText(name);
-        teacherPhone.setText(phone);
-        teacherCreatedAt.setText(createdAt);
-        teacherEmail.setText(email);
+
+        teacherName.setText("Họ và tên: " + name);
+        teacherId.setText("Mã giảng viên: " + id);
+        teacherPhone.setText("Số điện thoại: " + phone);
+        teacherEmail.setText("Email: " + email);
+
 
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
@@ -41,6 +43,7 @@ public class AdminTeacherInfo extends AppCompatActivity {
             // Handle edit button click event
             Intent intent = new Intent(AdminTeacherInfo.this, AdminModifyTeacher.class);
             intent.putExtra("teacherName", name);
+            intent.putExtra("teacherId", id);
             intent.putExtra("teacherPhone", phone);
             intent.putExtra("teacherEmail", email);
             startActivity(intent);

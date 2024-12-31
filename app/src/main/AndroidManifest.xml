@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,40 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChillTime"
         tools:targetApi="31">
-        <activity
-            android:name=".StudentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminSettingFragment"
-            android:exported="false" />
-        <activity
-            android:name=".AdminActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminSettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminSubjectViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminRoomViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminClassViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminTeacherViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminStudentViewActivity"
-            android:exported="false" />
-        <activity android:name=".SignInAdminActivity" />
-        <activity android:name=".SignInTeacherActivity" />
-        <activity android:name=".SignInStudentActivity" />
+        <activity android:name=".RecreatePasswordActivity"/>
+        <activity android:name=".TypingOtpActivity"/>
+        <activity android:name=".ForgotPasswordActivity"/>
+        <activity android:name=".StudentActivity"/>
+        <activity android:name=".TeacherActivity"/>
+        <activity android:name=".AdminSettingFragment"/>
+        <activity android:name=".AdminActivity"/>
         <activity android:name=".StudentOpenClass" />
+        <activity android:name=".StudentOpenNotification" />
+        <activity android:name=".StudentOpenExercise" />
+        <activity android:name=".StudentExerciseDetail" />
         <activity android:name=".TeacherOpenClass" />
         <activity android:name=".TeacherOpenList" />
         <activity android:name=".TeacherProfileFragment" />
@@ -66,11 +45,14 @@
         <activity android:name=".AdminAddTeacher" />
         <activity android:name=".AdminModifyStudent" />
         <activity android:name=".AdminAddStudent" />
-        <activity android:name=".AdminClass" />
-        <activity android:name=".AdminAddSubject" />
-        <activity android:name=".AdminAddStudentToClass" />
         <activity android:name=".AdminOpenClass" />
-
+        <activity android:name=".AdminClass" />
+        <activity android:name=".AdminAddStudentIntoClass" />
+        <activity android:name=".AdminAddSubject" />
+        <activity android:name=".AdminAddClass" />
+        <activity android:name=".AdminAddTeacherIntoClass" />
+        <activity android:name=".AdminStudentInClass" />
+        <activity android:name=".AdminTeacherInClass" />
 
 
 

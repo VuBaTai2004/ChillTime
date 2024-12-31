@@ -35,8 +35,8 @@ public class StudentTranscriptFragment extends Fragment {
 
         // Semester 1 example
         List<StudentTranscript> semester1Courses = new ArrayList<>();
-        semester1Courses.add(new StudentTranscript("IDSV1","IT001.P11", 4, 8.0f, 7.5f, 7.0f, 7.5f));
-        semester1Courses.add(new StudentTranscript("IDSV1","IT002.P12", 4, 8.0f, 7.5f, 7.0f, 7.5f));
+        semester1Courses.add(new StudentTranscript("IDSV1","IT001.P11", 8.0f, 7.5f, 7.0f, 7.5f));
+        semester1Courses.add(new StudentTranscript("IDSV1","IT002.P12", 8.0f, 7.5f, 7.0f, 7.5f));
         semesters.add(new StudentSemesterTranscript("HK1 2023-2024", semester1Courses));
 
         // Semester 2 example

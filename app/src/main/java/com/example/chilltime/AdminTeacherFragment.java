@@ -7,17 +7,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class AdminTeacherFragment extends Fragment {
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +45,22 @@ public class AdminTeacherFragment extends Fragment {
             Intent intent = new Intent(getContext(), AdminAddTeacher.class);
             startActivity(intent);
         });
+
+        db.collection("teachers").orderBy("id")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        students.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            TeacherProfile student = new TeacherProfile(document.getString("name").toString(), "0000000000",
+                                    document.getString("email"), timestamp);
+                            students.add(student);
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.w("err", "Error getting documents.", task.getException());
+                    }
+                });
 
         adapter.notifyDataSetChanged();
         return view;

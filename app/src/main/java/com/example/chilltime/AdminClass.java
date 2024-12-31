@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AdminClass extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -43,16 +44,22 @@ public class AdminClass extends AppCompatActivity {
         Intent intent = this.getIntent();
         String subject = intent.getStringExtra("classId");
         assert subject != null;
-        db.collection("courses").document(subject).collection("class_list")
-                .get()
+        db.collection("courses").whereEqualTo("id", subject).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         classes.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            TeacherClass student = new TeacherClass(document.getId(), document.getString("subject"),
-                                    document.getString("studentNum"), document.getString("teacher"));
-                            Log.d("test", document.getData().toString());
-                            classes.add(student);
+                            db.collection("courses").document(subject).collection("class_list").get()
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document1 : task1.getResult()) {
+                                                TeacherClass teacherClass = new TeacherClass(document1.getId(),document.getString("subject")
+                                                        ,document1.getString("studentNum"), document.getString("teacher"));
+                                                classes.add(teacherClass);
+                                            }
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
                         }
                         adapter.notifyDataSetChanged();
                     } else {

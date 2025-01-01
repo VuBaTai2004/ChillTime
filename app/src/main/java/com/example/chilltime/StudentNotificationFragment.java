@@ -1,42 +1,128 @@
 package com.example.chilltime;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class StudentNotificationFragment extends Fragment {
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private RecyclerView recyclerView;
+    private SubjectAdapter adapter;
+    private List<Subject> subjects = new ArrayList<>();
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_notification, container, false);
 
-
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewSubjects);
-
-        List<Notification> notifications = Arrays.asList(
-                new Notification("Thông báo 1", "Mai vẫn đi học"),
-                new Notification("Thông báo 2", "Kiểm tra tuần sau")
-        );
-        List<Exercise> exercises = Arrays.asList(
-                new Exercise("Lab 1", "2h ngày 13/11", "Tài liệu: document.pdf"),
-                new Exercise("Lab 2", "2h ngày 20/11", "Tài liệu: slides.pdf")
-        );
-
-        List<Subject> subjects = Arrays.asList(
-                new Subject("Hệ thống nhúng", notifications, exercises),
-                new Subject("Lập trình hệ thống", notifications, exercises)
-        );
-
+        recyclerView = view.findViewById(R.id.recyclerViewSubjects);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new SubjectAdapter(subjects));
+
+        // Initialize adapter with empty list
+        adapter = new SubjectAdapter(subjects);
+        recyclerView.setAdapter(adapter);
+
+        String studentId = getArguments() != null ? getArguments().getString("studentId") : null;
+
+        if (studentId != null) {
+            fetchStudentClasses(studentId);
+        }
+
         return view;
+    }
+
+    private void fetchStudentClasses(String studentId) {
+        db.collection("students")
+                .document(studentId)
+                .collection("class_list")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<String> classIds = new ArrayList<>();
+                        for (QueryDocumentSnapshot classDoc : task.getResult()) {
+                            String classId = classDoc.getString("classId");
+                            if (classId != null) {
+                                classIds.add(classId);
+                            }
+                        }
+                        if (!classIds.isEmpty()) {
+                            fetchClassDetails(classIds);
+                        } else {
+                            Log.w("Firestore", "No classes found for studentId: " + studentId);
+                        }
+                    } else {
+                        Log.e("Firestore", "Error fetching class list: ", task.getException());
+                    }
+                });
+    }
+
+    private void fetchClassDetails(List<String> classIds) {
+        for (String classId : classIds) {
+            List<Exercise> classExercises = new ArrayList<>();
+            List<Notification> classNotifications = new ArrayList<>();
+
+            fetchExercises(classId, classExercises, () -> {
+                fetchNotifications(classId, classNotifications, () -> {
+                    Subject subject = new Subject(classId, classNotifications, classExercises);
+                    subjects.add(subject);
+
+                    // Update adapter on the main thread
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() -> adapter.notifyDataSetChanged());
+                    }
+                });
+            });
+        }
+    }
+
+    private void fetchExercises(String classId, List<Exercise> classExercises, Runnable onComplete) {
+        db.collection("exercises")
+                .whereEqualTo("classId", classId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String title = document.getString("title");
+                            String time = document.getString("time");
+                            String content = document.getString("content");
+                            classExercises.add(new Exercise(title, time, content));
+                        }
+                    } else {
+                        Log.e("Firestore", "Error fetching exercises for classId: " + classId, task.getException());
+                    }
+                    onComplete.run();
+                });
+    }
+
+    private void fetchNotifications(String classId, List<Notification> classNotifications, Runnable onComplete) {
+        db.collection("notifications")
+                .whereEqualTo("classId", classId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String title = document.getString("title");
+                            String content = document.getString("content");
+                            classNotifications.add(new Notification(title, content));
+                        }
+                    } else {
+                        Log.e("Firestore", "Error fetching notifications for classId: " + classId, task.getException());
+                    }
+                    onComplete.run();
+                });
     }
 }

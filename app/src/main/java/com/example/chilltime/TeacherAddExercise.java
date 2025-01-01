@@ -63,7 +63,7 @@ public class TeacherAddExercise extends AppCompatActivity {
             exercise.put("content", content);
             exercise.put("classId", classId);
 
-            db.collection("excercises")
+            db.collection("exercises")
                     .add(exercise)
                     .addOnSuccessListener(documentReference -> {
                         Log.d("FirestoreDebug", "Exercise added with ID: " + documentReference.getId());

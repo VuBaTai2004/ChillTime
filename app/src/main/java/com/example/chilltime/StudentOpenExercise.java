@@ -1,6 +1,7 @@
 package com.example.chilltime;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,9 +10,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 
 public class StudentOpenExercise extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<Exercise> exercises = new ArrayList<>();
+    StudentExerciseAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,25 +50,37 @@ public class StudentOpenExercise extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        ArrayList<Exercise> exercises = new ArrayList<>();
-        StudentExerciseAdapter adapter = new StudentExerciseAdapter(exercises, this);
+        adapter = new StudentExerciseAdapter(exercises, this);
         recyclerView.setAdapter(adapter);
 
-        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
-        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
-        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
-        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
-        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
-        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
-        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
-        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
+        fetchExercies(classId);
 
         adapter.notifyDataSetChanged();
 
+    }
+
+    private void fetchExercies(String classId) {
+        db.collection("exercises")
+                .whereEqualTo("classId", classId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        exercises.clear(); // Xóa danh sách cũ
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Lấy title và content từ document
+                            String title = document.getString("title");
+                            String time = document.getString("time");
+                            String content = document.getString("content");
+
+                            // Thêm thông báo vào danh sách
+                            exercises.add(new Exercise(title, time, content));
+                        }
+
+                        // Cập nhật RecyclerView
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.e("FirestoreError", "Error getting documents: ", task.getException());
+                    }
+                });
     }
 }

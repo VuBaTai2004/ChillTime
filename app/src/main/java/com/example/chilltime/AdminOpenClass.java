@@ -64,13 +64,14 @@ public class AdminOpenClass extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task2 -> {
                     if(task2.isSuccessful()) {
-                        String name, email, id;
+                        String name, email, id, phone;
                         TeacherProfile teacher;
                         for (QueryDocumentSnapshot document2 : task2.getResult()) {
                             name = document2.getString("name");
                             email = document2.getString("email");
+                            phone = document2.getString("phone");
                             id = document2.getString("id");
-                            teacher = new TeacherProfile(name, id, "0868480060",
+                            teacher = new TeacherProfile(name, id, phone,
                                     email);
                             tvTeacherName.setText(name);
                         }

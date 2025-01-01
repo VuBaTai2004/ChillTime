@@ -53,7 +53,7 @@ public class AdminClass extends AppCompatActivity {
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
                                             for (QueryDocumentSnapshot document1 : task1.getResult()) {
-                                                TeacherClass teacherClass = new TeacherClass(document1.getId(),document.getString("subject")
+                                                TeacherClass teacherClass = new TeacherClass(document1.getString("classId"),document.getString("subject")
                                                         ,document1.getString("studentNum"), document1.getString("teacherId"));
                                                 classes.add(teacherClass);
                                             }
@@ -71,6 +71,7 @@ public class AdminClass extends AppCompatActivity {
         add.setOnClickListener(v -> {
             // Handle add button click event
             Intent intent1 = new Intent(AdminClass.this, AdminAddClass.class);
+            intent1.putExtra("classId", intent.getStringExtra("classId"));
             startActivity(intent1);
         });
 

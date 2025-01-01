@@ -47,6 +47,8 @@ public class TeacherListInfo extends AppCompatActivity {
         String email = getIntent().getStringExtra("teacherEmail");
         String classId = getIntent().getStringExtra("classId");
 
+
+
         teacherName.setText("Họ và tên: " + name);
         teacherId.setText("Mã sinh viên: " + id);
         teacherPhone.setText("Số điện thoại: " + phone);

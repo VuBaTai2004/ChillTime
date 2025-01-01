@@ -2,6 +2,7 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
 public class TeacherOpenNotification extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +58,26 @@ public class TeacherOpenNotification extends AppCompatActivity {
         FloatingActionButton add = findViewById(R.id.add);
         add.setOnClickListener(v -> {
             Intent intent = new Intent(TeacherOpenNotification.this, TeacherAddNotification.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
             startActivity(intent);
         });
+
+        db.collection("notifications").whereEqualTo("classId", classId).get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        notifications.clear();
+                        for(QueryDocumentSnapshot document : task.getResult()){
+                            String title = document.getString("title");
+                            String message = document.getString("message");
+                            notifications.add(new Notification(title, message));
+                            Log.d("FirestoreDebug", "Number of documents: " + task.getResult().size());
+
+                        };
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
         adapter.notifyDataSetChanged();
     }

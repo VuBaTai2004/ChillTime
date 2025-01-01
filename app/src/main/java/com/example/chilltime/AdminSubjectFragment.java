@@ -77,4 +77,5 @@ public class AdminSubjectFragment extends Fragment {
         adapter.notifyDataSetChanged();
         return view;
     }
+
 }

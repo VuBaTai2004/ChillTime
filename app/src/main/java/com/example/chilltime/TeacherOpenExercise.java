@@ -72,6 +72,9 @@ public class TeacherOpenExercise extends AppCompatActivity {
         FloatingActionButton add = findViewById(R.id.add1);
         add.setOnClickListener(v -> {
             Intent intent = new Intent(TeacherOpenExercise.this, TeacherAddExercise.class);
+            intent.putExtra("classId", classId);
+            intent.putExtra("classSubject", classSubject);
+            intent.putExtra("numStu", numStu);
             startActivity(intent);
         });
 

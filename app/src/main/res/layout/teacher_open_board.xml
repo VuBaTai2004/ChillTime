@@ -26,7 +26,7 @@
             android:id="@+id/title_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="LỚP HỌC"
+            android:text="BẢNG ĐIỂM"
             android:textSize="32dp"
             android:textStyle="bold"
             android:textColor="@color/xxx"
@@ -114,7 +114,7 @@
     <!-- RecyclerView cho hàng đầu tiên (header) -->
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:scrollbars="none"
         android:padding="16dp">
 

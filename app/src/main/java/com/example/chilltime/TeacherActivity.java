@@ -42,9 +42,9 @@ public class TeacherActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.nav_schedule) {
-                    loadFragment(new TeacherScheduleFragment(), false, null);
+                    loadFragment(new TeacherScheduleFragment(), false, username);
                 } else if (itemId == R.id.nav_class) {
-                    loadFragment(new TeacherClassFragment(), false, null);
+                    loadFragment(new TeacherClassFragment(), false, username);
                 } else if (itemId == R.id.nav_profile) {
                     loadFragment(new TeacherProfileFragment(), false, username);
                 }
@@ -52,7 +52,7 @@ public class TeacherActivity extends AppCompatActivity {
             }
         });
 
-        loadFragment(new TeacherScheduleFragment(), true, null);
+        loadFragment(new TeacherScheduleFragment(), true, username);
 
     }
 
@@ -67,6 +67,11 @@ public class TeacherActivity extends AppCompatActivity {
             fragment.setArguments(bundle);
         }
 
+        if (fragment instanceof TeacherClassFragment && username != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            fragment.setArguments(bundle);
+        }
 
         if (isAppInitialized) {
             fragmentTransaction.add(R.id.fragment_container, fragment);

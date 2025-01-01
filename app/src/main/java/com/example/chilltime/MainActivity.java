@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "students":
                 intent = new Intent(this, StudentActivity.class);
-                intent.putExtra("username", username);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + collection);

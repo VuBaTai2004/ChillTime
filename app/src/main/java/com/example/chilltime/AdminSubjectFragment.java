@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -64,6 +65,15 @@ public class AdminSubjectFragment extends Fragment {
                 });
 
         EditText et = view.findViewById(R.id.et_class_search);
+        et.setOnClickListener(v -> {
+
+        });
+
+        FloatingActionButton add = view.findViewById(R.id.add);
+        add.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AdminAddSubject.class);
+            startActivity(intent);
+        });
         adapter.notifyDataSetChanged();
         return view;
     }

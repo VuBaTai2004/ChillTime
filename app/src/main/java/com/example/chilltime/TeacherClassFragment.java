@@ -6,14 +6,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 
 public class TeacherClassFragment extends Fragment {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,14 +33,41 @@ public class TeacherClassFragment extends Fragment {
         TeacherClassAdapter adapter = new TeacherClassAdapter(view.getContext(), classes);
         recyclerView.setAdapter(adapter);
 
-        classes.add(new TeacherClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
-        classes.add(new TeacherClass("NT532.P11", "Công nghệ Internet of things hiện đại",  "10", "Nguyễn Văn B"));
+        //classes.add(new TeacherClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
+        //classes.add(new TeacherClass("NT532.P11", "Công nghệ Internet of things hiện đại",  "10", "Nguyễn Văn B"));
+
+        // Lấy dữ liệu username từ Bundle
+        String username = getArguments() != null ? getArguments().getString("username") : null;
+
+        db.collection("teachers").whereEqualTo("username", username).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        classes.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            db.collection("teachers").document(username).collection("class_list").get()
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document1 : task1.getResult()) {
+                                                TeacherClass teacherClass = new TeacherClass(document1.getString("classId"),document1.getString("classSubject")
+                                                        ,document1.getString("studentNum"), document1.getString("classTeacher"));
+                                                classes.add(teacherClass);
+                                            }
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.w("err", "Error getting documents.", task.getException());
+                    }
+                });
 
 
-        EditText et = view.findViewById(R.id.et_class_search);
+        EditText etSearch = view.findViewById(R.id.et_class_search);
+        etSearch.setOnClickListener(v -> {
 
+        });
 
-        adapter.notifyDataSetChanged();
         return view;
     }
 }

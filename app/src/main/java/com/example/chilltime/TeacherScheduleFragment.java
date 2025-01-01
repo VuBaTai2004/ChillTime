@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -34,6 +35,8 @@ public class TeacherScheduleFragment extends Fragment {
     private Map<CalendarDay, List<Activity>> scheduleMap;
     private CustomSelectorDecorator customSelectorDecorator;
     private TextView txtDay;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +50,10 @@ public class TeacherScheduleFragment extends Fragment {
         activityList = new ArrayList<>();
         activityAdapter = new ActivityAdapter(activityList);
         recyclerView.setAdapter(activityAdapter);
+
+        // Lấy dữ liệu username từ Bundle
+        String username = getArguments() != null ? getArguments().getString("username") : null;
+
 
         scheduleMap = new HashMap<>();
 

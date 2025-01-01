@@ -6,93 +6,77 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class AdminOpenClass extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    TeacherProfile teacherProfile;
+    ArrayList<StudentProfile> students = new ArrayList<>();
+    AdminOpenClassAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_open_class);
-        EdgeToEdge.enable(this);
 
+        // UI elements
         ImageView backArrow = findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(v -> {
-            onBackPressed();
-        });
-
-        Activity activity = new Activity("08:00 - 09:30", "NT532.P11", "B5.06");
         TextView tvTime = findViewById(R.id.tvTime);
         TextView tvClass = findViewById(R.id.tvClass);
         TextView tvRoom = findViewById(R.id.tvRoom);
-
-        tvTime.setText("Thời gian: " + activity.getTime());
-        tvClass.setText("Lớp: " + activity.getClassName());
-        tvRoom.setText("Phòng: " + activity.getRoom());
-
-        TeacherProfile teacherProfile = new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com");
         TextView tvTeacherName = findViewById(R.id.teacher_name);
-
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        FloatingActionButton add = findViewById(R.id.add);
+        ImageView arrowIcon1 = findViewById(R.id.arrow_icon1);
+        ConstraintLayout itemTeacher = findViewById(R.id.teacherlayout);
 
-        ArrayList<StudentProfile> students = new ArrayList<>();
-        AdminOpenClassAdapter adapter = new AdminOpenClassAdapter(this, students);
+        // Set up RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new AdminOpenClassAdapter(this, students);
         recyclerView.setAdapter(adapter);
 
-        Intent in = this.getIntent();
-        String classId = in.getStringExtra("classId");
-        String classSubject = in.getStringExtra("classSubject");
-        String numStu = in.getStringExtra("numStu");
-        String classTeacher = in.getStringExtra("classTeacher");
-        db.collection("courses_detail").whereEqualTo("classId", classId).get()
-                        .addOnCompleteListener(task -> {
-                           if(task.isSuccessful()) {
-                               for (QueryDocumentSnapshot document : task.getResult()) {
-                                   tvTime.setText("Thời gian: " + document.getString("time").toString());
-                                   tvClass.setText("Lớp: " + document.getString("classId").toString());
-                                   tvRoom.setText("Phòng: " + document.getString("room").toString());
+        // Back button
+        backArrow.setOnClickListener(v -> onBackPressed());
 
-                               }
-                           }
-                        });
-        db.collection("teachers")
-                .get()
-                .addOnCompleteListener(task2 -> {
-                    if(task2.isSuccessful()) {
-                        for (QueryDocumentSnapshot document2 : task2.getResult()) {
-                            db.collection("teachers").document(document2.getId()).collection("class_list").get()
-                                    .addOnCompleteListener(task3 -> {
-                                       if(task3.isSuccessful()) {
-                                           for (QueryDocumentSnapshot document3 : task3.getResult()) {
-                                               if(document3.getString("classId").equals(classId)) {
-                                                   tvTeacherName.setText(classTeacher);
-                                                   teacherProfile.setName(document2.getString("name"));
-                                                   teacherProfile.setId(document2.getString("id"));
-                                                   teacherProfile.setPhone(document2.getString("phone"));
-                                                   teacherProfile.setEmail(document2.getString("email"));
-                                               }
-                                           }
-                                       }
-                                    });
-                        }
+        // Get data from Intent
+        Intent intent = getIntent();
+        String classId = intent.getStringExtra("classId");
+
+        // Fetch course details
+        db.collection("courses_detail").whereEqualTo("classId", classId).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+
+                        // Get data from document
+                        String time = document.getString("time");
+                        String room = document.getString("room");
+                        String teacherName = document.getString("classTeacher");
+
+                        // Update UI
+                        tvTime.setText("Thời gian: " + time);
+                        tvClass.setText("Lớp: " + classId);
+                        tvRoom.setText("Phòng: " + room);
+                        tvTeacherName.setText(teacherName);
+
+                        // Fetch teacher info
+                        fetchTeacherInfo(teacherName);
+                    } else {
+                        Log.e("Error", "Không tìm thấy thông tin lớp học.");
                     }
                 });
+
+        // Fetch student list
         db.collection("courses_detail").document(classId).collection("student_list")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -100,59 +84,67 @@ public class AdminOpenClass extends AppCompatActivity {
                         students.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             db.collection("students").whereEqualTo("id", document.getId()).get()
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            String name, phone, email, id;
-                                            for (QueryDocumentSnapshot document1 : task1.getResult()) {
-                                                id = document1.getString("id");
-                                                name = document1.getString("name");
-                                                phone = document1.getString("phone");
-                                                email = document1.getString("email");
-                                                StudentProfile student = new StudentProfile(name, id, phone,
-                                                        email);
+                                    .addOnCompleteListener(studentTask -> {
+                                        if (studentTask.isSuccessful()) {
+                                            for (QueryDocumentSnapshot studentDoc : studentTask.getResult()) {
+                                                String id = studentDoc.getString("id");
+                                                String name = studentDoc.getString("name");
+                                                String phone = studentDoc.getString("phone");
+                                                String email = studentDoc.getString("email");
+                                                StudentProfile student = new StudentProfile(name, id, phone, email);
                                                 students.add(student);
-                                                Log.d("test", document1.getData().toString());
                                             }
                                             adapter.notifyDataSetChanged();
                                         }
                                     });
                         }
-                        adapter.notifyDataSetChanged();
                     } else {
-                        Log.w("err", "Error getting documents.", task.getException());
+                        Log.e("Error", "Không tìm thấy danh sách học sinh.");
                     }
                 });
 
-
-        FloatingActionButton add = findViewById(R.id.add);
+        // Add button action
         add.setOnClickListener(v -> {
-            // Handle add button click event
-            Intent intent = new Intent(this, AdminAddStudentIntoClass.class);
-            startActivity(intent);
+            Intent addIntent = new Intent(this, AdminAddStudentIntoClass.class);
+            startActivity(addIntent);
         });
 
-        ImageView arrow_icon1 = findViewById(R.id.arrow_icon1);
-        arrow_icon1.setOnClickListener(v -> {
-            // Handle arrow icon click event
+        // Arrow icon click
+        arrowIcon1.setOnClickListener(v -> navigateToTeacherProfile());
+        itemTeacher.setOnClickListener(v -> navigateToTeacherProfile());
+    }
+
+    private void fetchTeacherInfo(String teacherName) {
+        db.collection("teachers").whereEqualTo("name", teacherName).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        QueryDocumentSnapshot teacherDoc = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+
+                        // Get teacher info
+                        String teacherId = teacherDoc.getString("id");
+                        String teacherPhone = teacherDoc.getString("phone");
+                        String teacherEmail = teacherDoc.getString("email");
+
+                        // Save teacher profile
+                        teacherProfile = new TeacherProfile(teacherName, teacherId, teacherPhone, teacherEmail);
+
+                        Log.d("TeacherInfo", "ID: " + teacherId + ", Phone: " + teacherPhone + ", Email: " + teacherEmail);
+                    } else {
+                        Log.e("Error", "Không tìm thấy thông tin giáo viên.");
+                    }
+                });
+    }
+
+    private void navigateToTeacherProfile() {
+        if (teacherProfile != null) {
             Intent intent = new Intent(this, AdminTeacherInClass.class);
             intent.putExtra("teacherName", teacherProfile.getName());
             intent.putExtra("teacherId", teacherProfile.getId());
             intent.putExtra("teacherPhone", teacherProfile.getPhone());
             intent.putExtra("teacherEmail", teacherProfile.getEmail());
             startActivity(intent);
-        });
-
-        ConstraintLayout itemTeacher = findViewById(R.id.teacherlayout);
-        itemTeacher.setOnClickListener(v -> {
-            // Handle arrow icon click event
-            Intent intent = new Intent(this, AdminTeacherInClass.class);
-            intent.putExtra("teacherName", teacherProfile.getName());
-            intent.putExtra("teacherId", teacherProfile.getId());
-            intent.putExtra("teacherPhone", teacherProfile.getPhone());
-            intent.putExtra("teacherEmail", teacherProfile.getEmail());
-            startActivity(intent);
-        });
-
-
+        } else {
+            Log.e("Error", "Teacher data not loaded yet!");
+        }
     }
 }

@@ -9,7 +9,12 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 public class AdminTeacherInClass extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,19 +31,18 @@ public class AdminTeacherInClass extends AppCompatActivity {
         String phone = getIntent().getStringExtra("teacherPhone");
         String email = getIntent().getStringExtra("teacherEmail");
 
-        teacherName.setText(name);
-        teacherId.setText(id);
-        teacherPhone.setText(phone);
-        teacherEmail.setText(email);
+        teacherName.setText("Họ và tên: " + name);
+        teacherId.setText("Mã giảng viên: " + id);
+        teacherPhone.setText("Số điện thoại: " + phone);
+        teacherEmail.setText("Gmail: " + email);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backArrow.setOnClickListener(v -> onBackPressed());
+
+
 
         Button btnModify = findViewById(R.id.teacher_btn_edit);
         btnModify.setOnClickListener(v -> {
-            // Handle edit button click event
             Intent intent = new Intent(AdminTeacherInClass.this, AdminModifyTeacher.class);
             intent.putExtra("teacherName", name);
             intent.putExtra("teacherId", id);
@@ -47,12 +51,11 @@ public class AdminTeacherInClass extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button btnDelete = findViewById(R.id.teacher_btn_delete);
-        btnDelete.setOnClickListener(v -> {
-            // Handle delete button click event
 
-        });
         TextView title = findViewById(R.id.title_text);
         title.setText("Giảng viên");
     }
+
+
+
 }

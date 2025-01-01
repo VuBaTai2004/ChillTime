@@ -33,32 +33,39 @@ public class TeacherClassFragment extends Fragment {
         TeacherClassAdapter adapter = new TeacherClassAdapter(view.getContext(), classes);
         recyclerView.setAdapter(adapter);
 
-        //classes.add(new TeacherClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
-        //classes.add(new TeacherClass("NT532.P11", "Công nghệ Internet of things hiện đại",  "10", "Nguyễn Văn B"));
+        classes.add(new TeacherClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
+        classes.add(new TeacherClass("NT532.P11", "Công nghệ Internet of things hiện đại",  "10", "Nguyễn Văn B"));
 
-        // Lấy dữ liệu username từ Bundle
         String username = getArguments() != null ? getArguments().getString("username") : null;
 
         db.collection("teachers").whereEqualTo("username", username).get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
                         classes.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            db.collection("teachers").document(username).collection("class_list").get()
+                            String documentId = document.getId();
+                            Log.d("Firestore", "Document ID: " + documentId);
+
+                            db.collection("teachers").document(documentId).collection("class_list").get()
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
                                             for (QueryDocumentSnapshot document1 : task1.getResult()) {
-                                                TeacherClass teacherClass = new TeacherClass(document1.getString("classId"),document1.getString("classSubject")
-                                                        ,document1.getString("studentNum"), document1.getString("classTeacher"));
+                                                TeacherClass teacherClass = new TeacherClass(
+                                                        document1.getString("classId"),
+                                                        document1.getString("classSubject"),
+                                                        document1.getString("studentNum"),
+                                                        document1.getString("classTeacher")
+                                                );
                                                 classes.add(teacherClass);
                                             }
                                             adapter.notifyDataSetChanged();
+                                        } else {
+                                            Log.w("Firestore", "Error getting class list: ", task1.getException());
                                         }
                                     });
                         }
-                        adapter.notifyDataSetChanged();
                     } else {
-                        Log.w("err", "Error getting documents.", task.getException());
+                        Log.w("Firestore", "No teacher found or error: ", task.getException());
                     }
                 });
 

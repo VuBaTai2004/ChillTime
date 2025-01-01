@@ -70,7 +70,7 @@ public class TeacherOpenNotification extends AppCompatActivity {
                         notifications.clear();
                         for(QueryDocumentSnapshot document : task.getResult()){
                             String title = document.getString("title");
-                            String message = document.getString("message");
+                            String message = document.getString("content");
                             notifications.add(new Notification(title, message));
                             Log.d("FirestoreDebug", "Number of documents: " + task.getResult().size());
 

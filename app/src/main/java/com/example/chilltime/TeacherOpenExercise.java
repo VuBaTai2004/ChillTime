@@ -53,21 +53,12 @@ public class TeacherOpenExercise extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<Exercise> exercises = new ArrayList<>();
-        TeacherExerciseAdapter adapter = new TeacherExerciseAdapter(exercises, this);
+        TeacherExerciseAdapter adapter = new TeacherExerciseAdapter(exercises, this, classId);
         recyclerView.setAdapter(adapter);
 
         exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
         exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
-        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
-        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
-        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
-        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
-        exercises.add(new Exercise("Bài tập 1", "10:00 - 12:00", "Nội dung bài tập 1"));
-        exercises.add(new Exercise("Bài tập 2", "13:00 - 15:00", "Nội dung bài tập 2"));
-        exercises.add(new Exercise("Bài tập 3", "16:00 - 18:00", "Nội dung bài tập 3"));
+
 
         FloatingActionButton add = findViewById(R.id.add1);
         add.setOnClickListener(v -> {

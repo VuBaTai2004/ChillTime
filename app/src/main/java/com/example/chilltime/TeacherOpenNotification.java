@@ -48,7 +48,7 @@ public class TeacherOpenNotification extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<Notification> notifications = new ArrayList<>();
-        TeacherNotificationAdapter adapter = new TeacherNotificationAdapter(notifications, this);
+        TeacherNotificationAdapter adapter = new TeacherNotificationAdapter(notifications, this, classId);
         recyclerView.setAdapter(adapter);
 
         notifications.add(new Notification("Thông báo 1", "Nội dung thông báo 1"));

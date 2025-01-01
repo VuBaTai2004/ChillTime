@@ -66,10 +66,12 @@ public class AdminAddTeacherIntoClass extends AppCompatActivity {
                 Intent intent = new Intent(this, AdminAddClass.class);
                 intent.putExtra("teacherId", selectedTeacher.getId());
                 intent.putExtra("classId", getIntent().getStringExtra("classId"));
+                intent.putExtra("classSubject", getIntent().getStringExtra("classSubject"));
                 intent.putExtra("id", getIntent().getStringExtra("id"));
                 intent.putExtra("studentNum", getIntent().getStringExtra("studentNum"));
                 intent.putExtra("time", getIntent().getStringExtra("time"));
                 intent.putExtra("room", getIntent().getStringExtra("room"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Vui lòng chọn giáo viên", Toast.LENGTH_SHORT).show();

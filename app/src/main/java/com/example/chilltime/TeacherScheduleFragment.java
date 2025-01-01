@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -54,76 +57,62 @@ public class TeacherScheduleFragment extends Fragment {
         // Lấy dữ liệu username từ Bundle
         String username = getArguments() != null ? getArguments().getString("username") : null;
 
-
         scheduleMap = new HashMap<>();
 
-        addActivityToDate(CalendarDay.from(2024, 9, 28), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 9, 28), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 9, 29), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+        db.collection("teachers").whereEqualTo("username", username).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        for (QueryDocumentSnapshot teacherDoc : task.getResult()) {
+                            String teacherId = teacherDoc.getId();
 
-        addActivityToDate(CalendarDay.from(2024, 9, 30), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 9, 30), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 9, 31), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+                            db.collection("teachers").document(teacherId).collection("class_list").get()
+                                    .addOnCompleteListener(classTask -> {
+                                        if (classTask.isSuccessful()) {
+                                            for (QueryDocumentSnapshot classDoc : classTask.getResult()) {
+                                                String startTime = classDoc.getString("timeStart");
+                                                String endTime = classDoc.getString("timeEnd");
+                                                String dayOfWeek = classDoc.getString("dayofWeek");
+                                                String time = classDoc.getString("time");
+                                                String classId = classDoc.getString("classId");
+                                                String room = classDoc.getString("room");
 
-        addActivityToDate(CalendarDay.from(2024, 10, 1), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 1), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 2), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+                                                // Parse ngày bắt đầu và kết thúc
+                                                Calendar startDate = Calendar.getInstance();
+                                                Calendar endDate = Calendar.getInstance();
+                                                try {
+                                                    startDate.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(startTime));
+                                                    endDate.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(endTime));
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                    continue;
+                                                }
 
-        addActivityToDate(CalendarDay.from(2024, 10, 3), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 3), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 4), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+                                                // Thêm sự kiện vào lịch theo ngày trong tuần
+                                                while (!startDate.after(endDate)) {
+                                                    if (startDate.get(Calendar.DAY_OF_WEEK) == getDayOfWeek(dayOfWeek)) {
+                                                        CalendarDay calendarDay = CalendarDay.from(
+                                                                startDate.get(Calendar.YEAR),
+                                                                startDate.get(Calendar.MONTH),
+                                                                startDate.get(Calendar.DAY_OF_MONTH)
+                                                        );
 
-        addActivityToDate(CalendarDay.from(2024, 10, 5), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 5), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 6), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+                                                        addActivityToDate(calendarDay, new Activity(time, classId, room));
+                                                    }
+                                                    startDate.add(Calendar.DATE, 1); // Chuyển sang ngày tiếp theo
+                                                }
+                                            }
 
-        addActivityToDate(CalendarDay.from(2024, 10, 7), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 7), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 8), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 9), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 9), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 10), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 11), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 11), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 12), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 13), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 13), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 14), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 15), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 15), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 16), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 17), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 17), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 18), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 19), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 19), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 20), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 21), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 21), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 22), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 23), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 23), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 24), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 25), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 25), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 26), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 27), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 27), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 28), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
-
-        addActivityToDate(CalendarDay.from(2024, 10, 29), new Activity("08:00 - 09:30", "NT532.P11", "B5.06"));
-        addActivityToDate(CalendarDay.from(2024, 10, 30), new Activity("10:00 - 11:30", "NT118.P13", "C3.14"));
-        addActivityToDate(CalendarDay.from(2024, 10, 30), new Activity("13:00 - 14:30", "NT113.P11", "B1.20"));
+                                            // Cập nhật RecyclerView với ngày hiện tại
+                                            loadActivitiesForDate(CalendarDay.today());
+                                        } else {
+                                            Log.w("Firestore", "Error getting class list: ", classTask.getException());
+                                        }
+                                    });
+                        }
+                    } else {
+                        Log.w("Firestore", "No teacher found or error: ", task.getException());
+                    }
+                });
 
         loadActivitiesForDate(CalendarDay.today());
         calendarView.setSelectedDate(CalendarDay.today());
@@ -211,6 +200,19 @@ public class TeacherScheduleFragment extends Fragment {
 
         String formattedDate = String.format("%s ngày %02d tháng %02d năm %d", dayOfWeek, day, month + 1, year);
         txtDay.setText(formattedDate);
+    }
+
+    private int getDayOfWeek(String day) {
+        switch (day.toLowerCase()) {
+            case "mon": return Calendar.MONDAY;
+            case "tue": return Calendar.TUESDAY;
+            case "wed": return Calendar.WEDNESDAY;
+            case "thu": return Calendar.THURSDAY;
+            case "fri": return Calendar.FRIDAY;
+            case "sat": return Calendar.SATURDAY;
+            case "sun": return Calendar.SUNDAY;
+            default: return -1; // Giá trị không hợp lệ
+        }
     }
 
 

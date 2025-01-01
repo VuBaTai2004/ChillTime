@@ -9,9 +9,12 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.sql.Timestamp;
 
 public class TeacherListInfo extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +31,10 @@ public class TeacherListInfo extends AppCompatActivity {
         String phone = getIntent().getStringExtra("teacherPhone");
         String email = getIntent().getStringExtra("teacherEmail");
 
-        teacherName.setText(name);
-        teacherId.setText(id);
-        teacherPhone.setText(phone);
-        teacherEmail.setText(email);
+        teacherName.setText("Họ và tên: " + name);
+        teacherId.setText("Mã sinh viên: " + id);
+        teacherPhone.setText("Số điện thoại: " + phone);
+        teacherEmail.setText("Email: " + email);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {

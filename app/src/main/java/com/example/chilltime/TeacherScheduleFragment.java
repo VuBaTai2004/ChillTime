@@ -16,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -69,37 +70,53 @@ public class TeacherScheduleFragment extends Fragment {
                                     .addOnCompleteListener(classTask -> {
                                         if (classTask.isSuccessful()) {
                                             for (QueryDocumentSnapshot classDoc : classTask.getResult()) {
-                                                String startTime = classDoc.getString("timeStart");
-                                                String endTime = classDoc.getString("timeEnd");
-                                                String dayOfWeek = classDoc.getString("dayofWeek");
-                                                String time = classDoc.getString("time");
                                                 String classId = classDoc.getString("classId");
-                                                String room = classDoc.getString("room");
 
-                                                // Parse ngày bắt đầu và kết thúc
-                                                Calendar startDate = Calendar.getInstance();
-                                                Calendar endDate = Calendar.getInstance();
-                                                try {
-                                                    startDate.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(startTime));
-                                                    endDate.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(endTime));
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                    continue;
-                                                }
+                                                // Truy xuất sang courses_detail để lấy thông tin
+                                                db.collection("courses_detail").document(classId).get()
+                                                        .addOnCompleteListener(courseTask -> {
+                                                            if (courseTask.isSuccessful() && courseTask.getResult() != null) {
+                                                                DocumentSnapshot courseDoc = courseTask.getResult();
 
-                                                // Thêm sự kiện vào lịch theo ngày trong tuần
-                                                while (!startDate.after(endDate)) {
-                                                    if (startDate.get(Calendar.DAY_OF_WEEK) == getDayOfWeek(dayOfWeek)) {
-                                                        CalendarDay calendarDay = CalendarDay.from(
-                                                                startDate.get(Calendar.YEAR),
-                                                                startDate.get(Calendar.MONTH),
-                                                                startDate.get(Calendar.DAY_OF_MONTH)
-                                                        );
+                                                                // Lấy thông tin từ courses_detail
+                                                                String startTime = courseDoc.getString("timeStart");
+                                                                String endTime = courseDoc.getString("timeEnd");
+                                                                String dayOfWeek = courseDoc.getString("dayofWeek");
+                                                                String time = courseDoc.getString("time");
+                                                                String room = courseDoc.getString("room");
 
-                                                        addActivityToDate(calendarDay, new Activity(time, classId, room));
-                                                    }
-                                                    startDate.add(Calendar.DATE, 1); // Chuyển sang ngày tiếp theo
-                                                }
+                                                                // Parse ngày bắt đầu và kết thúc
+                                                                Calendar startDate = Calendar.getInstance();
+                                                                Calendar endDate = Calendar.getInstance();
+                                                                try {
+                                                                    startDate.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(startTime));
+                                                                    endDate.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(endTime));
+                                                                } catch (Exception e) {
+                                                                    e.printStackTrace();
+                                                                }
+
+                                                                // Thêm sự kiện vào lịch theo ngày trong tuần
+                                                                while (!startDate.after(endDate)) {
+                                                                    if (startDate.get(Calendar.DAY_OF_WEEK) == getDayOfWeek(dayOfWeek)) {
+                                                                        CalendarDay calendarDay = CalendarDay.from(
+                                                                                startDate.get(Calendar.YEAR),
+                                                                                startDate.get(Calendar.MONTH),
+                                                                                startDate.get(Calendar.DAY_OF_MONTH)
+                                                                        );
+
+                                                                        // Gán thông tin vào lịch
+                                                                        addActivityToDate(calendarDay, new Activity(
+                                                                                time,
+                                                                                classId,
+                                                                                room
+                                                                        ));
+                                                                    }
+                                                                    startDate.add(Calendar.DATE, 1); // Chuyển sang ngày tiếp theo
+                                                                }
+                                                            } else {
+                                                                Log.w("Firestore", "Error getting course details: ", courseTask.getException());
+                                                            }
+                                                        });
                                             }
 
                                             // Cập nhật RecyclerView với ngày hiện tại
@@ -113,6 +130,8 @@ public class TeacherScheduleFragment extends Fragment {
                         Log.w("Firestore", "No teacher found or error: ", task.getException());
                     }
                 });
+
+
 
         loadActivitiesForDate(CalendarDay.today());
         calendarView.setSelectedDate(CalendarDay.today());

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -27,11 +28,13 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
         public TextView teacherPhoneTextView;
         public TextView teacherEmailTextView;
         public ImageView arrowIcon;
+        public ConstraintLayout itemPeople;
+
         public TeacherViewHolder(View itemView) {
             super(itemView);
             teacherNameTextView = itemView.findViewById(R.id.people_name);
-
             arrowIcon = itemView.findViewById(R.id.arrow_icon1);
+            itemPeople = itemView.findViewById(R.id.item_people_child);
         }
 
     }
@@ -47,6 +50,18 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
         TeacherProfile currentItem = teacherList.get(position);
         holder.teacherNameTextView.setText(currentItem.getName());
         holder.arrowIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TeacherListInfo.class);
+                intent.putExtra("teacherName", currentItem.getName());
+                intent.putExtra("teacherId", currentItem.getId());
+                intent.putExtra("teacherPhone", currentItem.getPhone());
+                intent.putExtra("teacherEmail", currentItem.getEmail());
+                context.startActivity(intent);
+
+            }
+        });
+        holder.itemPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TeacherListInfo.class);

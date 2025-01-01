@@ -68,8 +68,7 @@ public class AdminTeacherInfo extends AppCompatActivity {
                                     .addOnCompleteListener(task -> {
                                         if(task.isSuccessful()){
                                             for(QueryDocumentSnapshot document : task.getResult()){
-                                                DocumentReference docRef = db.collection("teachers").document(document.getId());
-                                                docRef.delete();
+                                                db.collection("teachers").document(document.getId()).delete();
 
                                             }
                                             onBackPressed();

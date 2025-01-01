@@ -67,11 +67,11 @@ public class AdminStudentAdapter extends RecyclerView.Adapter<AdminStudentAdapte
             @Override
             public void onClick(View v) {
                 // Handle arrow icon click event
-                Intent intent = new Intent(context, AdminTeacherInfo.class);
-                intent.putExtra("teacherName", currentItem.getName());
-                intent.putExtra("teacherId", currentItem.getId());
-                intent.putExtra("teacherPhone", currentItem.getPhone());
-                intent.putExtra("teacherEmail", currentItem.getEmail());
+                Intent intent = new Intent(context, AdminStudentInfo.class);
+                intent.putExtra("studentName", currentItem.getName());
+                intent.putExtra("studentId", currentItem.getId());
+                intent.putExtra("studentPhone", currentItem.getPhone());
+                intent.putExtra("studentEmail", currentItem.getEmail());
                 context.startActivity(intent);
             }
         });

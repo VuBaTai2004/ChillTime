@@ -16,12 +16,23 @@ public class StudentSemesterTranscript {
         this.currentSemester = currentSemester;
     }
 
+    // Getter cho currentSemester
     public String getCurrentSemester() {
         return currentSemester;
     }
 
+    // Getter cho studentTranscripts
     public List<StudentTranscript> getStudentTranscripts() {
         return studentTranscripts;
     }
 
+    // Method để lấy tên học kỳ
+    public String getSemesterName() {
+        return currentSemester;
+    }
+
+    // Method để lấy danh sách các khóa học
+    public List<StudentTranscript> getCourses() {
+        return studentTranscripts;
+    }
 }

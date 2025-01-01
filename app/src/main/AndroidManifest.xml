@@ -37,6 +37,10 @@
         <activity android:name=".TeacherAddExercise" />
         <activity android:name=".TeacherAddNotification" />
         <activity android:name=".TeacherBroadInfo" />
+        <activity android:name=".TeacherExerciseInfo" />
+        <activity android:name=".TeacherExerciseEdit" />
+        <activity android:name=".TeacherNotificationInfo" />
+        <activity android:name=".TeacherNotificationEdit" />
         <activity android:name=".AdminTeacherInfo" />
         <activity android:name=".AdminStudentInfo" />
         <activity android:name=".AdminTeacherFragment" />

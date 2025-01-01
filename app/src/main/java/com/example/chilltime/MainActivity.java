@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         switch (collection) {
             case "admins":
                 intent = new Intent(this, AdminActivity.class);
+                intent.putExtra("username", username);
                 break;
             case "teachers":
                 intent = new Intent(this, TeacherActivity.class);
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "students":
                 intent = new Intent(this, StudentActivity.class);
+                intent.putExtra("username", username);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + collection);

@@ -73,6 +73,12 @@ public class TeacherActivity extends AppCompatActivity {
             fragment.setArguments(bundle);
         }
 
+        if (fragment instanceof TeacherScheduleFragment && username != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            fragment.setArguments(bundle);
+        }
+
         if (isAppInitialized) {
             fragmentTransaction.add(R.id.fragment_container, fragment);
         }
@@ -80,6 +86,5 @@ public class TeacherActivity extends AppCompatActivity {
 
         fragmentTransaction.commit();
     }
-
 
 }

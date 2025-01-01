@@ -46,6 +46,7 @@ public class AdminAddTeacher extends AppCompatActivity {
             teacher.put("name", etName.getText().toString());
             teacher.put("phone", etPhone.getText().toString());
             teacher.put("email", etEmail.getText().toString());
+            teacher.put("password", PasswordUtil.hashPassword("teacher123"));
 
             db.collection("teachers").add(teacher);
 

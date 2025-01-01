@@ -12,13 +12,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentTranscriptFragment extends Fragment {
+    String username;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String id;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_transcript, container, false);
+
+        username = getArguments() != null ? getArguments().getString("username") : null;
+
+        if (username != null) {
+            db.collection("students")
+                    .whereEqualTo("username", username)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                id = document.getString("id");
+                            }
+                        } else {
+                            Log.e("Firestore", "Error getting documents: ", task.getException());
+                        }
+                    });
+        }
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_student_transcript);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -26,7 +50,6 @@ public class StudentTranscriptFragment extends Fragment {
         List<StudentSemesterTranscript> allSemesters = getAllSemestersTranscript();
         SemesterTranscriptAdapter adapter = new SemesterTranscriptAdapter(allSemesters);
         recyclerView.setAdapter(adapter);
-
         return view;
     }
 
@@ -45,5 +68,32 @@ public class StudentTranscriptFragment extends Fragment {
         semesters.add(new StudentSemesterTranscript("HK2 2023-2024", semester2Courses));
 
         return semesters;
+    }
+
+    private StudentTranscript studentTranscript(){
+
+        db.collection("points")
+                .whereEqualTo("studentId", id)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        try {
+                            // Lấy các giá trị từ document và chuyển sang số
+                            String classId = document.getString("classId");
+                            float progressGrade = Float.parseFloat(document.getString("qt"));
+                            float practiceGrade = Float.parseFloat(document.getString("th"));
+                            float midtermGrade = Float.parseFloat(document.getString("gk"));
+                            float termGrade = Float.parseFloat(document.getString("ck"));
+
+                            // Tính điểm cuối cùng
+                            float finalGrade = (float) ((progressGrade * 0.15) + (practiceGrade * 0.15) + (midtermGrade * 0.30) + (termGrade * 0.40));
+                            StudentTranscript transcript = new StudentTranscript(id, classId, progressGrade, practiceGrade, midtermGrade, termGrade, finalGrade);
+
+                        } catch (NumberFormatException e) {
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                });
     }
 }

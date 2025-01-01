@@ -2,6 +2,7 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,7 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 public class TeacherOpenClass extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,8 @@ public class TeacherOpenClass extends AppCompatActivity {
         backArrow.setOnClickListener(v -> {
             onBackPressed();
         });
+
+
 
         ImageView arrowIcon1 = findViewById(R.id.arrow_icon1);
         ImageView arrowIcon2 = findViewById(R.id.arrow_icon2);

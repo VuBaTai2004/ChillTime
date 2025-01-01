@@ -53,7 +53,7 @@ public class TeacherOpenList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<TeacherProfile> students = new ArrayList<>();
-        TeacherListAdapter adapter = new TeacherListAdapter(this, students);
+        TeacherListAdapter adapter = new TeacherListAdapter(this, students, classId);
         recyclerView.setAdapter(adapter);
 
         students.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));

@@ -87,6 +87,7 @@ public class ChangePassword extends AppCompatActivity {
 
     private void validateOldPasswordAndUpdate(String oldPassword, String newPassword) {
         String passwordHash = PasswordUtil.hashPassword(oldPassword);
+        String passwordHash1 = PasswordUtil.hashPassword(newPassword);
         db.collection("teachers")
                 .whereEqualTo("username", username)
                 .get()
@@ -95,11 +96,11 @@ public class ChangePassword extends AppCompatActivity {
                         QuerySnapshot snapshot = task.getResult();
                         String storedPassword = snapshot.getDocuments().get(0).getString("password");
                         // Kiểm tra mật khẩu cũ
-                        if (passwordHash.equals(passwordHash)) {
+                        if (storedPassword.equals(passwordHash)) {
                             // Cập nhật mật khẩu mới
                             String docId = snapshot.getDocuments().get(0).getId();
                             db.collection("teachers").document(docId)
-                                    .update("password", newPassword)
+                                    .update("password", passwordHash1)
                                     .addOnSuccessListener(aVoid -> {
                                         Toast.makeText(this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                                         finish(); // Quay lại màn hình trước

@@ -55,7 +55,7 @@ public class TeacherOpenBoard extends AppCompatActivity {
                 new ArrayList<>(Arrays.asList("STT", "Họ và tên", "QT", "TH", "GK", "CK", "TB"))
         ));
 
-        TeachBoardAdapter adapter = new TeachBoardAdapter(this,data);
+        TeachBoardAdapter adapter = new TeachBoardAdapter(this,data,classId);
         recyclerView.setAdapter(adapter);
 
         db.collection("points").whereEqualTo("classId", classId).get()

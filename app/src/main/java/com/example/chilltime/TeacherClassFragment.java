@@ -17,57 +17,29 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherClassFragment extends Fragment {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ArrayList<TeacherClass> classes = new ArrayList<>();
+    private TeacherClassAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teacher_class, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        ArrayList<TeacherClass> classes = new ArrayList<>();
-        TeacherClassAdapter adapter = new TeacherClassAdapter(view.getContext(), classes);
+        adapter = new TeacherClassAdapter(view.getContext(), classes);
         recyclerView.setAdapter(adapter);
 
-        classes.add(new TeacherClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
-        classes.add(new TeacherClass("NT532.P11", "Công nghệ Internet of things hiện đại",  "10", "Nguyễn Văn B"));
-
+        // Fetch data from Firestore
         String username = getArguments() != null ? getArguments().getString("username") : null;
-
-        db.collection("teachers").whereEqualTo("username", username).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        classes.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String documentId = document.getId();
-
-                            db.collection("teachers").document(documentId).collection("class_list").get()
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document1 : task1.getResult()) {
-                                                TeacherClass teacherClass = new TeacherClass(
-                                                        document1.getString("classId"),
-                                                        document1.getString("classSubject"),
-                                                        document1.getString("studentNum"),
-                                                        document1.getString("classTeacher")
-                                                );
-                                                classes.add(teacherClass);
-                                            }
-                                            adapter.notifyDataSetChanged();
-                                        } else {
-                                            Log.w("Firestore", "Error getting class list: ", task1.getException());
-                                        }
-                                    });
-                        }
-                    } else {
-                        Log.w("Firestore", "No teacher found or error: ", task.getException());
-                    }
-                });
-
+        if (username != null) {
+            fetchTeacherClasses(username);
+        } else {
+            Log.e("TeacherClassFragment", "Username is null, cannot load classes.");
+        }
 
         EditText etSearch = view.findViewById(R.id.et_class_search);
         etSearch.setOnClickListener(v -> {
@@ -75,5 +47,82 @@ public class TeacherClassFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+    private void fetchTeacherClasses(String username) {
+        fetchTeacherId(username, teacherId -> {
+            if (teacherId != null) {
+                fetchClassIds(teacherId, classIds -> {
+                    if (classIds != null) {
+                        for (String classId : classIds) {
+                            fetchClassDetails(classId, teacherClass -> {
+                                if (teacherClass != null) {
+                                    classes.add(teacherClass);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+    private void fetchTeacherId(String username, OnCompleteListener<String> onComplete) {
+        db.collection("teachers").whereEqualTo("username", username).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        String teacherId = task.getResult().getDocuments().get(0).getId();
+                        onComplete.onComplete(teacherId);
+                    } else {
+                        Log.w("Firestore", "No teacher found or error: ", task.getException());
+                        onComplete.onComplete(null);
+                    }
+                });
+    }
+
+
+    private void fetchClassIds(String teacherId, OnCompleteListener<List<String>> onComplete) {
+        db.collection("teachers").document(teacherId).collection("class_list").get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<String> classIds = new ArrayList<>();
+                        for (QueryDocumentSnapshot classDoc : task.getResult()) {
+                            String classId = classDoc.getString("classId");
+                            if (classId != null) {
+                                classIds.add(classId);
+                            }
+                        }
+                        onComplete.onComplete(classIds);
+                    } else {
+                        Log.w("Firestore", "Error getting class list: ", task.getException());
+                        onComplete.onComplete(null);
+                    }
+                });
+    }
+
+    private void fetchClassDetails(String classId, OnCompleteListener<TeacherClass> onComplete) {
+        db.collection("courses_detail").document(classId).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        DocumentSnapshot courseDoc = task.getResult();
+                        TeacherClass teacherClass = new TeacherClass(
+                                courseDoc.getString("classId"),
+                                courseDoc.getString("classSubject"),
+                                courseDoc.getString("studentNum"),
+                                courseDoc.getString("classTeacher")
+                        );
+                        onComplete.onComplete(teacherClass);
+                    } else {
+                        Log.w("Firestore", "Error getting course details: ", task.getException());
+                        onComplete.onComplete(null);
+                    }
+                });
+    }
+
+    private interface OnCompleteListener<T> {
+        void onComplete(T result);
     }
 }

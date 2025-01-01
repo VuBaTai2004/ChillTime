@@ -40,8 +40,6 @@ public class AdminStudentFragment extends Fragment {
         AdminStudentAdapter adapter = new AdminStudentAdapter(getContext(), students);
         recyclerView.setAdapter(adapter);
 
-        students.add(new StudentProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
-
         FloatingActionButton add = view.findViewById(R.id.add);
         add.setOnClickListener(v -> {
             // Handle add button click event
@@ -58,7 +56,7 @@ public class AdminStudentFragment extends Fragment {
                             StudentProfile student = new StudentProfile(
                                     document.getString("name"),
                                     document.getString("id"),  // Thêm trường id
-                                    "0000000000",
+                                    document.getString("phone"),
                                     document.getString("email")
                             );
                             students.add(student);

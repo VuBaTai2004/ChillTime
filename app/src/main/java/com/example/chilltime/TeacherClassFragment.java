@@ -44,7 +44,6 @@ public class TeacherClassFragment extends Fragment {
                         classes.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String documentId = document.getId();
-                            Log.d("Firestore", "Document ID: " + documentId);
 
                             db.collection("teachers").document(documentId).collection("class_list").get()
                                     .addOnCompleteListener(task1 -> {

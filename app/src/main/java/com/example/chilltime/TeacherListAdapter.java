@@ -16,10 +16,12 @@ import java.util.ArrayList;
 public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.TeacherViewHolder> {
     private final Context context;
     private final ArrayList<TeacherProfile> teacherList;
+    private final String classId;
 
-    public TeacherListAdapter(Context context, ArrayList<TeacherProfile> teacherList) {
+    public TeacherListAdapter(Context context, ArrayList<TeacherProfile> teacherList, String classId) {
         this.teacherList = teacherList;
         this.context = context;
+        this.classId = classId;
     }
 
     public static class TeacherViewHolder extends RecyclerView.ViewHolder {
@@ -57,6 +59,7 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
                 intent.putExtra("teacherId", currentItem.getId());
                 intent.putExtra("teacherPhone", currentItem.getPhone());
                 intent.putExtra("teacherEmail", currentItem.getEmail());
+                intent.putExtra("classId", classId);
                 context.startActivity(intent);
 
             }
@@ -69,6 +72,7 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
                 intent.putExtra("teacherId", currentItem.getId());
                 intent.putExtra("teacherPhone", currentItem.getPhone());
                 intent.putExtra("teacherEmail", currentItem.getEmail());
+                intent.putExtra("classId", classId);
                 context.startActivity(intent);
 
             }

@@ -46,7 +46,7 @@ public class AdminAddStudent extends AppCompatActivity {
             student.put("name", etName.getText().toString());
             student.put("phone", etPhone.getText().toString());
             student.put("email", etEmail.getText().toString());
-            student.put("password", "123456");
+            student.put("password", PasswordUtil.hashPassword("student123"));
             student.put("username", "test");
 
             db.collection("students").add(student);

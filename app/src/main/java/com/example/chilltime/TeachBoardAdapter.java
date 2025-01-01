@@ -1,10 +1,12 @@
 package com.example.chilltime;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,18 +16,20 @@ import java.util.List;
 public class TeachBoardAdapter extends RecyclerView.Adapter<TeachBoardAdapter.TeachBoardViewHolder> {
     private final Context context;
     private List<List<String>> data;
+    private String classId;
 
-    public TeachBoardAdapter(Context context, List<List<String>> data) {
+    public TeachBoardAdapter(Context context, List<List<String>> data, String classId) {
         this.context = context;
         this.data = data;
+        this.classId = classId;
     }
 
     public static class TeachBoardViewHolder extends RecyclerView.ViewHolder {
         TextView column1, column2, column3, column4, column5, column6, column7;
+        HorizontalScrollView scrollView;
 
         public TeachBoardViewHolder(View itemView) {
             super(itemView);
-            // Khởi tạo các thành phần giao diện của item
             column1 = itemView.findViewById(R.id.tvColumn1);
             column2 = itemView.findViewById(R.id.tvColumn2);
             column3 = itemView.findViewById(R.id.tvColumn3);
@@ -33,6 +37,7 @@ public class TeachBoardAdapter extends RecyclerView.Adapter<TeachBoardAdapter.Te
             column5 = itemView.findViewById(R.id.tvColumn5);
             column6 = itemView.findViewById(R.id.tvColumn6);
             column7 = itemView.findViewById(R.id.tvColumn7);
+            scrollView = itemView.findViewById(R.id.scrollView);
         }
     }
 
@@ -54,10 +59,10 @@ public class TeachBoardAdapter extends RecyclerView.Adapter<TeachBoardAdapter.Te
         holder.column6.setText(row.get(5)); // CK
         holder.column7.setText(row.get(6)); // TB
 
-
         if (position == 0) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#DCE1EF")); // Màu nền khác biệt
-            holder.column1.setTextColor(Color.BLACK); // Màu chữ nổi bật
+            // Thiết lập giao diện cho hàng đầu tiên (Header)
+            holder.itemView.setBackgroundColor(Color.parseColor("#DCE1EF"));
+            holder.column1.setTextColor(Color.BLACK);
             holder.column2.setTextColor(Color.BLACK);
             holder.column3.setTextColor(Color.BLACK);
             holder.column4.setTextColor(Color.BLACK);
@@ -72,15 +77,36 @@ public class TeachBoardAdapter extends RecyclerView.Adapter<TeachBoardAdapter.Te
             holder.column5.setTypeface(null, android.graphics.Typeface.BOLD);
             holder.column6.setTypeface(null, android.graphics.Typeface.BOLD);
             holder.column7.setTypeface(null, android.graphics.Typeface.BOLD);
+
+            // Ngăn không cho hàng đầu tiên được nhấn
+            holder.scrollView.setOnClickListener(null);
         } else {
-            holder.itemView.setBackgroundColor(Color.WHITE); // Màu nền mặc định cho các hàng khác
-            holder.column1.setTextColor(Color.BLACK); // Màu chữ của các dòng khác
+            // Thiết lập giao diện cho các hàng khác
+            holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.column1.setTextColor(Color.BLACK);
             holder.column2.setTextColor(Color.BLACK);
             holder.column3.setTextColor(Color.BLACK);
             holder.column4.setTextColor(Color.BLACK);
             holder.column5.setTextColor(Color.BLACK);
             holder.column6.setTextColor(Color.BLACK);
             holder.column7.setTextColor(Color.BLACK);
+
+            // Xử lý sự kiện nhấn vào phần tử
+            holder.scrollView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, TeacherBroadInfo.class);
+
+                // Truyền tất cả các cột qua Intent
+                intent.putExtra("teacherId", row.get(0)); // ID
+                intent.putExtra("teacherName", row.get(1)); // Họ và tên
+                intent.putExtra("classId",classId);
+                intent.putExtra("qt", row.get(2)); // QT
+                intent.putExtra("th", row.get(3)); // TH
+                intent.putExtra("gk", row.get(4)); // GK
+                intent.putExtra("ck", row.get(5)); // CK
+                intent.putExtra("tb", row.get(6)); // TB
+
+                context.startActivity(intent);
+            });
         }
     }
 

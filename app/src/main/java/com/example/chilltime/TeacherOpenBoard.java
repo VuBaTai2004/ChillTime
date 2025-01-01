@@ -55,71 +55,52 @@ public class TeacherOpenBoard extends AppCompatActivity {
                 new ArrayList<>(Arrays.asList("STT", "Họ và tên", "QT", "TH", "GK", "CK", "TB"))
         ));
 
-        TeachBoardAdapter adapter = new TeachBoardAdapter(this,data);
+        TeachBoardAdapter adapter = new TeachBoardAdapter(this,data,classId);
         recyclerView.setAdapter(adapter);
 
-//        db.collection("points").whereEqualTo("classId", classId).get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        for (QueryDocumentSnapshot document : task.getResult()) {
-//                            String id = document.getString("id");
-//                            String qt = document.getString("qt");
-//                            String th = document.getString("th");
-//                            String gk = document.getString("gk");
-//                            String ck = document.getString("ck");
-//                            db.collection("students").whereEqualTo("id", document.getString("id")).get()
-//                                    .addOnCompleteListener(task1 -> {
-//                                        for (QueryDocumentSnapshot document1 : task1.getResult()) {
-//                                            String name = document1.getString("name");
-//                                            int stt = data.size();
-//                                            data.add(Arrays.asList(String.valueOf(stt), name, qt, th, gk, ck, "TB"));
-//
-//                                            Log.d("students_points", "data: " + name);
-//                                        }
-//                                        adapter.notifyDataSetChanged();
-//                                    });
-//                            Log.d("points", "data: " + document.getData());
-//                        }
-//                    }
-//                });
-        db.collection("points").whereEqualTo("classId", classId)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        data.clear();
-                        data.add(Arrays.asList("STT", "Họ và tên", "QT", "TH", "GK", "CK", "TB"));
+        db.collection("points").whereEqualTo("classId", classId).get()
+                .addOnCompleteListener(pointsTask -> {
+                    if (pointsTask.isSuccessful()) {
+                        List<Map<String, Object>> pointsList = new ArrayList<>();
+                        for (QueryDocumentSnapshot pointDoc : pointsTask.getResult()) {
+                            pointsList.add(pointDoc.getData());
+                        }
 
-                        // Tạo một Map để lưu thông tin sinh viên
-                        Map<String, String> studentMap = new HashMap<>();
-                        db.collection("students").get()
-                                .addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()) {
-                                        for (QueryDocumentSnapshot studentDoc : task1.getResult()) {
-                                            studentMap.put(studentDoc.getString("id"), studentDoc.getString("name"));
+                        // Lặp qua từng studentId trong danh sách points
+                        for (Map<String, Object> point : pointsList) {
+                            String studentId = (String) point.get("studentId");
+                            float progressGrade = Float.parseFloat((String) point.get("qt"));
+                            float practiceGrade = Float.parseFloat((String) point.get("th"));
+                            float midtermGrade = Float.parseFloat((String) point.get("gk"));
+                            float termGrade = Float.parseFloat((String) point.get("ck"));
+                            float finalGrade = (float) ((progressGrade * 0.15) + (practiceGrade * 0.15) + (midtermGrade * 0.30) + (termGrade * 0.40));
+
+                            // Truy vấn vào collection "students" để lấy tên
+                            db.collection("students").whereEqualTo("id", studentId).get()
+                                    .addOnCompleteListener(studentTask -> {
+                                        if (studentTask.isSuccessful() && !studentTask.getResult().isEmpty()) {
+                                            for (QueryDocumentSnapshot studentDoc : studentTask.getResult()) {
+                                                String studentName = (String) studentDoc.get("name");
+
+                                                // Thêm dữ liệu vào danh sách hiển thị
+                                                data.add(new ArrayList<>(Arrays.asList(
+                                                        studentId,  // Sử dụng studentId thay vì STT
+                                                        studentName,
+                                                        String.valueOf(progressGrade),
+                                                        String.valueOf(practiceGrade),
+                                                        String.valueOf(midtermGrade),
+                                                        String.valueOf(termGrade),
+                                                        String.format("%.2f", finalGrade)
+                                                )));
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        } else {
+                                            Log.w("Firestore", "Không tìm thấy thông tin student với ID: " + studentId);
                                         }
-
-                                        // Sau khi có dữ liệu sinh viên, xử lý điểm
-                                        int stt = 1;
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            String studentId = document.getString("studentId");
-                                            String name = studentMap.getOrDefault(studentId, "Unknown");
-                                            String qt = document.getString("qt");
-                                            String th = document.getString("th");
-                                            String gk = document.getString("gk");
-                                            String ck = document.getString("ck");
-
-                                            data.add(Arrays.asList(String.valueOf(stt), name, qt, th, gk, ck, "TB"));
-                                            stt++;
-                                        }
-
-                                        adapter.notifyDataSetChanged();
-                                    } else {
-                                        Log.w("err", "Error getting student documents.", task1.getException());
-                                    }
-                                });
+                                    });
+                        }
                     } else {
-                        Log.w("err", "Error getting points documents.", task.getException());
+                        Log.w("Firestore", "Lỗi khi lấy danh sách điểm: ", pointsTask.getException());
                     }
                 });
 

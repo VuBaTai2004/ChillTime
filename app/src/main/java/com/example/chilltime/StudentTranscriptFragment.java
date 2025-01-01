@@ -70,30 +70,30 @@ public class StudentTranscriptFragment extends Fragment {
         return semesters;
     }
 
-    private StudentTranscript studentTranscript(){
-
-        db.collection("points")
-                .whereEqualTo("studentId", id)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        try {
-                            // Lấy các giá trị từ document và chuyển sang số
-                            String classId = document.getString("classId");
-                            float progressGrade = Float.parseFloat(document.getString("qt"));
-                            float practiceGrade = Float.parseFloat(document.getString("th"));
-                            float midtermGrade = Float.parseFloat(document.getString("gk"));
-                            float termGrade = Float.parseFloat(document.getString("ck"));
-
-                            // Tính điểm cuối cùng
-                            float finalGrade = (float) ((progressGrade * 0.15) + (practiceGrade * 0.15) + (midtermGrade * 0.30) + (termGrade * 0.40));
-                            StudentTranscript transcript = new StudentTranscript(id, classId, progressGrade, practiceGrade, midtermGrade, termGrade, finalGrade);
-
-                        } catch (NumberFormatException e) {
-                        }
-                    }
-                })
-                .addOnFailureListener(e -> {
-                });
-    }
+//    private StudentTranscript studentTranscript(){
+//
+////        db.collection("points")
+////                .whereEqualTo("studentId", id)
+////                .get()
+////                .addOnSuccessListener(queryDocumentSnapshots -> {
+////                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+////                        try {
+////                            // Lấy các giá trị từ document và chuyển sang số
+////                            String classId = document.getString("classId");
+////                            float progressGrade = Float.parseFloat(document.getString("qt"));
+////                            float practiceGrade = Float.parseFloat(document.getString("th"));
+////                            float midtermGrade = Float.parseFloat(document.getString("gk"));
+////                            float termGrade = Float.parseFloat(document.getString("ck"));
+////
+////                            // Tính điểm cuối cùng
+////                            float finalGrade = (float) ((progressGrade * 0.15) + (practiceGrade * 0.15) + (midtermGrade * 0.30) + (termGrade * 0.40));
+////                            StudentTranscript transcript = new StudentTranscript(id, classId, progressGrade, practiceGrade, midtermGrade, termGrade, finalGrade);
+////
+////                        } catch (NumberFormatException e) {
+////                        }
+////                    }
+////                })
+////                .addOnFailureListener(e -> {
+////                });
+////    }
 }

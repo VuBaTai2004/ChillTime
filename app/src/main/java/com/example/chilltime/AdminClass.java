@@ -49,15 +49,23 @@ public class AdminClass extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         classes.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            db.collection("courses").document(subject).collection("class_list").get()
+                            db.collection("courses").document(document.getId()).collection("class_list").get()
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
                                             for (QueryDocumentSnapshot document1 : task1.getResult()) {
-                                                TeacherClass teacherClass = new TeacherClass(document1.getString("classId"),document.getString("subject")
-                                                        ,document1.getString("studentNum"), document1.getString("teacherId"));
-                                                classes.add(teacherClass);
+                                                db.collection("courses_detail").whereEqualTo("classId", document1.getString("id")).get()
+                                                        .addOnCompleteListener(task2 -> {
+                                                            if (task2.isSuccessful()) {
+                                                                for (QueryDocumentSnapshot document2 : task2.getResult()) {
+                                                                    TeacherClass teacherClass = new TeacherClass(document2.getString("classId"),document2.getString("classSubject")
+                                                                            ,document2.getString("studentNum"), document2.getString("classTeacher"));
+                                                                    classes.add(teacherClass);
+                                                                }
+                                                                adapter.notifyDataSetChanged();
+                                                            }
+                                                        });
                                             }
-                                            adapter.notifyDataSetChanged();
+
                                         }
                                     });
                         }

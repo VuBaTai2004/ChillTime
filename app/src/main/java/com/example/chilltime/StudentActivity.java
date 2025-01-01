@@ -34,6 +34,8 @@ public class StudentActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_student);
 
+        String username = getIntent().getStringExtra("username");
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -41,31 +43,62 @@ public class StudentActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.nav_schedule) {
-                    loadFragment(new StudentScheduleFragment(), false);
+                    loadFragment(new StudentScheduleFragment(), false, username);
                 }
                 else if (itemId == R.id.nav_class) {
-                    loadFragment(new StudentClassFragment(), false);
+                    loadFragment(new StudentClassFragment(), false, username);
                 }
                 else if (itemId == R.id.nav_transcript) {
-                    loadFragment(new StudentTranscriptFragment(), false);
+                    loadFragment(new StudentTranscriptFragment(), false, username);
                 }
                 else if (itemId == R.id.nav_notification) {
-                    loadFragment(new StudentNotificationFragment(), false);
+                    loadFragment(new StudentNotificationFragment(), false, username);
                 }
                 else if (itemId == R.id.nav_profile) {
-                    loadFragment(new StudentProfileFragment(), false);
+                    loadFragment(new StudentProfileFragment(), false, username);
                 }
                 return true;
             }
         });
 
-        loadFragment(new StudentScheduleFragment(), true);
+        loadFragment(new StudentScheduleFragment(), true, username);
 
     }
 
-    private void loadFragment(Fragment fragment, boolean isAppInitialized){
+    private void loadFragment(Fragment fragment, boolean isAppInitialized, String username){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+        if (fragment instanceof StudentProfileFragment && username != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            fragment.setArguments(bundle);
+        }
+
+        if (fragment instanceof StudentClassFragment && username != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            fragment.setArguments(bundle);
+        }
+
+        if (fragment instanceof StudentScheduleFragment && username != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            fragment.setArguments(bundle);
+        }
+
+        if (fragment instanceof StudentNotificationFragment && username != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            fragment.setArguments(bundle);
+        }
+
+        if (fragment instanceof StudentTranscriptFragment && username != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", username);
+            fragment.setArguments(bundle);
+        }
 
         if (isAppInitialized) {
             fragmentTransaction.add(R.id.fragment_container, fragment);

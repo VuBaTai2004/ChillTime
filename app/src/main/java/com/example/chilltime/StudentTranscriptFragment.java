@@ -10,18 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class StudentTranscriptFragment extends Fragment {
-    String username;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String id;
+    private static final String TAG = "StudentTranscriptFragment";
+
+    private String username;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String studentId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,71 +33,121 @@ public class StudentTranscriptFragment extends Fragment {
 
         username = getArguments() != null ? getArguments().getString("username") : null;
 
-        if (username != null) {
-            db.collection("students")
-                    .whereEqualTo("username", username)
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                id = document.getString("id");
-                            }
-                        } else {
-                            Log.e("Firestore", "Error getting documents: ", task.getException());
-                        }
-                    });
-        }
-
         RecyclerView recyclerView = view.findViewById(R.id.rv_student_transcript);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<StudentSemesterTranscript> allSemesters = getAllSemestersTranscript();
-        SemesterTranscriptAdapter adapter = new SemesterTranscriptAdapter(allSemesters);
-        recyclerView.setAdapter(adapter);
+        if (username != null) {
+            fetchStudentIdAndTranscripts(username, recyclerView);
+        } else {
+            Log.e(TAG, "Username is null!");
+        }
+
         return view;
     }
 
-    private List<StudentSemesterTranscript> getAllSemestersTranscript() {
-        List<StudentSemesterTranscript> semesters = new ArrayList<>();
-
-        // Semester 1 example
-        List<StudentTranscript> semester1Courses = new ArrayList<>();
-        semester1Courses.add(new StudentTranscript("IDSV1","IT001.P11", 8.0f, 7.5f, 7.0f, 7.5f));
-        semester1Courses.add(new StudentTranscript("IDSV1","IT002.P12", 8.0f, 7.5f, 7.0f, 7.5f));
-        semesters.add(new StudentSemesterTranscript("HK1 2023-2024", semester1Courses));
-
-        // Semester 2 example
-        List<StudentTranscript> semester2Courses = new ArrayList<>();
-        semester2Courses.add(new StudentTranscript("IDSV1","IT003.P13", 3, 7.5f, 8.0f, 7.8f, 8.2f));
-        semesters.add(new StudentSemesterTranscript("HK2 2023-2024", semester2Courses));
-
-        return semesters;
+    private void fetchStudentIdAndTranscripts(String username, RecyclerView recyclerView) {
+        db.collection("students")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        studentId = task.getResult().getDocuments().get(0).getString("id");
+                        fetchTranscripts(studentId, recyclerView);
+                    } else {
+                        Log.e(TAG, "Student not found");
+                    }
+                });
     }
 
-//    private StudentTranscript studentTranscript(){
-//
-////        db.collection("points")
-////                .whereEqualTo("studentId", id)
-////                .get()
-////                .addOnSuccessListener(queryDocumentSnapshots -> {
-////                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-////                        try {
-////                            // Lấy các giá trị từ document và chuyển sang số
-////                            String classId = document.getString("classId");
-////                            float progressGrade = Float.parseFloat(document.getString("qt"));
-////                            float practiceGrade = Float.parseFloat(document.getString("th"));
-////                            float midtermGrade = Float.parseFloat(document.getString("gk"));
-////                            float termGrade = Float.parseFloat(document.getString("ck"));
-////
-////                            // Tính điểm cuối cùng
-////                            float finalGrade = (float) ((progressGrade * 0.15) + (practiceGrade * 0.15) + (midtermGrade * 0.30) + (termGrade * 0.40));
-////                            StudentTranscript transcript = new StudentTranscript(id, classId, progressGrade, practiceGrade, midtermGrade, termGrade, finalGrade);
-////
-////                        } catch (NumberFormatException e) {
-////                        }
-////                    }
-////                })
-////                .addOnFailureListener(e -> {
-////                });
-////    }
+    private void fetchTranscripts(String studentId, RecyclerView recyclerView) {
+        db.collection("points")
+                .whereEqualTo("studentId", studentId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<StudentSemesterTranscript> semesters = new ArrayList<>();
+
+                        task.getResult().forEach(document -> {
+                            String classId = document.getString("classId");
+                            float progressGrade = Float.parseFloat(document.getString("qt"));
+                            float practiceGrade = Float.parseFloat(document.getString("th"));
+                            float midtermGrade = Float.parseFloat(document.getString("gk"));
+                            float termGrade = Float.parseFloat(document.getString("ck"));
+
+                            float finalGrade = (progressGrade * 0.15f) +
+                                    (practiceGrade * 0.15f) +
+                                    (midtermGrade * 0.30f) +
+                                    (termGrade * 0.40f);
+
+                            fetchCourseDetailsAndUpdateRecyclerView(classId, semesters, studentId, progressGrade, practiceGrade, midtermGrade, termGrade, finalGrade, recyclerView);
+                        });
+                    } else {
+                        Log.e(TAG, "Error fetching points", task.getException());
+                    }
+                });
+    }
+
+    private void fetchCourseDetailsAndUpdateRecyclerView(String classId,
+                                                         List<StudentSemesterTranscript> semesters,
+                                                         String studentId,
+                                                         float progressGrade,
+                                                         float practiceGrade,
+                                                         float midtermGrade,
+                                                         float termGrade,
+                                                         float finalGrade,
+                                                         RecyclerView recyclerView) {
+        db.collection("courses_detail")
+                .whereEqualTo("classId", classId)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    querySnapshot.forEach(courseDoc -> {
+                        String startTime = courseDoc.getString("timeStart"); // Format YYYY-MM
+                        String semesterName = calculateSemesterName(startTime);
+
+                        // Thêm môn học vào học kỳ
+                        addCourseToSemester(semesters, semesterName, new StudentTranscript(
+                                studentId, classId, progressGrade, practiceGrade, midtermGrade, termGrade, finalGrade
+                        ));
+
+                        // Cập nhật RecyclerView sau mỗi lần thêm
+                        SemesterTranscriptAdapter adapter = new SemesterTranscriptAdapter(semesters);
+                        recyclerView.setAdapter(adapter);
+                    });
+                });
+    }
+
+    private String calculateSemesterName(String timeStart) {
+        if (timeStart == null) return "Unknown Semester";
+
+        try {
+            // Định dạng ngày tháng theo "dd/MM/yyyy"
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date date = dateFormat.parse(timeStart); // Phân tích chuỗi thành đối tượng Date
+
+            // Lấy tháng và năm từ đối tượng Date
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH) + 1; // Tháng trong Calendar bắt đầu từ 0
+
+            // Tính học kỳ dựa trên tháng
+            return (month >= 8) ? "HK1 " + year : "HK2 " + (year - 1);
+        } catch (Exception e) {
+            Log.e(TAG, "Error parsing timeStart", e);
+            return "Unknown Semester";
+        }
+    }
+
+    private void addCourseToSemester(List<StudentSemesterTranscript> semesters, String semesterName, StudentTranscript course) {
+        for (StudentSemesterTranscript semester : semesters) {
+            if (semester.getSemesterName().equals(semesterName)) {
+                semester.getCourses().add(course);
+                return;
+            }
+        }
+
+        List<StudentTranscript> newCourses = new ArrayList<>();
+        newCourses.add(course);
+        semesters.add(new StudentSemesterTranscript(semesterName, newCourses));
+    }
 }

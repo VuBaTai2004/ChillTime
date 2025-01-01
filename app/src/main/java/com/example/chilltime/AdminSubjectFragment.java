@@ -55,7 +55,7 @@ public class AdminSubjectFragment extends Fragment {
                         subjects.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             StudentClass student = new StudentClass(document.getString("id"), document.getString("subject"),
-                                    "70", document.getString("teacher"));
+                                    "70", "");
                             subjects.add(student);
                         }
                         adapter.notifyDataSetChanged();

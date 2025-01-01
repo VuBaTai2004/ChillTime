@@ -60,20 +60,36 @@ public class AdminOpenClass extends AppCompatActivity {
         String classSubject = in.getStringExtra("classSubject");
         String numStu = in.getStringExtra("numStu");
         String classTeacher = in.getStringExtra("classTeacher");
-        db.collection("teachers").whereEqualTo("id", classTeacher)
+        db.collection("courses_detail").whereEqualTo("classId", classId).get()
+                        .addOnCompleteListener(task -> {
+                           if(task.isSuccessful()) {
+                               for (QueryDocumentSnapshot document : task.getResult()) {
+                                   tvTime.setText("Thời gian: " + document.getString("time").toString());
+                                   tvClass.setText("Lớp: " + document.getString("classId").toString());
+                                   tvRoom.setText("Phòng: " + document.getString("room").toString());
+
+                               }
+                           }
+                        });
+        db.collection("teachers")
                 .get()
                 .addOnCompleteListener(task2 -> {
                     if(task2.isSuccessful()) {
-                        String name, email, id, phone;
-                        TeacherProfile teacher;
                         for (QueryDocumentSnapshot document2 : task2.getResult()) {
-                            name = document2.getString("name");
-                            email = document2.getString("email");
-                            phone = document2.getString("phone");
-                            id = document2.getString("id");
-                            teacher = new TeacherProfile(name, id, phone,
-                                    email);
-                            tvTeacherName.setText(name);
+                            db.collection("teachers").document(document2.getId()).collection("class_list").get()
+                                    .addOnCompleteListener(task3 -> {
+                                       if(task3.isSuccessful()) {
+                                           for (QueryDocumentSnapshot document3 : task3.getResult()) {
+                                               if(document3.getString("classId").equals(classId)) {
+                                                   tvTeacherName.setText(classTeacher);
+                                                   teacherProfile.setName(document2.getString("name"));
+                                                   teacherProfile.setId(document2.getString("id"));
+                                                   teacherProfile.setPhone(document2.getString("phone"));
+                                                   teacherProfile.setEmail(document2.getString("email"));
+                                               }
+                                           }
+                                       }
+                                    });
                         }
                     }
                 });

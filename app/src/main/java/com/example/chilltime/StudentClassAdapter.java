@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class StudentClassAdapter extends RecyclerView.Adapter<StudentClassAdapter.ClassViewHolder>{
     private final Context context;
-    private final ArrayList<TeacherClass> classList;
+    private final ArrayList<StudentClass> classList;
 
-    public StudentClassAdapter(Context context, ArrayList<TeacherClass> classList) {
+    public StudentClassAdapter(Context context, ArrayList<StudentClass> classList) {
         this.classList = classList;
         this.context = context;
     }
@@ -50,7 +50,7 @@ public class StudentClassAdapter extends RecyclerView.Adapter<StudentClassAdapte
 
     @Override
     public void onBindViewHolder(@NonNull StudentClassAdapter.ClassViewHolder holder, int position) {
-        TeacherClass currentItem = classList.get(position);
+        StudentClass currentItem = classList.get(position);
         holder.classIdTextView.setText(currentItem.getClassId());
         holder.classSubjectTextView.setText(currentItem.getClassSubject());
         holder.numStuTextView.setText(String.valueOf(currentItem.getNumStu()));

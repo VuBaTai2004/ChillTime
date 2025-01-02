@@ -42,17 +42,21 @@ public class AdminOpenClass extends AppCompatActivity {
         ImageView arrowIcon1 = findViewById(R.id.arrow_icon1);
         ConstraintLayout itemTeacher = findViewById(R.id.teacherlayout);
 
+        // Get data from Intent
+        Intent intent = getIntent();
+        String classId = intent.getStringExtra("classId");
+        String classSubject = intent.getStringExtra("classSubject");
+        String numStu = intent.getStringExtra("numStu");
+        String classTeacher = intent.getStringExtra("classTeacher");
+        TeacherClass teacherClass = new TeacherClass(classId, classSubject, numStu, classTeacher);
+
         // Set up RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AdminOpenClassAdapter(this, students);
+        adapter = new AdminOpenClassAdapter(this, students, teacherClass);
         recyclerView.setAdapter(adapter);
 
         // Back button
         backArrow.setOnClickListener(v -> onBackPressed());
-
-        // Get data from Intent
-        Intent intent = getIntent();
-        String classId = intent.getStringExtra("classId");
 
         // Fetch course details
         db.collection("courses_detail").whereEqualTo("classId", classId).get()

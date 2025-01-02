@@ -44,11 +44,6 @@ public class AdminSubjectFragment extends Fragment {
         AdminSubjectAdapter adapter = new AdminSubjectAdapter(getContext(), subjects);
         recyclerView.setAdapter(adapter);
 
-
-        subjects.add(new StudentClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
-        subjects.add(new StudentClass("NT532.P11", "Công nghệ Internet of things hiện đại",  "10", "Nguyễn Văn B"));
-
-
         db.collection("courses").orderBy("id")
                 .get()
                 .addOnCompleteListener(task -> {

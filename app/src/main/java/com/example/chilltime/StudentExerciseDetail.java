@@ -58,7 +58,7 @@ public class StudentExerciseDetail extends AppCompatActivity {
             if (exerciseDeadline != null && exerciseDeadline.before(currentDate)) {
                 // Nếu đã quá hạn nộp bài
                 btnSubmit.setEnabled(false); // Vô hiệu hóa nút
-                btnSubmit.setText("Đã quá hạn"); // Đổi tên nút
+                btnSubmit.setText("Quá hạn"); // Đổi tên nút
                 Toast.makeText(this, "Bài tập đã quá hạn, không thể nộp bài.", Toast.LENGTH_SHORT).show();
             }
         } catch (ParseException e) {

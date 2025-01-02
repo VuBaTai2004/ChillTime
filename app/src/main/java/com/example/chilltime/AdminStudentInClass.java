@@ -2,6 +2,7 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class AdminStudentInClass extends AppCompatActivity {
         String id = "Mã học viên: " + getIntent().getStringExtra("studentId");
         String phone = "Số điện thoại: " + getIntent().getStringExtra("studentPhone");
         String email = "Gmail: " + getIntent().getStringExtra("studentEmail");
+
         String classId = getIntent().getStringExtra("classId");
         String classSubject = getIntent().getStringExtra("classSubject");
         String numStu = getIntent().getStringExtra("numStu");
@@ -44,6 +46,9 @@ public class AdminStudentInClass extends AppCompatActivity {
         backArrow.setOnClickListener(v -> {
             onBackPressed();
         });
+
+        Button btnEdit = findViewById(R.id.teacher_btn_edit);
+        btnEdit.setVisibility(View.INVISIBLE);
 
         Button btnDelete = findViewById(R.id.teacher_btn_delete);
         btnDelete.setOnClickListener(v -> {

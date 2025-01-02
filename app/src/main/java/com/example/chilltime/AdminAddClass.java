@@ -18,6 +18,7 @@ import java.util.Map;
 
 public class AdminAddClass extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +26,7 @@ public class AdminAddClass extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backArrow.setOnClickListener(v -> onBackPressed());
 
         Button classBtnAdd = findViewById(R.id.teacher_btn_add);
         EditText etId = findViewById(R.id.et_id);
@@ -49,7 +48,7 @@ public class AdminAddClass extends AppCompatActivity {
         String timeStart = getIntent().getStringExtra("timeStart");
         String timeEnd = getIntent().getStringExtra("timeEnd");
 
-        if(classTeacher != null){
+        if (classTeacher != null) {
             etId.setText(classId);
             etDayOfWeek.setText(dayOfWeek);
             etDayStart.setText(timeStart);
@@ -59,41 +58,69 @@ public class AdminAddClass extends AppCompatActivity {
             etRoom.setText(room);
         }
 
-
         classBtnAdd.setOnClickListener(v -> {
+            // Kiểm tra nếu có trường EditText nào trống
+            if (etId.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập mã lớp!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etSize.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập số lượng học viên!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etDayOfWeek.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập ngày trong tuần!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etDayStart.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập thời gian bắt đầu!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etDayEnd.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập thời gian kết thúc!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etTime.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập thời lượng!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etRoom.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập phòng học!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (classTeacher == null) {
+                Toast.makeText(this, "Vui lòng chọn giảng viên!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             // Handle add button click event
             Map<String, String> classInfo = new HashMap<>();
             classInfo.put("id", etId.getText().toString());
 
-            if(classTeacher == null){
-                Toast.makeText(this, "Vui lòng chọn giảng viên", Toast.LENGTH_SHORT).show();
-            }
-            else{
+            assert classId != null;
+            assert subjectId != null;
 
-                assert classId != null;
-                assert subjectId != null;
-                db.collection("courses").document(subjectId).collection("class_list").document(etId.getText().toString()).set(classInfo);
-                classInfo.clear();
-                db.collection("teachers").whereEqualTo("name", classTeacher).get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for(QueryDocumentSnapshot document : task.getResult()){
-                            classInfo.put("classId", etId.getText().toString());
-                            classInfo.put("classTeacher", classTeacher);
-                            classInfo.put("classSubject", classSubject);
-                            classInfo.put("dayOfWeek", etDayOfWeek.getText().toString());
-                            classInfo.put("timeStart", etDayStart.getText().toString());
-                            classInfo.put("timeEnd", etDayEnd.getText().toString());
-                            classInfo.put("studentNum", etSize.getText().toString());
-                            classInfo.put("time", etTime.getText().toString());
-                            classInfo.put("room", etRoom.getText().toString());
-                            db.collection("courses_detail").document(etId.getText().toString()).set(classInfo);
-                            Toast.makeText(this, "Thêm lớp thành công", Toast.LENGTH_SHORT).show();
-                        }
+            db.collection("courses").document(subjectId).collection("class_list").document(etId.getText().toString()).set(classInfo);
+            classInfo.clear();
+
+            db.collection("teachers").whereEqualTo("name", classTeacher).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        classInfo.put("classId", etId.getText().toString());
+                        classInfo.put("classTeacher", classTeacher);
+                        classInfo.put("classSubject", classSubject);
+                        classInfo.put("dayOfWeek", etDayOfWeek.getText().toString());
+                        classInfo.put("timeStart", etDayStart.getText().toString());
+                        classInfo.put("timeEnd", etDayEnd.getText().toString());
+                        classInfo.put("studentNum", etSize.getText().toString());
+                        classInfo.put("time", etTime.getText().toString());
+                        classInfo.put("room", etRoom.getText().toString());
+                        db.collection("courses_detail").document(etId.getText().toString()).set(classInfo);
+                        Toast.makeText(this, "Thêm lớp thành công!", Toast.LENGTH_SHORT).show();
                     }
-
-                });
-
-            }
+                }
+            });
         });
 
         Button classBtnAddTeacher = findViewById(R.id.btn_add_teacher);
@@ -112,6 +139,5 @@ public class AdminAddClass extends AppCompatActivity {
             intent.putExtra("room", etRoom.getText().toString());
             startActivity(intent);
         });
-
     }
 }

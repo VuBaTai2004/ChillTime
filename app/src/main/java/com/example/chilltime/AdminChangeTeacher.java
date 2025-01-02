@@ -37,10 +37,6 @@ public class AdminChangeTeacher extends AppCompatActivity {
 
         // Danh sách mẫu TeacherProfile
         List<TeacherProfile> teacherList = new ArrayList<>();
-        teacherList.add(new TeacherProfile("Phạm Minh Quân","120", "0123456789", "quan@example.com"));
-        teacherList.add(new TeacherProfile("Nguyễn Văn A","120", "0987654321", "a@example.com"));
-        teacherList.add(new TeacherProfile("Trần Thị B","120", "0356894321", "b@example.com"));
-
 
         AdminChangeTeacherAdapter adapter = new AdminChangeTeacherAdapter(teacherList);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

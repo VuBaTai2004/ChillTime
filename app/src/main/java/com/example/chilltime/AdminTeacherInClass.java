@@ -40,11 +40,16 @@ public class AdminTeacherInClass extends AppCompatActivity {
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> onBackPressed());
 
-
-
         Button btnModify = findViewById(R.id.teacher_btn_edit);
-
+        btnModify.setVisibility(View.INVISIBLE);
         btnModify.setOnClickListener(v -> {
+
+        });
+
+        Button btnDelete = findViewById(R.id.teacher_btn_delete);
+        btnDelete.setText("Sửa");
+
+        btnDelete.setOnClickListener(v -> {
             Intent intent = new Intent(AdminTeacherInClass.this, AdminChangeTeacher.class);
             intent.putExtra("teacherName", name);
             intent.putExtra("teacherId", id);
@@ -52,11 +57,6 @@ public class AdminTeacherInClass extends AppCompatActivity {
             intent.putExtra("teacherEmail", email);
             intent.putExtra("classId", getIntent().getStringExtra("classId"));
             startActivity(intent);
-        });
-
-        Button btnDelete = findViewById(R.id.teacher_btn_delete);
-        btnDelete.setVisibility(View.INVISIBLE);
-        btnDelete.setOnClickListener(v -> {
         });
 
         TextView title = findViewById(R.id.title_text);

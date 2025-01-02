@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 public class AdminAddStudent extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,26 +40,47 @@ public class AdminAddStudent extends AppCompatActivity {
 
         // Set up back arrow
         ImageView backArrow = findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backArrow.setOnClickListener(v -> onBackPressed());
 
         Button studentBtnAdd = findViewById(R.id.teacher_btn_add);
         studentBtnAdd.setOnClickListener(v -> {
-            // Handle add button click event
-            // Handle add button click event
+            // Kiểm tra nếu có trường nào trống
+            if (etId.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập mã học viên!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etName.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập tên học viên!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etPhone.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập số điện thoại!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etEmail.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập email!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (etUsername.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập tên tài khoản!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Nếu tất cả các trường hợp lệ, thực hiện thêm học viên
             Map<String, String> student = new HashMap<>();
             student.put("id", etId.getText().toString());
             student.put("name", etName.getText().toString());
             student.put("phone", etPhone.getText().toString());
             student.put("email", etEmail.getText().toString());
-            student.put("password", PasswordUtil.hashPassword("student123") );
+            student.put("password", PasswordUtil.hashPassword("student123"));
             student.put("username", etUsername.getText().toString());
 
-            db.collection("students").add(student);
-
-            onBackPressed();
+            db.collection("students").add(student).addOnSuccessListener(documentReference -> {
+                Toast.makeText(this, "Thêm học viên thành công!", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Có lỗi xảy ra khi thêm học viên: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
         });
-
     }
 }

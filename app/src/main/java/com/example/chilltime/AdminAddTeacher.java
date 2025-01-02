@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,15 @@ public class AdminAddTeacher extends AppCompatActivity {
         teacherBtnAdd.setOnClickListener(v -> {
             Log.d("Firestore","So luong tai lieu ben ngoai ham: " + collectionSize);
             // Handle add button click event
+            if (etPhone.getText().toString().trim().isEmpty() ||
+                    etName.getText().toString().trim().isEmpty() ||
+                    etId.getText().toString().trim().isEmpty() ||
+                    etEmail.getText().toString().trim().isEmpty() ||
+                    etUsername.getText().toString().trim().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập số điện thoại!", Toast.LENGTH_SHORT).show();
+                return; // Dừng việc thực hiện nếu không nhập số điện thoại
+            }
+
             Map<String, String> teacher = new HashMap<>();
             teacher.put("id", etId.getText().toString());
             teacher.put("name", etName.getText().toString());

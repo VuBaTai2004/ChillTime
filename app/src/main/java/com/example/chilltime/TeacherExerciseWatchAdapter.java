@@ -80,6 +80,6 @@ public class TeacherExerciseWatchAdapter extends RecyclerView.Adapter<TeacherExe
         if (splitData.length > 0) {
             return splitData[0].replace("Name: ", "").trim(); // Loại bỏ tiền tố "Name: " và khoảng trắng
         }
-        return "Unknown Name"; // Trả về tên mặc định nếu không có thông tin
+        return "Không rõ tên"; // Trả về tên mặc định nếu không có thông tin
     }
 }

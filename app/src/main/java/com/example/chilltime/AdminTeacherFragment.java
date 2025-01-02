@@ -40,8 +40,6 @@ public class AdminTeacherFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         defaultTeacherList(teachers, adapter);
 
-        teachers.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
-
         FloatingActionButton add = view.findViewById(R.id.add);
         add.setOnClickListener(v -> {
             // Handle add button click event

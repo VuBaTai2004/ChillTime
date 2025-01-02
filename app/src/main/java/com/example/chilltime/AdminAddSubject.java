@@ -38,6 +38,12 @@ public class AdminAddSubject extends AppCompatActivity {
             // Handle add button click event
             String subjectName = etName.getText().toString();
             String subjectId = etId.getText().toString();
+
+            if (subjectName.isEmpty() || subjectId.isEmpty()) {
+                Toast.makeText(this, "Hãy nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Map<String, String> subject = new HashMap<>();
             subject.put("id", subjectId);
             subject.put("subject", subjectName);

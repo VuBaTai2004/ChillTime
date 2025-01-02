@@ -1,5 +1,6 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,13 +49,11 @@ public class TeacherListEdit extends AppCompatActivity {
         Button saveBtn = findViewById(R.id.teacher_btn_edit);
 
         saveBtn.setOnClickListener(v -> {
-            // Lấy dữ liệu từ EditText
             String updatedProgress = etProgress.getText().toString().trim();
             String updatedPractice = etPractice.getText().toString().trim();
             String updatedMidterm = etMidterm.getText().toString().trim();
             String updatedTerm = etTerm.getText().toString().trim();
 
-            // Kiểm tra dữ liệu nhập vào
             if (updatedProgress.isEmpty() || updatedPractice.isEmpty() || updatedMidterm.isEmpty() || updatedTerm.isEmpty()) {
                 Toast.makeText(this, "Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 return;
@@ -66,7 +65,6 @@ public class TeacherListEdit extends AppCompatActivity {
                 float midtermGrade = Float.parseFloat(updatedMidterm);
                 float termGrade = Float.parseFloat(updatedTerm);
 
-                // Cập nhật dữ liệu lên Firestore
                 Map<String, Object> updatedData = new HashMap<>();
                 updatedData.put("qt", String.valueOf(progressGrade));
                 updatedData.put("th", String.valueOf(practiceGrade));
@@ -79,18 +77,27 @@ public class TeacherListEdit extends AppCompatActivity {
                         .get()
                         .addOnSuccessListener(queryDocumentSnapshots -> {
                             if (!queryDocumentSnapshots.isEmpty()) {
-                                // Lấy document ID và cập nhật dữ liệu
                                 String documentId = queryDocumentSnapshots.getDocuments().get(0).getId();
                                 db.collection("points").document(documentId)
                                         .update(updatedData)
-                                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show())
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
+
+                                            // Trả kết quả về
+                                            Intent resultIntent = new Intent();
+                                            resultIntent.putExtra("updatedProgress", progressGrade);
+                                            resultIntent.putExtra("updatedPractice", practiceGrade);
+                                            resultIntent.putExtra("updatedMidterm", midtermGrade);
+                                            resultIntent.putExtra("updatedTerm", termGrade);
+                                            setResult(RESULT_OK, resultIntent);
+                                            finish();
+                                        })
                                         .addOnFailureListener(e -> Toast.makeText(this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                             } else {
                                 Toast.makeText(this, "Không tìm thấy dữ liệu để cập nhật!", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(e -> Toast.makeText(this, "Lỗi khi lấy dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Vui lòng nhập đúng định dạng số!", Toast.LENGTH_SHORT).show();
             }

@@ -56,9 +56,6 @@ public class TeacherOpenList extends AppCompatActivity {
         TeacherListAdapter adapter = new TeacherListAdapter(this, students, classId);
         recyclerView.setAdapter(adapter);
 
-        students.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
-        students.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
-        students.add(new TeacherProfile("Pham Minh E","120", "0868480060", "quanpham0405@gmail.com"));
 
         db.collection("courses_detail").document(classId).collection("student_list")
                 .get()

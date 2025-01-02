@@ -2,6 +2,7 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,8 +43,9 @@ public class AdminTeacherInClass extends AppCompatActivity {
 
 
         Button btnModify = findViewById(R.id.teacher_btn_edit);
+
         btnModify.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminTeacherInClass.this, AdminModifyTeacher.class);
+            Intent intent = new Intent(AdminTeacherInClass.this, AdminChangeTeacher.class);
             intent.putExtra("teacherName", name);
             intent.putExtra("teacherId", id);
             intent.putExtra("teacherPhone", phone);
@@ -52,6 +54,7 @@ public class AdminTeacherInClass extends AppCompatActivity {
         });
 
         Button btnDelete = findViewById(R.id.teacher_btn_delete);
+        btnDelete.setVisibility(View.INVISIBLE);
         btnDelete.setOnClickListener(v -> {
 
         });

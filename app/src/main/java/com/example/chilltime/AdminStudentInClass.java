@@ -21,10 +21,10 @@ public class AdminStudentInClass extends AppCompatActivity {
         TextView studentPhone = findViewById(R.id.text_phone);
         TextView studentEmail = findViewById(R.id.text_email);
 
-        String name = getIntent().getStringExtra("studentName");
-        String id = getIntent().getStringExtra("studentId");
-        String phone = getIntent().getStringExtra("studentPhone");
-        String email = getIntent().getStringExtra("studentEmail");
+        String name = "Họ và tên: " + getIntent().getStringExtra("studentName");
+        String id = "Mã học viên: " + getIntent().getStringExtra("studentId");
+        String phone = "Số điện thoại: " + getIntent().getStringExtra("studentPhone");
+        String email = "Gmail: " + getIntent().getStringExtra("studentEmail");
 
         studentName.setText(name);
         studentId.setText(id);

@@ -36,6 +36,17 @@ public class TeacherExerciseInfo extends AppCompatActivity {
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> onBackPressed());
 
+        Button watchBtn = findViewById(R.id.teacher_btn_watch);
+        watchBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(TeacherExerciseInfo.this, TeacherExerciseWatch.class);
+            intent.putExtra("exerciseTitle", exerciseTitle);
+            intent.putExtra("exerciseTime", exerciseTime);
+            intent.putExtra("exerciseContent", exerciseContent);
+            intent.putExtra("classId", classId);
+            startActivity(intent);
+
+        });
+
         Button editBtn = findViewById(R.id.teacher_btn_edit);
         editBtn.setOnClickListener(v -> {
             Intent intent = new Intent(TeacherExerciseInfo.this, TeacherExerciseEdit.class);

@@ -41,7 +41,7 @@ public class AdminAddSubject extends AppCompatActivity {
             Map<String, String> subject = new HashMap<>();
             subject.put("id", subjectId);
             subject.put("subject", subjectName);
-            db.collection("courses").add(subject)
+            db.collection("courses").document(subjectId).set(subject)
                     .addOnCompleteListener(task -> {
                         if(task.isSuccessful()){
                             Toast.makeText(this,"Thêm môn học thành công", Toast.LENGTH_SHORT).show();

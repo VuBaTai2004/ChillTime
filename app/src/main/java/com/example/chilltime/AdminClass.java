@@ -37,10 +37,6 @@ public class AdminClass extends AppCompatActivity {
         AdminClassAdapter adapter = new AdminClassAdapter(this, classes);
         recyclerView.setAdapter(adapter);
 
-
-        classes.add(new TeacherClass("NT131.P13", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
-        classes.add(new TeacherClass("NT131.P14", "Hệ thống Nhúng mạng không dây", "10", "Nguyễn Văn A"));
-
         Intent intent = this.getIntent();
         String subject = intent.getStringExtra("classId");
         assert subject != null;
@@ -79,7 +75,7 @@ public class AdminClass extends AppCompatActivity {
         add.setOnClickListener(v -> {
             // Handle add button click event
             Intent intent1 = new Intent(AdminClass.this, AdminAddClass.class);
-            intent1.putExtra("classId", intent.getStringExtra("classId"));
+            intent1.putExtra("subjectId", intent.getStringExtra("classId"));
             intent1.putExtra("classSubject", intent.getStringExtra("classSubject"));
             startActivity(intent1);
         });

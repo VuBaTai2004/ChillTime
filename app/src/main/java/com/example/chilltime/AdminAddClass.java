@@ -38,15 +38,22 @@ public class AdminAddClass extends AppCompatActivity {
         EditText etTime = findViewById(R.id.et_time);
         EditText etRoom = findViewById(R.id.et_room);
 
-        String teacherId = getIntent().getStringExtra("teacherId");
+        String classTeacher = getIntent().getStringExtra("classTeacher");
+        String subjectId = getIntent().getStringExtra("subjectId");
         String classId = getIntent().getStringExtra("classId");
-        String id = getIntent().getStringExtra("id");
         String studentNum = getIntent().getStringExtra("studentNum");
         String time = getIntent().getStringExtra("time");
         String room = getIntent().getStringExtra("room");
         String classSubject = getIntent().getStringExtra("classSubject");
-        if(teacherId != null){
-            etId.setText(id);
+        String dayOfWeek = getIntent().getStringExtra("dayOfWeek");
+        String timeStart = getIntent().getStringExtra("timeStart");
+        String timeEnd = getIntent().getStringExtra("timeEnd");
+
+        if(classTeacher != null){
+            etId.setText(classId);
+            etDayOfWeek.setText(dayOfWeek);
+            etDayStart.setText(timeStart);
+            etDayEnd.setText(timeEnd);
             etSize.setText(studentNum);
             etTime.setText(time);
             etRoom.setText(room);
@@ -58,23 +65,24 @@ public class AdminAddClass extends AppCompatActivity {
             Map<String, String> classInfo = new HashMap<>();
             classInfo.put("id", etId.getText().toString());
 
-            if(teacherId == null){
+            if(classTeacher == null){
                 Toast.makeText(this, "Vui lòng chọn giảng viên", Toast.LENGTH_SHORT).show();
             }
             else{
 
                 assert classId != null;
-                db.collection("courses").document(classId).collection("class_list").add(classInfo);
+                assert subjectId != null;
+                db.collection("courses").document(subjectId).collection("class_list").document(etId.getText().toString()).set(classInfo);
                 classInfo.clear();
-                db.collection("teachers").whereEqualTo("id", teacherId).get().addOnCompleteListener(task -> {
+                db.collection("teachers").whereEqualTo("name", classTeacher).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for(QueryDocumentSnapshot document : task.getResult()){
                             classInfo.put("classId", etId.getText().toString());
-                            classInfo.put("classTeacher", teacherId);
+                            classInfo.put("classTeacher", classTeacher);
                             classInfo.put("classSubject", classSubject);
                             classInfo.put("dayOfWeek", etDayOfWeek.getText().toString());
-                            classInfo.put("dayStart", etDayStart.getText().toString());
-                            classInfo.put("dayEnd", etDayEnd.getText().toString());
+                            classInfo.put("timeStart", etDayStart.getText().toString());
+                            classInfo.put("timeEnd", etDayEnd.getText().toString());
                             classInfo.put("studentNum", etSize.getText().toString());
                             classInfo.put("time", etTime.getText().toString());
                             classInfo.put("room", etRoom.getText().toString());
@@ -92,10 +100,13 @@ public class AdminAddClass extends AppCompatActivity {
         classBtnAddTeacher.setOnClickListener(v -> {
             // Handle add button click event
             Intent intent = new Intent(this, AdminAddTeacherIntoClass.class);
-            intent.putExtra("classId", classId);
+            intent.putExtra("classId", etId.getText().toString());
+            intent.putExtra("subjectId", subjectId);
+            intent.putExtra("classTeacher", classTeacher);
             intent.putExtra("classSubject", classSubject);
-            intent.putExtra("teacherId", teacherId);
-            intent.putExtra("id", etId.getText().toString());
+            intent.putExtra("dayOfWeek", etDayOfWeek.getText().toString());
+            intent.putExtra("timeStart", etDayStart.getText().toString());
+            intent.putExtra("timeEnd", etDayEnd.getText().toString());
             intent.putExtra("studentNum", etSize.getText().toString());
             intent.putExtra("time", etTime.getText().toString());
             intent.putExtra("room", etRoom.getText().toString());

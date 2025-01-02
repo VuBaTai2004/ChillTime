@@ -60,14 +60,18 @@ public class AdminAddTeacherIntoClass extends AppCompatActivity {
 
         // Xử lý sự kiện nút "Thêm"
         Button addButton = findViewById(R.id.teacher_btn_add);
+        Intent intent1 = this.getIntent();
         addButton.setOnClickListener(v -> {
             TeacherProfile selectedTeacher = adapter.getSelectedTeacher();
             if (selectedTeacher != null) {
                 Intent intent = new Intent(this, AdminAddClass.class);
-                intent.putExtra("teacherId", selectedTeacher.getId());
                 intent.putExtra("classId", getIntent().getStringExtra("classId"));
+                intent.putExtra("subjectId", getIntent().getStringExtra("subjectId"));
+                intent.putExtra("classTeacher", selectedTeacher.getName());
                 intent.putExtra("classSubject", getIntent().getStringExtra("classSubject"));
-                intent.putExtra("id", getIntent().getStringExtra("id"));
+                intent.putExtra("dayOfWeek", getIntent().getStringExtra("dayOfWeek"));
+                intent.putExtra("timeStart", getIntent().getStringExtra("timeStart"));
+                intent.putExtra("timeEnd", getIntent().getStringExtra("timeEnd"));
                 intent.putExtra("studentNum", getIntent().getStringExtra("studentNum"));
                 intent.putExtra("time", getIntent().getStringExtra("time"));
                 intent.putExtra("room", getIntent().getStringExtra("room"));

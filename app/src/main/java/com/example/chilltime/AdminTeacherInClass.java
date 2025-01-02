@@ -51,6 +51,10 @@ public class AdminTeacherInClass extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button btnDelete = findViewById(R.id.teacher_btn_delete);
+        btnDelete.setOnClickListener(v -> {
+
+        });
 
         TextView title = findViewById(R.id.title_text);
         title.setText("Giảng viên");

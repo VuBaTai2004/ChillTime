@@ -1,5 +1,6 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,12 +14,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class TeacherNotificationEdit extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.teacher_notification_edit);
-
 
         String exerciseTitle = getIntent().getStringExtra("exerciseTitle");
         String exerciseContent = getIntent().getStringExtra("exerciseContent");
@@ -31,9 +32,7 @@ public class TeacherNotificationEdit extends AppCompatActivity {
         etContent.setText(exerciseContent);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backArrow.setOnClickListener(v -> onBackPressed());
 
         Button editBtn = findViewById(R.id.teacher_btn_add);
         editBtn.setOnClickListener(v -> {
@@ -45,38 +44,35 @@ public class TeacherNotificationEdit extends AppCompatActivity {
                 return;
             }
 
-            // Tham chiếu đến Firestore
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-            // Tìm document cần cập nhật trong collection "exercises"
-            db.collection("notification")
+            // Tìm và cập nhật dữ liệu trong Firestore
+            db.collection("notifications")
                     .whereEqualTo("classId", classId)
-                    .whereEqualTo("title", exerciseTitle) // Sử dụng title ban đầu để tìm document
+                    .whereEqualTo("title", exerciseTitle)
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful() && !task.getResult().isEmpty()) {
                             String documentId = task.getResult().getDocuments().get(0).getId();
 
-                            // Cập nhật document
-                            db.collection("exercises")
+                            db.collection("notifications")
                                     .document(documentId)
-                                    .update("title", updatedTitle,
-                                            "content", updatedContent)
+                                    .update("title", updatedTitle, "content", updatedContent)
                                     .addOnSuccessListener(aVoid -> {
                                         Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
-                                        finish(); // Quay lại màn hình trước
+
+                                        // Trả dữ liệu phản hồi cho Activity trước đó
+                                        Intent resultIntent = new Intent();
+                                        resultIntent.putExtra("updatedTitle", updatedTitle);
+                                        resultIntent.putExtra("updatedContent", updatedContent);
+                                        setResult(RESULT_OK, resultIntent);
+                                        finish();
                                     })
                                     .addOnFailureListener(e -> {
                                         Toast.makeText(this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     });
                         } else {
-                            Toast.makeText(this, "Không tìm thấy bài tập cần cập nhật!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Không tìm thấy thông báo cần cập nhật!", Toast.LENGTH_SHORT).show();
                         }
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Lỗi khi tìm bài tập: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         });
     }
-
 }

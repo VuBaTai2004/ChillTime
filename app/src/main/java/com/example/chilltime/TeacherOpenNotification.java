@@ -19,6 +19,10 @@ import java.util.ArrayList;
 
 public class TeacherOpenNotification extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<Notification> notifications = new ArrayList<>();
+    TeacherNotificationAdapter adapter;
+    String classId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +30,7 @@ public class TeacherOpenNotification extends AppCompatActivity {
         setContentView(R.layout.teacher_open_notification);
 
         // Lấy dữ liệu từ Intent
-        String classId = getIntent().getStringExtra("classId");
+        classId = getIntent().getStringExtra("classId");
         String classSubject = getIntent().getStringExtra("classSubject");
         String numStu = getIntent().getStringExtra("numStu");
 
@@ -40,20 +44,13 @@ public class TeacherOpenNotification extends AppCompatActivity {
         numStuTextView.setText(numStu);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backArrow.setOnClickListener(v -> onBackPressed());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Notification> notifications = new ArrayList<>();
-        TeacherNotificationAdapter adapter = new TeacherNotificationAdapter(notifications, this, classId);
+        adapter = new TeacherNotificationAdapter(notifications, this, classId);
         recyclerView.setAdapter(adapter);
-
-        notifications.add(new Notification("Thông báo 1", "Nội dung thông báo 1"));
-        notifications.add(new Notification("Thông báo 2", "Nội dung thông báo 2"));
-        notifications.add(new Notification("Thông báo 3", "Nội dung thông báo 3"));
 
         FloatingActionButton add = findViewById(R.id.add);
         add.setOnClickListener(v -> {
@@ -63,22 +60,28 @@ public class TeacherOpenNotification extends AppCompatActivity {
             intent.putExtra("numStu", numStu);
             startActivity(intent);
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadNotifications(); // Tải lại dữ liệu từ Firestore
+    }
+
+    private void loadNotifications() {
         db.collection("notifications").whereEqualTo("classId", classId).get()
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        notifications.clear();
-                        for(QueryDocumentSnapshot document : task.getResult()){
+                    if (task.isSuccessful()) {
+                        notifications.clear(); // Xóa dữ liệu cũ
+                        for (QueryDocumentSnapshot document : task.getResult()) {
                             String title = document.getString("title");
                             String message = document.getString("content");
                             notifications.add(new Notification(title, message));
-                            Log.d("FirestoreDebug", "Number of documents: " + task.getResult().size());
-
-                        };
-                        adapter.notifyDataSetChanged();
+                        }
+                        adapter.notifyDataSetChanged(); // Cập nhật RecyclerView
+                    } else {
+                        Log.e("FirestoreError", "Error getting documents: ", task.getException());
                     }
                 });
-
-        adapter.notifyDataSetChanged();
     }
 }

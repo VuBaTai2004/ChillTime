@@ -7,45 +7,61 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class TeacherExerciseInfo extends AppCompatActivity {
+    private TextView exerciseTitleTextView;
+    private TextView exerciseTimeTextView;
+    private TextView exerciseContentTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_exercise_info);
         EdgeToEdge.enable(this);
 
-        TextView exerciseTitleTextView = findViewById(R.id.text_title);
-        TextView exerciseTimeTextView = findViewById(R.id.text_time);
-        TextView exerciseContentTextView = findViewById(R.id.text_content);
+        exerciseTitleTextView = findViewById(R.id.text_title);
+        exerciseTimeTextView = findViewById(R.id.text_time);
+        exerciseContentTextView = findViewById(R.id.text_content);
 
         String exerciseTitle = getIntent().getStringExtra("exerciseTitle");
         String exerciseTime = getIntent().getStringExtra("exerciseTime");
         String exerciseContent = getIntent().getStringExtra("exerciseContent");
         String classId = getIntent().getStringExtra("classId");
 
-        exerciseTitleTextView.setText(exerciseTitle);
-        exerciseTimeTextView.setText(exerciseTime);
-        exerciseContentTextView.setText(exerciseContent);
+        updateUI(exerciseTitle, exerciseTime, exerciseContent);
 
         ImageView backArrow = findViewById(R.id.back_arrow);
-        backArrow.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backArrow.setOnClickListener(v -> onBackPressed());
 
         Button editBtn = findViewById(R.id.teacher_btn_edit);
         editBtn.setOnClickListener(v -> {
-            // Xử lý khi bấm nút editBtn
             Intent intent = new Intent(TeacherExerciseInfo.this, TeacherExerciseEdit.class);
             intent.putExtra("exerciseTitle", exerciseTitle);
             intent.putExtra("exerciseTime", exerciseTime);
             intent.putExtra("exerciseContent", exerciseContent);
             intent.putExtra("classId", classId);
-            startActivity(intent);
-
+            editLauncher.launch(intent);
         });
+    }
 
+    private final ActivityResultLauncher<Intent> editLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    String updatedTitle = result.getData().getStringExtra("updatedTitle");
+                    String updatedTime = result.getData().getStringExtra("updatedTime");
+                    String updatedContent = result.getData().getStringExtra("updatedContent");
 
+                    // Cập nhật giao diện với dữ liệu mới
+                    updateUI(updatedTitle, updatedTime, updatedContent);
+                }
+            });
+
+    private void updateUI(String title, String time, String content) {
+        exerciseTitleTextView.setText("Tiêu đề: " + title);
+        exerciseTimeTextView.setText("Deadline: " + time);
+        exerciseContentTextView.setText("Nội dung: " + content);
     }
 }

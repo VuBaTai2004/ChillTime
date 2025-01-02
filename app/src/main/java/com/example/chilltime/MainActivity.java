@@ -83,11 +83,16 @@ public class MainActivity extends AppCompatActivity {
                                     navigateToActivity(collection, username);
                                 } else {
                                     Toast.makeText(this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+                                    etPassword.setText(""); // Làm trống ô nhập mật khẩu
                                 }
                             } else {
                                 countEmptySnapshot++;
-                                if (countEmptySnapshot == 3)
+                                if (countEmptySnapshot == 3) {
                                     Toast.makeText(this, "Không tìm thấy tên tài khoản", Toast.LENGTH_SHORT).show();
+                                    etPassword.setText(""); // Làm trống ô nhập mật khẩu
+                                    etUsername.setText(""); // Làm trống ô nhập tên tài khoản
+                                }
+
                             }
                         } else {
                             Log.e("FirestoreError", "Error checking user", task.getException());

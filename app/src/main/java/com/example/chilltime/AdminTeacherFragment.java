@@ -47,7 +47,28 @@ public class AdminTeacherFragment extends Fragment {
             startActivity(intent);
         });
 
+        db.collection("teachers").orderBy("id")
+                .addSnapshotListener((value, e) -> {
+                    if (e != null) {
+//                                Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
 
+                    ArrayList<StudentProfile> cities = new ArrayList<>();
+                    teachers.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        if (doc.get("name") != null) {
+                            String name = doc.getString("name");
+                            String id = doc.getString("id");
+                            String phone = doc.getString("phone");
+                            String email = doc.getString("email");
+                            TeacherProfile student = new TeacherProfile(name, id, phone, email);
+                            teachers.add(student);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+//                        Log.d(TAG, "Current cites in CA: " + cities);
+                });
 
         etClassSearch.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {

@@ -76,6 +76,8 @@ public class AdminStudentInClass extends AppCompatActivity {
                     .show();
         });
 
+        Button btnEdit = findViewById(R.id.teacher_btn_edit);
+        btnEdit.setVisibility(View.INVISIBLE);
         TextView title = findViewById(R.id.title_text);
         title.setText("Học viên");
     }

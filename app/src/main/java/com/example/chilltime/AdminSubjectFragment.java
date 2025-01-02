@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +65,35 @@ public class AdminSubjectFragment extends Fragment {
                     }
                 });
 
-        EditText et = view.findViewById(R.id.et_class_search);
-        et.setOnClickListener(v -> {
+        EditText etClassSearch = view.findViewById(R.id.et_class_search);
+        etClassSearch.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                // Xử lý khi nhấn Enter
+                String input = etClassSearch.getText().toString();
 
+                db.collection("courses").orderBy("id")
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                subjects.clear();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(document.getString("subject").toLowerCase().contains(input.toLowerCase())
+                                        || document.getString("id").toLowerCase().contains(input.toLowerCase())){
+                                        StudentClass student = new StudentClass(document.getString("id"), document.getString("subject"),
+                                                "70", "");
+                                        subjects.add(student);
+                                    }
+
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Log.w("err", "Error getting documents.", task.getException());
+                            }
+                        });
+
+                return true; // Đã xử lý sự kiện
+            }
+            return false; // Không xử lý
         });
 
         FloatingActionButton add = view.findViewById(R.id.add);

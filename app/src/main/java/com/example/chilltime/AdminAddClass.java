@@ -46,14 +46,14 @@ public class AdminAddClass extends AppCompatActivity {
         String room = getIntent().getStringExtra("room");
         String classSubject = getIntent().getStringExtra("classSubject");
         String dayOfWeek = getIntent().getStringExtra("dayOfWeek");
-        String dayStart = getIntent().getStringExtra("dayStart");
-        String dayEnd = getIntent().getStringExtra("dayEnd");
+        String timeStart = getIntent().getStringExtra("timeStart");
+        String timeEnd = getIntent().getStringExtra("timeEnd");
 
         if(classTeacher != null){
             etId.setText(classId);
             etDayOfWeek.setText(dayOfWeek);
-            etDayStart.setText(dayStart);
-            etDayEnd.setText(dayEnd);
+            etDayStart.setText(timeStart);
+            etDayEnd.setText(timeEnd);
             etSize.setText(studentNum);
             etTime.setText(time);
             etRoom.setText(room);
@@ -71,18 +71,18 @@ public class AdminAddClass extends AppCompatActivity {
             else{
 
                 assert classId != null;
-                assert classSubject != null;
+                assert subjectId != null;
                 db.collection("courses").document(subjectId).collection("class_list").document(etId.getText().toString()).set(classInfo);
                 classInfo.clear();
-                db.collection("teachers").whereEqualTo("id", classTeacher).get().addOnCompleteListener(task -> {
+                db.collection("teachers").whereEqualTo("name", classTeacher).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for(QueryDocumentSnapshot document : task.getResult()){
                             classInfo.put("classId", etId.getText().toString());
                             classInfo.put("classTeacher", classTeacher);
                             classInfo.put("classSubject", classSubject);
                             classInfo.put("dayOfWeek", etDayOfWeek.getText().toString());
-                            classInfo.put("dayStart", etDayStart.getText().toString());
-                            classInfo.put("dayEnd", etDayEnd.getText().toString());
+                            classInfo.put("timeStart", etDayStart.getText().toString());
+                            classInfo.put("timeEnd", etDayEnd.getText().toString());
                             classInfo.put("studentNum", etSize.getText().toString());
                             classInfo.put("time", etTime.getText().toString());
                             classInfo.put("room", etRoom.getText().toString());
@@ -105,8 +105,8 @@ public class AdminAddClass extends AppCompatActivity {
             intent.putExtra("classTeacher", classTeacher);
             intent.putExtra("classSubject", classSubject);
             intent.putExtra("dayOfWeek", etDayOfWeek.getText().toString());
-            intent.putExtra("dayStart", etDayStart.getText().toString());
-            intent.putExtra("dayEnd", etDayEnd.getText().toString());
+            intent.putExtra("timeStart", etDayStart.getText().toString());
+            intent.putExtra("timeEnd", etDayEnd.getText().toString());
             intent.putExtra("studentNum", etSize.getText().toString());
             intent.putExtra("time", etTime.getText().toString());
             intent.putExtra("room", etRoom.getText().toString());

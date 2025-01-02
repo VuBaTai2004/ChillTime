@@ -67,11 +67,11 @@ public class AdminAddTeacherIntoClass extends AppCompatActivity {
                 Intent intent = new Intent(this, AdminAddClass.class);
                 intent.putExtra("classId", getIntent().getStringExtra("classId"));
                 intent.putExtra("subjectId", getIntent().getStringExtra("subjectId"));
-                intent.putExtra("classTeacher", selectedTeacher.getId());
+                intent.putExtra("classTeacher", selectedTeacher.getName());
                 intent.putExtra("classSubject", getIntent().getStringExtra("classSubject"));
                 intent.putExtra("dayOfWeek", getIntent().getStringExtra("dayOfWeek"));
-                intent.putExtra("dayStart", getIntent().getStringExtra("dayStart"));
-                intent.putExtra("dayEnd", getIntent().getStringExtra("dayEnd"));
+                intent.putExtra("timeStart", getIntent().getStringExtra("timeStart"));
+                intent.putExtra("timeEnd", getIntent().getStringExtra("timeEnd"));
                 intent.putExtra("studentNum", getIntent().getStringExtra("studentNum"));
                 intent.putExtra("time", getIntent().getStringExtra("time"));
                 intent.putExtra("room", getIntent().getStringExtra("room"));

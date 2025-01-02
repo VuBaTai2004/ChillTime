@@ -2,6 +2,7 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class AdminStudentInfo extends AppCompatActivity {
         });
 
         Button btnDelete = findViewById(R.id.teacher_btn_delete);
+        btnDelete.setVisibility(View.VISIBLE);
         btnDelete.setOnClickListener(v -> {
             // Handle delete button click event
             new AlertDialog.Builder(this)
@@ -70,6 +72,21 @@ public class AdminStudentInfo extends AppCompatActivity {
                                         }
                                         onBackPressed();
                                     }
+                                });
+                        db.collection("courses_detail").get()
+                                .addOnCompleteListener(task -> {
+                                   if(task.isSuccessful()){
+                                       for(QueryDocumentSnapshot document : task.getResult()){
+                                           db.collection("courses_detail").document(document.getId()).collection("student_list").get()
+                                                   .addOnCompleteListener(task1 -> {
+                                                      for(QueryDocumentSnapshot document1 : task1.getResult()){
+                                                          if(document1.getId().equals(id)){
+                                                              db.collection("courses_detail").document(document.getId()).collection("student_list").document(document1.getId()).delete();
+                                                          }
+                                                      }
+                                                   });
+                                       }
+                                   }
                                 });
                     })
                     .setNegativeButton("Không", (dialog, which) -> {

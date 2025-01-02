@@ -61,11 +61,11 @@ public class AdminModifyStudent extends AppCompatActivity {
                                 docRef.update("email", studentEmail.getText().toString());
                             }
 
-                            Intent intent = new Intent(this, AdminTeacherInfo.class);
-                            intent.putExtra("teacherName", studentName.getText().toString());
-                            intent.putExtra("teacherId", studentId.getText().toString());
-                            intent.putExtra("teacherPhone", studentPhone.getText().toString());
-                            intent.putExtra("teacherEmail", studentEmail.getText().toString());
+                            Intent intent = new Intent(this, AdminStudentInfo.class);
+                            intent.putExtra("studentName", studentName.getText().toString());
+                            intent.putExtra("studentId", studentId.getText().toString());
+                            intent.putExtra("studentPhone", studentPhone.getText().toString());
+                            intent.putExtra("studentEmail", studentEmail.getText().toString());
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }

@@ -106,6 +106,7 @@ public class AdminOpenClass extends AppCompatActivity {
         // Add button action
         add.setOnClickListener(v -> {
             Intent addIntent = new Intent(this, AdminAddStudentIntoClass.class);
+            addIntent.putExtra("classId", classId);
             startActivity(addIntent);
         });
 

@@ -16,19 +16,18 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class AdminStudentAdapter extends RecyclerView.Adapter<AdminStudentAdapter.ViewHolder> {
-    private final ArrayList<StudentProfile> originalStudents; // Danh sách gốc
-    private final ArrayList<StudentProfile> filteredStudents; // Danh sách hiển thị
+    private final ArrayList<StudentProfile> students;
     private final Context context;
 
     public AdminStudentAdapter(Context context, ArrayList<StudentProfile> students) {
-        this.originalStudents = new ArrayList<>(students); // Dữ liệu ban đầu từ Firebase
-        this.filteredStudents = new ArrayList<>(students); // Dữ liệu để lọc
+        this.students = students;
         this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView studentNameTextView;
         public ImageView arrowIcon;
+        public ImageView editIcon;
         ConstraintLayout itemPeople;
 
         public ViewHolder(View itemView) {
@@ -48,7 +47,7 @@ public class AdminStudentAdapter extends RecyclerView.Adapter<AdminStudentAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        StudentProfile currentItem = filteredStudents.get(position);
+        StudentProfile currentItem = students.get(position);
         holder.studentNameTextView.setText(currentItem.getName());
 
         holder.arrowIcon.setOnClickListener(v -> {
@@ -59,27 +58,21 @@ public class AdminStudentAdapter extends RecyclerView.Adapter<AdminStudentAdapte
             intent.putExtra("studentEmail", currentItem.getEmail());
             context.startActivity(intent);
         });
+
+        holder.itemPeople.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AdminStudentInfo.class);
+            intent.putExtra("studentName", currentItem.getName());
+            intent.putExtra("studentId", currentItem.getId());
+            intent.putExtra("studentPhone", currentItem.getPhone());
+            intent.putExtra("studentEmail", currentItem.getEmail());
+            context.startActivity(intent);
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return filteredStudents.size();
+        return students.size();
     }
 
-    // Phương thức lọc danh sách
-    public void filter(String query) {
-        query = query.toLowerCase(Locale.getDefault()); // Không phân biệt chữ hoa/thường
-        filteredStudents.clear();
-
-        if (query.isEmpty()) {
-            filteredStudents.addAll(originalStudents); // Hiển thị tất cả nếu ô tìm kiếm trống
-        } else {
-            for (StudentProfile student : originalStudents) {
-                if (student.getName().toLowerCase(Locale.getDefault()).contains(query)) {
-                    filteredStudents.add(student); // Thêm nếu chứa từ khóa
-                }
-            }
-        }
-        notifyDataSetChanged(); // Cập nhật RecyclerView
-    }
 }

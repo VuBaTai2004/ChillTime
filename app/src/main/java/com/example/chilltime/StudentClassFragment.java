@@ -32,11 +32,6 @@ public class StudentClassFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_class, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new StudentClassAdapter(view.getContext(), classes);
-        recyclerView.setAdapter(adapter);
-
         // Fetch data from Firestore
         String username = getArguments() != null ? getArguments().getString("username") : null;
         if (username != null) {
@@ -44,6 +39,11 @@ public class StudentClassFragment extends Fragment {
         } else {
             Log.e("StudentClassFragment", "Username is null, cannot load classes.");
         }
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_class_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        adapter = new StudentClassAdapter(view.getContext(), classes, username);
+        recyclerView.setAdapter(adapter);
 
         EditText etSearch = view.findViewById(R.id.et_class_search);
         etSearch.setText("");

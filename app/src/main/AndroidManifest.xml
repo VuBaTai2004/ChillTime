@@ -40,6 +40,7 @@
         <activity android:name=".TeacherBroadInfo" />
         <activity android:name=".TeacherExerciseInfo" />
         <activity android:name=".TeacherExerciseEdit" />
+        <activity android:name=".TeacherExerciseWatch" />
         <activity android:name=".TeacherNotificationInfo" />
         <activity android:name=".TeacherNotificationEdit" />
         <activity android:name=".AdminTeacherInfo" />
@@ -57,6 +58,7 @@
         <activity android:name=".AdminAddSubject" />
         <activity android:name=".AdminAddClass" />
         <activity android:name=".AdminAddTeacherIntoClass" />
+        <activity android:name=".AdminDeleteStudentFromClass" />
         <activity android:name=".AdminStudentInClass" />
         <activity android:name=".AdminTeacherInClass" />
         <activity android:name=".AdminChangeTeacher" />

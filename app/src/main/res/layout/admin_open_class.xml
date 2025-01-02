@@ -218,6 +218,18 @@
             android:layout_gravity="bottom|end"
             android:src="@drawable/add_2" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/circle_background"
+            android:clickable="true"
+            android:layout_gravity="bottom|start"
+            android:src="@drawable/delete" />
+
     </FrameLayout>
 
 

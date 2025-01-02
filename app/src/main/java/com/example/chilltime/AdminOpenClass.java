@@ -39,6 +39,7 @@ public class AdminOpenClass extends AppCompatActivity {
         TextView tvTeacherName = findViewById(R.id.teacher_name);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         FloatingActionButton add = findViewById(R.id.add);
+        FloatingActionButton delete = findViewById(R.id.delete);
         ImageView arrowIcon1 = findViewById(R.id.arrow_icon1);
         ConstraintLayout itemTeacher = findViewById(R.id.teacherlayout);
 
@@ -108,6 +109,12 @@ public class AdminOpenClass extends AppCompatActivity {
         // Add button action
         add.setOnClickListener(v -> {
             Intent addIntent = new Intent(this, AdminAddStudentIntoClass.class);
+            addIntent.putExtra("classId", classId);
+            startActivity(addIntent);
+        });
+
+        delete.setOnClickListener(v -> {
+            Intent addIntent = new Intent(this, AdminDeleteStudentFromClass.class);
             addIntent.putExtra("classId", classId);
             startActivity(addIntent);
         });

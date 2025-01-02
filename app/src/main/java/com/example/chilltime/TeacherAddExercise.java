@@ -29,6 +29,7 @@ public class TeacherAddExercise extends AppCompatActivity {
 
         EditText etTitle = findViewById(R.id.et_title);
         EditText etTime = findViewById(R.id.et_deadline);
+        EditText etDocument = findViewById(R.id.et_document);
         EditText etContent = findViewById(R.id.et_content);
 
         // Nhận dữ liệu từ Intent
@@ -40,6 +41,7 @@ public class TeacherAddExercise extends AppCompatActivity {
         addBtn.setOnClickListener(v -> {
             String title = etTitle.getText().toString().trim();
             String time = etTime.getText().toString().trim();
+            String document = etDocument.getText().toString().trim();
             String content = etContent.getText().toString().trim();
 
             // Kiểm tra các trường không được trống
@@ -59,7 +61,8 @@ public class TeacherAddExercise extends AppCompatActivity {
             // Thêm dữ liệu vào Firestore
             Map<String, Object> exercise = new HashMap<>();
             exercise.put("title", title);
-            exercise.put("deadline", time);
+            exercise.put("time", time);
+            exercise.put("document", document);
             exercise.put("content", content);
             exercise.put("classId", classId);
 

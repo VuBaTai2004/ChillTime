@@ -4,6 +4,7 @@ public class Exercise {
     private String title;
     private String time;
     private String content;
+    private boolean isSubmitted;
 
     public Exercise(String title, String time, String content) {
         this.title = title;
@@ -21,6 +22,14 @@ public class Exercise {
 
     public String getContent() {
         return content;
+    }
+
+    public boolean isSubmitted() {
+        return isSubmitted;
+    }
+
+    public void setSubmitted(boolean submitted) {
+        isSubmitted = submitted;
     }
 
     public void setTitle(String title) {

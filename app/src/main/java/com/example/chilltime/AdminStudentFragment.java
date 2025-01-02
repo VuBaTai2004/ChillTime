@@ -3,6 +3,8 @@
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.List;
 
     public class AdminStudentFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -37,6 +44,29 @@ import java.util.ArrayList;
                 Intent intent = new Intent(getContext(), AdminAddStudent.class);
                 startActivity(intent);
             });
+
+            db.collection("students")
+                    .addSnapshotListener((value, e) -> {
+                        if (e != null) {
+//                                Log.w(TAG, "Listen failed.", e);
+                            return;
+                        }
+
+                        ArrayList<StudentProfile> cities = new ArrayList<>();
+                        students.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            if (doc.get("name") != null) {
+                                String name = doc.getString("name");
+                                String id = doc.getString("id");
+                                String phone = doc.getString("phone");
+                                String email = doc.getString("email");
+                                StudentProfile student = new StudentProfile(name, id, phone, email);
+                                students.add(student);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+//                        Log.d(TAG, "Current cites in CA: " + cities);
+                    });
 
             EditText etClassSearch = view.findViewById(R.id.et_class_search);
             etClassSearch.setOnKeyListener((v, keyCode, event) -> {

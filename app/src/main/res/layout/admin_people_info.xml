@@ -117,8 +117,7 @@
             android:backgroundTint="#7073C9"
             app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
+            app:layout_constraintLeft_toLeftOf="parent"/>
         <Button
             android:id="@+id/teacher_btn_delete"
             android:layout_width="165dp"
@@ -131,7 +130,7 @@
             android:backgroundTint="#7073C9"
             app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

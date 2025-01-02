@@ -16,10 +16,12 @@ import java.util.ArrayList;
 public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAdapter.ViewHolder> {
     private final ArrayList<StudentProfile> students;
     private final Context context;
+    private final TeacherClass teacherClass;
 
-    public AdminOpenClassAdapter(Context context, ArrayList<StudentProfile> students) {
+    public AdminOpenClassAdapter(Context context, ArrayList<StudentProfile> students, TeacherClass teacherClass) {
         this.students = students;
         this.context = context;
+        this.teacherClass = teacherClass;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,6 +61,10 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
                 intent.putExtra("studentId", currentItem.getId());
                 intent.putExtra("studentPhone", currentItem.getPhone());
                 intent.putExtra("studentEmail", currentItem.getEmail());
+                intent.putExtra("classId", teacherClass.getClassId());
+                intent.putExtra("classSubject", teacherClass.getClassSubject());
+                intent.putExtra("numStu", teacherClass.getNumStu());
+                intent.putExtra("classTeacher", teacherClass.getClassTeacher());
                 context.startActivity(intent);
             }
         });
@@ -71,6 +77,10 @@ public class AdminOpenClassAdapter extends RecyclerView.Adapter<AdminOpenClassAd
                 intent.putExtra("studentId", currentItem.getId());
                 intent.putExtra("studentPhone", currentItem.getPhone());
                 intent.putExtra("studentEmail", currentItem.getEmail());
+                intent.putExtra("classId", teacherClass.getClassId());
+                intent.putExtra("classSubject", teacherClass.getClassSubject());
+                intent.putExtra("numStu", teacherClass.getNumStu());
+                intent.putExtra("classTeacher", teacherClass.getClassTeacher());
                 context.startActivity(intent);
             }
         });

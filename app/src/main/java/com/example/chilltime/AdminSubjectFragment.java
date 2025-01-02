@@ -65,6 +65,26 @@ public class AdminSubjectFragment extends Fragment {
                     }
                 });
 
+        db.collection("courses")
+                .addSnapshotListener((value, e) -> {
+                    if (e != null) {
+//                                Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
+
+                    ArrayList<StudentProfile> cities = new ArrayList<>();
+                    subjects.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        if (doc.get("id") != null) {
+                            StudentClass student = new StudentClass(doc.getString("id"), doc.getString("subject"),
+                                    "70", "");
+                            subjects.add(student);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+//                        Log.d(TAG, "Current cites in CA: " + cities);
+                });
+
         EditText etClassSearch = view.findViewById(R.id.et_class_search);
         etClassSearch.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {

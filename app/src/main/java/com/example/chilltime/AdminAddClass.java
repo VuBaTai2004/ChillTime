@@ -32,8 +32,12 @@ public class AdminAddClass extends AppCompatActivity {
         Button classBtnAdd = findViewById(R.id.teacher_btn_add);
         EditText etId = findViewById(R.id.et_id);
         EditText etSize = findViewById(R.id.et_size);
+        EditText etDayOfWeek = findViewById(R.id.et_day_of_week);
+        EditText etDayStart = findViewById(R.id.et_day_start);
+        EditText etDayEnd = findViewById(R.id.et_day_end);
         EditText etTime = findViewById(R.id.et_time);
         EditText etRoom = findViewById(R.id.et_room);
+
         String teacherId = getIntent().getStringExtra("teacherId");
         String classId = getIntent().getStringExtra("classId");
         String id = getIntent().getStringExtra("id");
@@ -68,6 +72,9 @@ public class AdminAddClass extends AppCompatActivity {
                             classInfo.put("classId", etId.getText().toString());
                             classInfo.put("classTeacher", teacherId);
                             classInfo.put("classSubject", classSubject);
+                            classInfo.put("dayOfWeek", etDayOfWeek.getText().toString());
+                            classInfo.put("dayStart", etDayStart.getText().toString());
+                            classInfo.put("dayEnd", etDayEnd.getText().toString());
                             classInfo.put("studentNum", etSize.getText().toString());
                             classInfo.put("time", etTime.getText().toString());
                             classInfo.put("room", etRoom.getText().toString());

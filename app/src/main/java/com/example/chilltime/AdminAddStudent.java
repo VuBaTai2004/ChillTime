@@ -26,6 +26,7 @@ public class AdminAddStudent extends AppCompatActivity {
         EditText etId = findViewById(R.id.et_id);
         EditText etPhone = findViewById(R.id.et_phone);
         EditText etEmail = findViewById(R.id.et_email);
+        EditText etUsername = findViewById(R.id.et_username);
 
         // Set up title text
         TextView title = findViewById(R.id.title_text);
@@ -47,7 +48,7 @@ public class AdminAddStudent extends AppCompatActivity {
             student.put("phone", etPhone.getText().toString());
             student.put("email", etEmail.getText().toString());
             student.put("password", PasswordUtil.hashPassword("student123") );
-            student.put("username", "test");
+            student.put("username", etUsername.getText().toString());
 
             db.collection("students").add(student);
 

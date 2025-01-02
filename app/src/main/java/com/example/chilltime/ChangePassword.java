@@ -42,7 +42,10 @@ public class ChangePassword extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
 
         ImageView backButton = findViewById(R.id.fpButton);
-        backButton.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
 
         btnForgotPassword.setOnClickListener(v -> {
             // Mở ForgotPasswordActivity

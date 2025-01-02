@@ -1,6 +1,8 @@
 package com.example.chilltime;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +47,41 @@ public class AdminChangeTeacher extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        db.collection("teachers").get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        teacherList.clear();
+                        for(QueryDocumentSnapshot document : task.getResult()){
+                            String name1 = document.getString("name");
+                            String id1 = document.getString("id");
+                            String phone1 = document.getString("phone");
+                            String email1 = document.getString("email");
+                            TeacherProfile teacher = new TeacherProfile(name1, id1, phone1, email1);
+                            teacherList.add(teacher);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
-
+        Button btnModify = findViewById(R.id.teacher_btn_change);
+        String classId = getIntent().getStringExtra("classId");
+        btnModify.setOnClickListener(v -> {
+            // Xử lý sự kiện khi người dùng nhấn nút "Đổi"
+            TeacherProfile selectedTeacher = adapter.getSelectedTeacher();
+            if (selectedTeacher != null) {
+                //
+                String selectedName = selectedTeacher.getName();
+                String selectedId = selectedTeacher.getId();
+                String selectedPhone = selectedTeacher.getPhone();
+                String selectedEmail = selectedTeacher.getEmail();
+                assert classId != null;
+                db.collection("courses_detail").document(classId).update("classTeacher", selectedName);
+            }
+            Intent intent = new Intent(AdminChangeTeacher.this, AdminOpenClass.class);
+            intent.putExtra("classId", classId);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
 
 
     }

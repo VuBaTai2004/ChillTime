@@ -142,6 +142,7 @@ public class AdminOpenClass extends AppCompatActivity {
             intent.putExtra("teacherId", teacherProfile.getId());
             intent.putExtra("teacherPhone", teacherProfile.getPhone());
             intent.putExtra("teacherEmail", teacherProfile.getEmail());
+            intent.putExtra("classId", getIntent().getStringExtra("classId"));
             startActivity(intent);
         } else {
             Log.e("Error", "Teacher data not loaded yet!");

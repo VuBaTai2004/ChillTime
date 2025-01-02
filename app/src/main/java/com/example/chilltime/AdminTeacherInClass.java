@@ -50,13 +50,13 @@ public class AdminTeacherInClass extends AppCompatActivity {
             intent.putExtra("teacherId", id);
             intent.putExtra("teacherPhone", phone);
             intent.putExtra("teacherEmail", email);
+            intent.putExtra("classId", getIntent().getStringExtra("classId"));
             startActivity(intent);
         });
 
         Button btnDelete = findViewById(R.id.teacher_btn_delete);
         btnDelete.setVisibility(View.INVISIBLE);
         btnDelete.setOnClickListener(v -> {
-
         });
 
         TextView title = findViewById(R.id.title_text);

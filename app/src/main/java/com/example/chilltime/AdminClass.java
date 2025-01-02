@@ -2,6 +2,8 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.util.Log;
 
@@ -80,6 +82,53 @@ public class AdminClass extends AppCompatActivity {
             startActivity(intent1);
         });
 
+        EditText etClassSearch = findViewById(R.id.et_class_search);
+        etClassSearch.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                // Xử lý khi nhấn Enter
+                String input = etClassSearch.getText().toString();
+                recyclerView.setAdapter(adapter);
+                db.collection("courses").whereEqualTo("id", subject).get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                classes.clear();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    db.collection("courses").document(document.getId()).collection("class_list").get()
+                                            .addOnCompleteListener(task1 -> {
+                                                if (task1.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document1 : task1.getResult()) {
+                                                        db.collection("courses_detail").whereEqualTo("classId", document1.getString("id")).get()
+                                                                .addOnCompleteListener(task2 -> {
+                                                                    if (task2.isSuccessful()) {
+                                                                        for (QueryDocumentSnapshot document2 : task2.getResult()) {
+                                                                            if(document2.getString("classSubject").toLowerCase().contains(input.toLowerCase())
+                                                                            || document2.getString("classId").toLowerCase().contains(input.toLowerCase())){
+                                                                                TeacherClass teacherClass = new TeacherClass(document2.getString("classId"),document2.getString("classSubject")
+                                                                                        ,document2.getString("studentNum"), document2.getString("classTeacher"));
+                                                                                classes.add(teacherClass);
+                                                                            }
+
+                                                                        }
+                                                                        adapter.notifyDataSetChanged();
+                                                                    }
+                                                                });
+                                                    }
+
+                                                }
+                                            });
+                                }
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Log.w("err", "Error getting documents.", task.getException());
+                            }
+                        });
+
+                // Làm gì đó với input
+
+                return true; // Đã xử lý sự kiện
+            }
+            return false; // Không xử lý
+        });
         adapter.notifyDataSetChanged();
 
 

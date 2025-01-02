@@ -33,6 +33,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText usernameEditText;
     String email = "";
     String username = "";
+    int countEmptySnapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +144,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 String storedEmail = snapshot.getDocuments().get(0).getString("email");
                                 email = storedEmail;
                                 sendEmail();
+                            } else {
+                                countEmptySnapshot++;
+                                if (countEmptySnapshot == 3)
+                                    Toast.makeText(this, "Không tìm thấy tên tài khoản", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Log.e("FirestoreError", "Error checking user", task.getException());

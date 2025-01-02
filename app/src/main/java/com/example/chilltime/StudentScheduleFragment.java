@@ -196,7 +196,7 @@ public class StudentScheduleFragment extends Fragment {
         if (activitiesForDate != null) {
             activityList.addAll(activitiesForDate);
         } else {
-            Toast.makeText(requireContext(), "No activities for this date", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(requireContext(), "Không có hoạt động gì trong ngày này", Toast.LENGTH_SHORT).show();
         }
 
         updateDayText(date);

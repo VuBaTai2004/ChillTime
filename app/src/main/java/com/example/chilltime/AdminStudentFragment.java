@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,41 @@ import java.util.ArrayList;
                 startActivity(intent);
             });
 
-            EditText etSearch = view.findViewById(R.id.et_class_search);
+            EditText etClassSearch = view.findViewById(R.id.et_class_search);
+            etClassSearch.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    // Xử lý khi nhấn Enter
+                    String input = etClassSearch.getText().toString();
+                    recyclerView.setAdapter(adapter);
+                    db.collection("students").orderBy("id")
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    students.clear();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if(document.getString("name").toLowerCase().contains(input.toLowerCase())){
+                                            StudentProfile student = new StudentProfile(
+                                                    document.getString("name"),
+                                                    document.getString("id"),  // Thêm trường id
+                                                    document.getString("phone"),
+                                                    document.getString("email")
+                                            );
+                                            students.add(student);
+                                        }
 
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    Log.w("err", "Error getting documents.", task.getException());
+                                }
+                            });
+
+                    // Làm gì đó với input
+
+                    return true; // Đã xử lý sự kiện
+                }
+                return false; // Không xử lý
+            });
 
             db.collection("students").orderBy("id")
                     .get()

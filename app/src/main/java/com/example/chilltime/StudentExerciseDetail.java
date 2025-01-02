@@ -150,7 +150,10 @@ public class StudentExerciseDetail extends AppCompatActivity {
 
         ImageView backArrow = findViewById(R.id.back_arrow);
         backArrow.setOnClickListener(v -> {
-            onBackPressed();
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("exerciseTitle", exerciseTitle); // Truyền tiêu đề bài tập
+            setResult(RESULT_OK, resultIntent); // Báo hiệu thành công
+            finish();
         });
     }
 

@@ -97,8 +97,16 @@ public class StudentExerciseAdapter extends RecyclerView.Adapter<StudentExercise
             intent.putExtra("exerciseContent", currentItem.getContent());
             intent.putExtra("classId", classId);
             intent.putExtra("username", username);
-            context.startActivity(intent);
+            if (context instanceof StudentOpenExercise) {
+                ((StudentOpenExercise) context).startActivityForResult(intent, 1); // Sử dụng requestCode = 1
+            }
         });
+
+        if (currentItem.isSubmitted()) {
+            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorDefault));
+        } else {
+            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorSubmitted));
+        }
     }
 
     @Override

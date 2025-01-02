@@ -2,6 +2,7 @@ package com.example.chilltime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -71,6 +72,8 @@ public class AdminStudentInClass extends AppCompatActivity {
                     .show();
         });
 
+        Button btnEdit = findViewById(R.id.teacher_btn_edit);
+        btnEdit.setVisibility(View.INVISIBLE);
         TextView title = findViewById(R.id.title_text);
         title.setText("Học viên");
     }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -152,7 +153,20 @@ public class AdminOpenClass extends AppCompatActivity {
             intent.putExtra("classId", getIntent().getStringExtra("classId"));
             startActivity(intent);
         } else {
-            Log.e("Error", "Teacher data not loaded yet!");
+            new AlertDialog.Builder(this)
+                    .setTitle("Lỗi!!!")
+                    .setMessage("Dữ liệu về giảng viên này không còn, bạn có muốn thay đổi giảng viên không?")
+                    .setPositiveButton("Có", (dialog, which) -> {
+                        // Xử lý xóa dữ liệu tại đây
+                        Intent intent = new Intent(this, AdminChangeTeacher.class);
+                        intent.putExtra("classId", getIntent().getStringExtra("classId"));
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("Không", (dialog, which) -> {
+                        // Đóng popup nếu người dùng chọn "Không"
+                        dialog.dismiss();
+                    })
+                    .show();
         }
     }
 }

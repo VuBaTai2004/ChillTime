@@ -21,6 +21,7 @@ public class ChangePassword extends AppCompatActivity {
     private TextView btnForgotPassword;
     private Button saveNewPassword;
     private FirebaseFirestore db;
+    private int countEmptySnapshot;
 
     private String username; // Lấy username từ Intent
     private boolean isOldPasswordVisible = false;
@@ -55,6 +56,7 @@ public class ChangePassword extends AppCompatActivity {
         saveNewPassword.setOnClickListener(v -> {
             String oldPassword = oldPasswordEditText.getText().toString().trim();
             String newPassword = newPasswordEditText.getText().toString().trim();
+            countEmptySnapshot = 0;
 
             if (oldPassword.isEmpty() || newPassword.isEmpty()) {
                 Toast.makeText(this, "Vui lòng không bỏ trống các trường", Toast.LENGTH_SHORT).show();
@@ -91,36 +93,43 @@ public class ChangePassword extends AppCompatActivity {
     private void validateOldPasswordAndUpdate(String oldPassword, String newPassword) {
         String passwordHash = PasswordUtil.hashPassword(oldPassword);
         String passwordHash1 = PasswordUtil.hashPassword(newPassword);
-        db.collection("teachers")
-                .whereEqualTo("username", username)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        QuerySnapshot snapshot = task.getResult();
-                        String storedPassword = snapshot.getDocuments().get(0).getString("password");
-                        // Kiểm tra mật khẩu cũ
-                        if (storedPassword.equals(passwordHash)) {
-                            // Cập nhật mật khẩu mới
-                            String docId = snapshot.getDocuments().get(0).getId();
-                            db.collection("teachers").document(docId)
-                                    .update("password", passwordHash1)
-                                    .addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
-                                        finish(); // Quay lại màn hình trước
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Toast.makeText(this, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
-                                    });
-                        } else {
-                            Toast.makeText(this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show();
+        String[] collections = {"students", "teachers"};
+
+        for (String collection : collections){
+            db.collection(collection)
+                    .whereEqualTo("username", username)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                            QuerySnapshot snapshot = task.getResult();
+                            String storedPassword = snapshot.getDocuments().get(0).getString("password");
+                            // Kiểm tra mật khẩu cũ
+                            if (storedPassword.equals(passwordHash)) {
+                                // Cập nhật mật khẩu mới
+                                String docId = snapshot.getDocuments().get(0).getId();
+                                db.collection(collection).document(docId)
+                                        .update("password", passwordHash1)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                            finish(); // Quay lại màn hình trước
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+                                        });
+                            } else {
+                                countEmptySnapshot++;
+                                if (countEmptySnapshot == 2) {
+                                    Toast.makeText(this, "Không tìm thấy tên tài khoản", Toast.LENGTH_SHORT).show();
+                                    oldPasswordEditText.setText(""); // Làm trống ô nhập mật khẩu cũ
+                                    newPasswordEditText.setText(""); // Làm trống ô nhập mật khẩu mới
+                                }
+                            }
                         }
-                    } else {
-                        Toast.makeText(this, "Người dùng không tồn tại", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Có lỗi xảy ra khi truy cập dữ liệu", Toast.LENGTH_SHORT).show();
-                });
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Có lỗi xảy ra khi truy cập dữ liệu", Toast.LENGTH_SHORT).show();
+                    });
+        }
     }
 
     private void togglePasswordVisibility(EditText editText, boolean isOldPasswordField) {

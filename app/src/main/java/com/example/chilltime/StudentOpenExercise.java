@@ -36,6 +36,7 @@ public class StudentOpenExercise extends AppCompatActivity {
         String classSubject = getIntent().getStringExtra("classSubject");
         String numStu = getIntent().getStringExtra("numStu");
         String classTeacher = getIntent().getStringExtra("classTeacher");
+        String username = getIntent().getStringExtra("username");
 
         // Gán dữ liệu vào TextView (hoặc bất kỳ phần tử UI nào khác)
         TextView classIdTextView = findViewById(R.id.course_code);
@@ -50,7 +51,7 @@ public class StudentOpenExercise extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new StudentExerciseAdapter(exercises, this);
+        adapter = new StudentExerciseAdapter(exercises, this, classId, username);
         recyclerView.setAdapter(adapter);
 
         fetchExercies(classId);

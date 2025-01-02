@@ -21,6 +21,7 @@ public class StudentOpenClass extends AppCompatActivity {
         String classSubject = getIntent().getStringExtra("classSubject");
         String numStu = getIntent().getStringExtra("numStu");
         String classTeacher = getIntent().getStringExtra("classTeacher");
+        String username = getIntent().getStringExtra("username");
 
         // Gán dữ liệu vào TextView (hoặc bất kỳ phần tử UI nào khác)
         TextView classIdTextView = findViewById(R.id.course_code);
@@ -49,6 +50,7 @@ public class StudentOpenClass extends AppCompatActivity {
             intent.putExtra("classSubject", classSubject);
             intent.putExtra("numStu", numStu);
             intent.putExtra("classTeacher", classTeacher);
+            intent.putExtra("username", username);
             startActivity(intent);
         });
 
@@ -60,6 +62,7 @@ public class StudentOpenClass extends AppCompatActivity {
             intent.putExtra("classSubject", classSubject);
             intent.putExtra("numStu", numStu);
             intent.putExtra("classTeacher", classTeacher);
+
             startActivity(intent);
         });
     }

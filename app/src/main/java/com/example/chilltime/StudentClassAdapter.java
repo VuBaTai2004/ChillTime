@@ -17,11 +17,13 @@ public class StudentClassAdapter extends RecyclerView.Adapter<StudentClassAdapte
     private final Context context;
     private final ArrayList<StudentClass> classList;
     private ArrayList<StudentClass> filteredList;
+    private String username;
 
-    public StudentClassAdapter(Context context, ArrayList<StudentClass> classList) {
+    public StudentClassAdapter(Context context, ArrayList<StudentClass> classList, String username) {
         this.classList = classList;
         this.filteredList = new ArrayList<>(classList);
         this.context = context;
+        this.username = username;
     }
 
     public static class ClassViewHolder extends RecyclerView.ViewHolder {
@@ -66,6 +68,7 @@ public class StudentClassAdapter extends RecyclerView.Adapter<StudentClassAdapte
                 intent.putExtra("classSubject", currentItem.getClassSubject());
                 intent.putExtra("numStu", currentItem.getNumStu());
                 intent.putExtra("classTeacher", currentItem.getClassTeacher());
+                intent.putExtra("username", username);
 
                 context.startActivity(intent);
 

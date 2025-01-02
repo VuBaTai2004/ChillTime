@@ -6,6 +6,8 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="44dp">
@@ -22,28 +24,25 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
-            android:id="@+id/txt_title"
+            android:id="@+id/title_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Tài liệu"
-            android:textColor="@color/xxx"
+            android:text="Bài tập"
             android:textSize="32dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/xxx"
+            android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
-        android:id="@+id/txt_deadline"
+        android:id="@+id/txt_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deadline: "
+        android:text="Link bài nộp: "
         android:textSize="18sp"
         android:textColor="#000"
         android:textStyle="bold"
@@ -52,21 +51,74 @@
         android:layout_marginBottom="10dp"/>
 
     <EditText
-        android:id="@+id/et_deadline"
+        android:id="@+id/et_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/search_edittext_background"
         android:drawablePadding="8dp"
-        android:hint="Nhập deadline"
+        android:hint="Dán link bài nộp"
         android:padding="12dp"
         android:textColorHint="@color/black"
         android:textSize="16sp"
         android:inputType="text"
-        android:ellipsize="end"
-        android:focusable="false"
-        android:cursorVisible="false"/>
+        android:ellipsize="end"/>
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thông tin: "
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/corner_rounded_background">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiêu đề: "
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="11dp"/>
+
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:text="Deadline: "
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nội dung: "
+            android:textSize="18sp"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:scrollbars="vertical"
+            android:overScrollMode="always"
+            android:minLines="5"
+            android:textColor="#000"
+            android:layout_marginStart="27dp"
+            android:layout_marginBottom="11dp"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txt_document"
@@ -80,62 +132,45 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
 
-    <EditText
-        android:id="@+id/et_document"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/search_edittext_background"
-        android:drawablePadding="8dp"
-        android:hint="Nhập tài liệu"
-        android:padding="12dp"
-        android:textColorHint="@color/black"
-        android:textSize="16sp"
-        android:inputType="text"
-        android:ellipsize="end"
-        android:focusable="false"
-        android:cursorVisible="false"/>
-
-    <TextView
-        android:id="@+id/txt_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nội dung: "
-        android:textSize="18sp"
-        android:textColor="#000"
-        android:textStyle="bold"
+        android:orientation="vertical"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/corner_rounded_background">
 
-    <EditText
-        android:id="@+id/et_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/search_edittext_background"
-        android:drawablePadding="8dp"
-        android:hint="Nhập nội dung"
-        android:padding="12dp"
-        android:textColorHint="@color/black"
-        android:textSize="16sp"
-        android:inputType="textMultiLine"
-        android:gravity="top|start"
-        android:scrollbars="vertical"
-        android:overScrollMode="always"
-        android:minLines="5"
-        android:ellipsize="end"
-        android:focusable="false"
-        android:cursorVisible="false"/>
+        <TextView
+            android:id="@+id/text_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Link: "
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="11dp"/>
+
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
-
         <Button
-            android:id="@+id/teacher_btn_add"
+            android:id="@+id/teacher_btn_open"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:text="Mở Link"
+            android:textSize="20sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="27dp"
+            android:backgroundTint="#7073C9"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <Button
+            android:id="@+id/teacher_btn_submit"
             android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:text="Nộp bài"
@@ -147,6 +182,6 @@
             app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

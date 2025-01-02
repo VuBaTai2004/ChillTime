@@ -11,4 +11,6 @@
     <color name="cyan">#09EDCF</color>
     <color name="light_gray">#B1AEAE</color>
     <color name="xxx">#7073C9</color>
+    <color name="colorSubmitted">#7073C9</color>
+    <color name="colorDefault">#000000</color> <!-- Màu mặc định (ví dụ: đen) -->
 </resources>

@@ -106,6 +106,7 @@ public class AdminOpenClass extends AppCompatActivity {
         // Add button action
         add.setOnClickListener(v -> {
             Intent addIntent = new Intent(this, AdminAddStudentIntoClass.class);
+            addIntent.putExtra("classId", classId);
             startActivity(addIntent);
         });
 
@@ -142,6 +143,7 @@ public class AdminOpenClass extends AppCompatActivity {
             intent.putExtra("teacherId", teacherProfile.getId());
             intent.putExtra("teacherPhone", teacherProfile.getPhone());
             intent.putExtra("teacherEmail", teacherProfile.getEmail());
+            intent.putExtra("classId", getIntent().getStringExtra("classId"));
             startActivity(intent);
         } else {
             Log.e("Error", "Teacher data not loaded yet!");

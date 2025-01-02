@@ -59,7 +59,7 @@
         <activity android:name=".AdminAddTeacherIntoClass" />
         <activity android:name=".AdminStudentInClass" />
         <activity android:name=".AdminTeacherInClass" />
-
+        <activity android:name=".AdminChangeTeacher" />
 
 
 

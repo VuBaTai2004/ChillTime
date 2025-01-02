@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private FirebaseFirestore db;
     private TextView btnForgotPassword;
-
+    private int countEmptySnapshot;
     // Biến trạng thái hiển thị mật khẩu
     private boolean isPasswordVisible = false;
 
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             String username = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString();
+            countEmptySnapshot = 0;
 
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Vui lòng không bỏ trống", Toast.LENGTH_SHORT).show();
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     private void authenticateUser(String username, String password) {
         String[] collections = {"admins", "teachers", "students"};
         String passwordHash = PasswordUtil.hashPassword(password);
-
         for (String collection : collections) {
             db.collection(collection)
                     .whereEqualTo("username", username)
@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
                                 }
+                            } else {
+                                countEmptySnapshot++;
+                                if (countEmptySnapshot == 3)
+                                    Toast.makeText(this, "Không tìm thấy tên tài khoản", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Log.e("FirestoreError", "Error checking user", task.getException());

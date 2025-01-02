@@ -17,10 +17,12 @@ import java.util.ArrayList;
 
 public class TeacherClassAdapter extends RecyclerView.Adapter<TeacherClassAdapter.ClassViewHolder> {
     private final Context context;
-    private final ArrayList<TeacherClass> classList;
+    private final ArrayList<TeacherClass> classList; // Original list
+    private ArrayList<TeacherClass> filteredList;    // Filtered list
 
     public TeacherClassAdapter(Context context, ArrayList<TeacherClass> classList) {
         this.classList = classList;
+        this.filteredList = new ArrayList<>(classList);
         this.context = context;
     }
 
@@ -75,6 +77,25 @@ public class TeacherClassAdapter extends RecyclerView.Adapter<TeacherClassAdapte
 
     @Override
     public int getItemCount() {
-        return classList.size();
+        return filteredList.size();
+    }
+
+    public void filter(String keyword) {
+        filteredList.clear(); // Clear the filtered list
+        if (keyword.isEmpty()) {
+            // If no keyword, show all items
+            filteredList.addAll(classList);
+        } else {
+            // Filter items based on the keyword
+            for (TeacherClass item : classList) {
+                // Check if keyword matches any field (case insensitive)
+                if (item.getClassId().toLowerCase().contains(keyword.toLowerCase()) ||
+                        item.getClassSubject().toLowerCase().contains(keyword.toLowerCase()) ||
+                        item.getClassTeacher().toLowerCase().contains(keyword.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged(); // Refresh RecyclerView
     }
 }

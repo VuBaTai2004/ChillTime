@@ -13,21 +13,21 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class AdminStudentAdapter extends RecyclerView.Adapter<AdminStudentAdapter.ViewHolder> {
-    private final ArrayList<StudentProfile> students;
+    private final ArrayList<StudentProfile> originalStudents; // Danh sách gốc
+    private final ArrayList<StudentProfile> filteredStudents; // Danh sách hiển thị
     private final Context context;
 
     public AdminStudentAdapter(Context context, ArrayList<StudentProfile> students) {
-        this.students = students;
+        this.originalStudents = new ArrayList<>(students); // Dữ liệu ban đầu từ Firebase
+        this.filteredStudents = new ArrayList<>(students); // Dữ liệu để lọc
         this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView studentNameTextView;
-        public TextView studentIdTextView;
-        public TextView studentPhoneTextView;
-        public TextView studentEmailTextView;
         public ImageView arrowIcon;
         ConstraintLayout itemPeople;
 
@@ -43,45 +43,43 @@ public class AdminStudentAdapter extends RecyclerView.Adapter<AdminStudentAdapte
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context)
                 .inflate(R.layout.item_people, parent, false);
-        return new AdminStudentAdapter.ViewHolder(itemView);
+        return new ViewHolder(itemView);
     }
-
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        StudentProfile currentItem = students.get(position);
+        StudentProfile currentItem = filteredStudents.get(position);
         holder.studentNameTextView.setText(currentItem.getName());
-        holder.arrowIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle arrow icon click event
-                Intent intent = new Intent(context, AdminStudentInfo.class);
-                intent.putExtra("studentName", currentItem.getName());
-                intent.putExtra("studentId", currentItem.getId());
-                intent.putExtra("studentPhone", currentItem.getPhone());
-                intent.putExtra("studentEmail", currentItem.getEmail());
-                context.startActivity(intent);
-            }
-        });
-        holder.itemPeople.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle arrow icon click event
-                Intent intent = new Intent(context, AdminStudentInfo.class);
-                intent.putExtra("studentName", currentItem.getName());
-                intent.putExtra("studentId", currentItem.getId());
-                intent.putExtra("studentPhone", currentItem.getPhone());
-                intent.putExtra("studentEmail", currentItem.getEmail());
-                context.startActivity(intent);
-            }
+
+        holder.arrowIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AdminStudentInfo.class);
+            intent.putExtra("studentName", currentItem.getName());
+            intent.putExtra("studentId", currentItem.getId());
+            intent.putExtra("studentPhone", currentItem.getPhone());
+            intent.putExtra("studentEmail", currentItem.getEmail());
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return filteredStudents.size();
     }
 
+    // Phương thức lọc danh sách
+    public void filter(String query) {
+        query = query.toLowerCase(Locale.getDefault()); // Không phân biệt chữ hoa/thường
+        filteredStudents.clear();
 
-
+        if (query.isEmpty()) {
+            filteredStudents.addAll(originalStudents); // Hiển thị tất cả nếu ô tìm kiếm trống
+        } else {
+            for (StudentProfile student : originalStudents) {
+                if (student.getName().toLowerCase(Locale.getDefault()).contains(query)) {
+                    filteredStudents.add(student); // Thêm nếu chứa từ khóa
+                }
+            }
+        }
+        notifyDataSetChanged(); // Cập nhật RecyclerView
+    }
 }

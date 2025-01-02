@@ -65,6 +65,7 @@ public class AdminSubjectAdapter extends RecyclerView.Adapter<AdminSubjectAdapte
                 // Handle open button click event
                 Intent intent = new Intent(context, AdminClass.class);
                 intent.putExtra("classId", currentItem.getClassId());
+                intent.putExtra("classSubject", currentItem.getClassSubject());
                 context.startActivity(intent);
             }
             });

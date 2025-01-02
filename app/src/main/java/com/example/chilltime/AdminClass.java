@@ -80,6 +80,7 @@ public class AdminClass extends AppCompatActivity {
             // Handle add button click event
             Intent intent1 = new Intent(AdminClass.this, AdminAddClass.class);
             intent1.putExtra("classId", intent.getStringExtra("classId"));
+            intent1.putExtra("classSubject", intent.getStringExtra("classSubject"));
             startActivity(intent1);
         });
 

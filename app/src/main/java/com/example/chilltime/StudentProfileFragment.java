@@ -41,6 +41,7 @@ public class StudentProfileFragment extends Fragment {
         imageView.setImageResource(R.drawable.icon_student1);
 
         Button btn = view.findViewById(R.id.student_btn_logout);
+        Button btn1 = view.findViewById(R.id.student_btn_change_pass);
 
         // Lấy dữ liệu username từ Bundle
         String username = getArguments() != null ? getArguments().getString("username") : null;
@@ -74,6 +75,12 @@ public class StudentProfileFragment extends Fragment {
         btn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
+
+        btn1.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChangePassword.class);
+            intent.putExtra("username", username); // Truyền username qua intent")
             startActivity(intent);
         });
 

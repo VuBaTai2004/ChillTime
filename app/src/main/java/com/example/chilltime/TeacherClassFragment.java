@@ -42,8 +42,21 @@ public class TeacherClassFragment extends Fragment {
         }
 
         EditText etSearch = view.findViewById(R.id.et_class_search);
-        etSearch.setOnClickListener(v -> {
+        etSearch.setText("");
+        etSearch.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Call filter function on adapter
+                adapter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+            }
         });
 
         return view;
@@ -59,6 +72,7 @@ public class TeacherClassFragment extends Fragment {
                             fetchClassDetails(classId, teacherClass -> {
                                 if (teacherClass != null) {
                                     classes.add(teacherClass);
+                                    adapter.filter("");
                                     adapter.notifyDataSetChanged();
                                 }
                             });

@@ -17,6 +17,7 @@
         <activity android:name=".RecreatePasswordActivity"/>
         <activity android:name=".TypingOtpActivity"/>
         <activity android:name=".ForgotPasswordActivity"/>
+        <activity android:name=".ChangePassword"/>
         <activity android:name=".StudentActivity"/>
         <activity android:name=".TeacherActivity"/>
         <activity android:name=".AdminSettingFragment"/>

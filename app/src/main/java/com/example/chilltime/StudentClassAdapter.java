@@ -16,9 +16,11 @@ import java.util.ArrayList;
 public class StudentClassAdapter extends RecyclerView.Adapter<StudentClassAdapter.ClassViewHolder>{
     private final Context context;
     private final ArrayList<StudentClass> classList;
+    private ArrayList<StudentClass> filteredList;
 
     public StudentClassAdapter(Context context, ArrayList<StudentClass> classList) {
         this.classList = classList;
+        this.filteredList = new ArrayList<>(classList);
         this.context = context;
     }
 
@@ -73,6 +75,35 @@ public class StudentClassAdapter extends RecyclerView.Adapter<StudentClassAdapte
 
     @Override
     public int getItemCount() {
-        return classList.size();
+        return filteredList.size();
     }
+
+    public void filter(String keyword) {
+        filteredList.clear(); // Clear the filtered list
+
+        if (keyword.isEmpty()) {
+            // Nếu từ khóa rỗng, hiển thị tất cả item
+            filteredList.addAll(classList);
+        } else {
+            // Lọc danh sách dựa trên từ khóa
+            for (StudentClass item : classList) {
+                // Kiểm tra null trước khi gọi toLowerCase()
+                String classId = item.getClassId() != null ? item.getClassId().toLowerCase() : "";
+                String classSubject = item.getClassSubject() != null ? item.getClassSubject().toLowerCase() : "";
+                String classTeacher = item.getClassTeacher() != null ? item.getClassTeacher().toLowerCase() : "";
+                String numStu = item.getNumStu() != null ? item.getNumStu().toLowerCase() : ""; // Nếu numStu là String
+                // Kiểm tra xem từ khóa có khớp với bất kỳ trường nào không
+                if (classId.contains(keyword.toLowerCase()) ||
+                        classSubject.contains(keyword.toLowerCase()) ||
+                        classTeacher.contains(keyword.toLowerCase()) ||
+                        numStu.contains(keyword)) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        notifyDataSetChanged(); // Làm mới RecyclerView
+    }
+
+
 }

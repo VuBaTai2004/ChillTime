@@ -134,6 +134,19 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent">
             <Button
+                android:id="@+id/teacher_btn_change_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đổi mật khẩu"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="0dp"
+                android:backgroundTint="#7073C9"
+                app:cornerRadius="12dp"
+                app:layout_constraintBottom_toTopOf="@id/teacher_btn_logout"/>
+            <Button
                 android:id="@+id/teacher_btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -46,9 +46,25 @@ public class StudentClassFragment extends Fragment {
         }
 
         EditText etSearch = view.findViewById(R.id.et_class_search);
-        etSearch.setOnClickListener(v -> {
+        etSearch.setText("");
+        etSearch.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Không cần làm gì
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Gọi hàm filter() của adapter
+                adapter.filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+                // Không cần làm gì
+            }
         });
+
 
         return view;
     }
@@ -61,6 +77,7 @@ public class StudentClassFragment extends Fragment {
                             fetchClassDetails(classId, studentClass -> {
                                 if (studentClass != null) {
                                     classes.add(studentClass);
+                                    adapter.filter("");
                                     adapter.notifyDataSetChanged();
                                 }
                             });

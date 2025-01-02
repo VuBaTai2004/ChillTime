@@ -69,7 +69,7 @@ public class TeacherOpenExercise extends AppCompatActivity {
             startActivity(intent);
         });
 
-        db.collection("excercises").whereEqualTo("classId", classId).get()
+        db.collection("exercises").whereEqualTo("classId", classId).get()
                         .addOnCompleteListener(task -> {
                             if(task.isSuccessful()){
                                 exercises.clear();

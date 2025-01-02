@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,33 +64,47 @@ public class StudentExerciseAdapter extends RecyclerView.Adapter<StudentExercise
         holder.timeTextView.setText(currentItem.getTime());
         holder.documentTextView.setText(currentItem.getContent());
 
-        // Truy vấn Firestore để kiểm tra xem bài tập đã được nộp hay chưa
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("exercises")
-                .whereEqualTo("classId", classId)
-                .whereEqualTo("title", currentItem.getTitle())
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        String exerciseDocId = queryDocumentSnapshots.getDocuments().get(0).getId();
+        // Định dạng thời gian
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-                        // Kiểm tra trong sub-collection submit_homework
-                        db.collection("exercises")
-                                .document(exerciseDocId)
-                                .collection("submit_homework")
-                                .whereEqualTo("username", username)
-                                .get()
-                                .addOnSuccessListener(submitSnapshots -> {
-                                    if (!submitSnapshots.isEmpty()) {
-                                        // Nếu bài tập đã nộp, đổi màu titleTextView
-                                        holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorDefault)); // Đổi sang mã màu #7073C9
-                                    } else {
-                                        // Nếu chưa nộp, để màu mặc định
-                                        holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorSubmitted));
-                                    }
-                                });
-                    }
-                });
+        try {
+            Date exerciseDate = dateFormat.parse(currentItem.getTime());
+            Date currentDate = new Date(); // Thời gian hiện tại
+
+            // Truy vấn Firestore để kiểm tra trạng thái nộp bài
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("exercises")
+                    .whereEqualTo("classId", classId)
+                    .whereEqualTo("title", currentItem.getTitle())
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            String exerciseDocId = queryDocumentSnapshots.getDocuments().get(0).getId();
+
+                            db.collection("exercises")
+                                    .document(exerciseDocId)
+                                    .collection("submit_homework")
+                                    .whereEqualTo("username", username)
+                                    .get()
+                                    .addOnSuccessListener(submitSnapshots -> {
+                                        if (!submitSnapshots.isEmpty()) {
+                                            // Nếu đã nộp bài, hiển thị màu mặc định
+                                            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorDefault));
+                                        } else if (exerciseDate != null && exerciseDate.before(currentDate)) {
+                                            // Nếu chưa nộp và đã quá hạn, hiển thị màu đỏ
+                                            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorDeadlineMissed));
+                                        } else {
+                                            // Nếu chưa nộp nhưng còn hạn, hiển thị màu xanh
+                                            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorNotSubmitted));
+                                        }
+                                    });
+                        }
+                    });
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Nếu xảy ra lỗi khi phân tích thời gian, đặt màu mặc định
+            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorDefault));
+        }
 
         // Đặt sự kiện click cho toàn bộ item_exercise
         holder.itemExercise.setOnClickListener(v -> {
@@ -101,12 +119,6 @@ public class StudentExerciseAdapter extends RecyclerView.Adapter<StudentExercise
                 ((StudentOpenExercise) context).startActivityForResult(intent, 1); // Sử dụng requestCode = 1
             }
         });
-
-        if (currentItem.isSubmitted()) {
-            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorDefault));
-        } else {
-            holder.titleTextView.setTextColor(context.getResources().getColor(R.color.colorSubmitted));
-        }
     }
 
     @Override

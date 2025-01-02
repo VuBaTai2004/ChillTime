@@ -14,7 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class StudentExerciseDetail extends AppCompatActivity {
@@ -33,18 +37,34 @@ public class StudentExerciseDetail extends AppCompatActivity {
         String classId = getIntent().getStringExtra("classId");
         String username = getIntent().getStringExtra("username");
 
-        // Gán dữ liệu vào TextView (hoặc bất kỳ phần tử UI nào khác)
-
-        // Đặt tiêu đề cho Activity
+        // Gán dữ liệu vào TextView
         TextView title = findViewById(R.id.text_title);
         TextView time = findViewById(R.id.text_time);
         TextView content = findViewById(R.id.text_content);
         TextView linkTextView = findViewById(R.id.text_link);
         EditText etSubmit = findViewById(R.id.et_submit);
+        Button btnSubmit = findViewById(R.id.teacher_btn_submit); // Nút "Nộp bài"
 
         title.setText("Tiêu đề: " + exerciseTitle);
         time.setText("Thời gian: " + exerciseTime);
         content.setText("Nội dung: " + exerciseContent);
+
+        // Định dạng thời gian và kiểm tra hạn nộp bài
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        try {
+            Date exerciseDeadline = dateFormat.parse(exerciseTime);
+            Date currentDate = new Date(); // Lấy thời gian hiện tại
+
+            if (exerciseDeadline != null && exerciseDeadline.before(currentDate)) {
+                // Nếu đã quá hạn nộp bài
+                btnSubmit.setEnabled(false); // Vô hiệu hóa nút
+                btnSubmit.setText("Đã quá hạn"); // Đổi tên nút
+                Toast.makeText(this, "Bài tập đã quá hạn, không thể nộp bài.", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Lỗi khi phân tích hạn nộp bài.", Toast.LENGTH_SHORT).show();
+        }
 
         db.collection("exercises")
                 .whereEqualTo("classId", classId)
@@ -86,11 +106,8 @@ public class StudentExerciseDetail extends AppCompatActivity {
                     Toast.makeText(this, "Lỗi khi tải dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
-
         // Xử lý sự kiện khi người dùng nhấn nút "Nộp bài"
-        Button btnSubmit = findViewById(R.id.teacher_btn_submit);
         btnSubmit.setOnClickListener(v -> {
-            // Lấy link từ EditText
             String submittedLink = etSubmit.getText().toString().trim();
 
             if (submittedLink.isEmpty()) {
@@ -98,23 +115,20 @@ public class StudentExerciseDetail extends AppCompatActivity {
                 return;
             }
 
-            // Kiểm tra classId và exerciseTitle
             db.collection("exercises")
-                    .whereEqualTo("classId", classId)  // Điều kiện classId
-                    .whereEqualTo("title", exerciseTitle)  // Điều kiện exerciseTitle
+                    .whereEqualTo("classId", classId)
+                    .whereEqualTo("title", exerciseTitle)
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                            // Document tồn tại, tiến hành gửi dữ liệu
                             Map<String, String> submissionInfo = new HashMap<>();
                             submissionInfo.put("username", username);
                             submissionInfo.put("link", submittedLink);
 
-                            // Gửi dữ liệu lên Firestore
                             db.collection("exercises")
-                                    .document(task.getResult().getDocuments().get(0).getId())  // Lấy ID của document
-                                    .collection("submit_homework")  // Sub-collection submit_homework
-                                    .add(submissionInfo)  // Lưu submissionInfo vào document mới
+                                    .document(task.getResult().getDocuments().get(0).getId())
+                                    .collection("submit_homework")
+                                    .add(submissionInfo)
                                     .addOnSuccessListener(documentReference -> {
                                         Toast.makeText(this, "Nộp bài thành công.", Toast.LENGTH_SHORT).show();
                                     })
@@ -122,30 +136,12 @@ public class StudentExerciseDetail extends AppCompatActivity {
                                         Toast.makeText(this, "Lỗi khi nộp bài: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     });
                         } else {
-                            // Document không tồn tại
                             Toast.makeText(this, "Không tìm thấy bài tập tương ứng.", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Lỗi khi kiểm tra bài tập: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
-        });
-
-        Button btnOpen = findViewById(R.id.teacher_btn_open);
-        btnOpen.setOnClickListener(v -> {
-            String link = linkTextView.getText().toString().trim();
-
-            if (link.isEmpty() || link.equals("Không tìm thấy dữ liệu.")) {
-                Toast.makeText(this, "Link không hợp lệ.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-            try {
-                startActivity(intent);
-            } catch (Exception e) {
-                Toast.makeText(this, "Không mở được link: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
         });
 
         ImageView backArrow = findViewById(R.id.back_arrow);

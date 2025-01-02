@@ -11,6 +11,7 @@
     <color name="cyan">#09EDCF</color>
     <color name="light_gray">#B1AEAE</color>
     <color name="xxx">#7073C9</color>
-    <color name="colorSubmitted">#7073C9</color>
-    <color name="colorDefault">#000000</color> <!-- Màu mặc định (ví dụ: đen) -->
+    <color name="colorDefault">#000000</color> <!-- Màu mặc định -->
+    <color name="colorNotSubmitted">#7073C9</color> <!-- Màu xanh cho bài chưa nộp nhưng còn hạn -->
+    <color name="colorDeadlineMissed">#FF0000</color> <!-- Màu đỏ cho bài chưa nộp và đã quá hạn -->
 </resources>

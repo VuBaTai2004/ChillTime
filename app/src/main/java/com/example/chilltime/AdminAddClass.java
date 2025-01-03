@@ -117,10 +117,14 @@ public class AdminAddClass extends AppCompatActivity {
                         classInfo.put("time", etTime.getText().toString());
                         classInfo.put("room", etRoom.getText().toString());
                         db.collection("courses_detail").document(etId.getText().toString()).set(classInfo);
+                        Map<String, Object> obj = new HashMap<>();
+                        obj.put("classId", etId.getText().toString());
+                        db.collection("teachers").document(document.getId()).collection("class_list").document(etId.getText().toString()).set(obj);
                         Toast.makeText(this, "Thêm lớp thành công!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+
         });
 
         Button classBtnAddTeacher = findViewById(R.id.btn_add_teacher);

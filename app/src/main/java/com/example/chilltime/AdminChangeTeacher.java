@@ -14,7 +14,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AdminChangeTeacher extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -71,7 +73,20 @@ public class AdminChangeTeacher extends AppCompatActivity {
                 String selectedPhone = selectedTeacher.getPhone();
                 String selectedEmail = selectedTeacher.getEmail();
                 assert classId != null;
+                db.collection("teachers").whereEqualTo("name", name).get()
+                                .addOnCompleteListener(task -> {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        db.collection("teachers").document(document.getId()).collection("class_list").document(classId).delete();
+                                    }
+                                });
                 db.collection("courses_detail").document(classId).update("classTeacher", selectedName);
+                db.collection("teachers").whereEqualTo("name", selectedName).get().addOnCompleteListener(task -> {
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("classId", classId);
+                        db.collection("teachers").document(document.getId()).collection("class_list").document(classId).set(data);
+                    }
+                });
             }
             Intent intent = new Intent(AdminChangeTeacher.this, AdminOpenClass.class);
             intent.putExtra("classId", classId);

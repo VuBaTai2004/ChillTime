@@ -62,34 +62,26 @@ public class TeacherClassFragment extends Fragment {
         return view;
     }
 
-
     private void fetchTeacherClasses(String username) {
-        fetchTeacherId(username, teacherId -> {
-            if (teacherId != null) {
-                fetchClassIds(teacherId, classIds -> {
-                    if (classIds != null) {
-                        for (String classId : classIds) {
-                            fetchClassDetails(classId, teacherClass -> {
-                                if (teacherClass != null) {
-                                    classes.add(teacherClass);
-                                    adapter.filter("");
-                                    adapter.notifyDataSetChanged();
-                                }
-                            });
-                        }
+        fetchTeacherName(username, name -> {
+            if (name != null) {
+                fetchClassesByTeacherName(name, teacherClasses -> {
+                    if (teacherClasses != null) {
+                        classes.clear();
+                        classes.addAll(teacherClasses);
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }
         });
     }
 
-
-    private void fetchTeacherId(String username, OnCompleteListener<String> onComplete) {
+    private void fetchTeacherName(String username, OnCompleteListener<String> onComplete) {
         db.collection("teachers").whereEqualTo("username", username).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        String teacherId = task.getResult().getDocuments().get(0).getId();
-                        onComplete.onComplete(teacherId);
+                        String name = task.getResult().getDocuments().get(0).getString("name");
+                        onComplete.onComplete(name);
                     } else {
                         Log.w("Firestore", "No teacher found or error: ", task.getException());
                         onComplete.onComplete(null);
@@ -97,38 +89,21 @@ public class TeacherClassFragment extends Fragment {
                 });
     }
 
-
-    private void fetchClassIds(String teacherId, OnCompleteListener<List<String>> onComplete) {
-        db.collection("teachers").document(teacherId).collection("class_list").get()
+    private void fetchClassesByTeacherName(String name, OnCompleteListener<List<TeacherClass>> onComplete) {
+        db.collection("courses_detail").whereEqualTo("classTeacher", name).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        List<String> classIds = new ArrayList<>();
-                        for (QueryDocumentSnapshot classDoc : task.getResult()) {
-                            String classId = classDoc.getString("classId");
-                            if (classId != null) {
-                                classIds.add(classId);
-                            }
+                        List<TeacherClass> teacherClasses = new ArrayList<>();
+                        for (QueryDocumentSnapshot courseDoc : task.getResult()) {
+                            TeacherClass teacherClass = new TeacherClass(
+                                    courseDoc.getString("classId"),
+                                    courseDoc.getString("classSubject"),
+                                    courseDoc.getString("studentNum"),
+                                    courseDoc.getString("classTeacher")
+                            );
+                            teacherClasses.add(teacherClass);
                         }
-                        onComplete.onComplete(classIds);
-                    } else {
-                        Log.w("Firestore", "Error getting class list: ", task.getException());
-                        onComplete.onComplete(null);
-                    }
-                });
-    }
-
-    private void fetchClassDetails(String classId, OnCompleteListener<TeacherClass> onComplete) {
-        db.collection("courses_detail").document(classId).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null) {
-                        DocumentSnapshot courseDoc = task.getResult();
-                        TeacherClass teacherClass = new TeacherClass(
-                                courseDoc.getString("classId"),
-                                courseDoc.getString("classSubject"),
-                                courseDoc.getString("studentNum"),
-                                courseDoc.getString("classTeacher")
-                        );
-                        onComplete.onComplete(teacherClass);
+                        onComplete.onComplete(teacherClasses);
                     } else {
                         Log.w("Firestore", "Error getting course details: ", task.getException());
                         onComplete.onComplete(null);
@@ -140,3 +115,4 @@ public class TeacherClassFragment extends Fragment {
         void onComplete(T result);
     }
 }
+

@@ -51,7 +51,7 @@ public class AdminClass extends AppCompatActivity {
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
                                             for (QueryDocumentSnapshot document1 : task1.getResult()) {
-                                                db.collection("courses_detail").whereEqualTo("classId", document1.getString("id")).get()
+                                                db.collection("courses_detail").whereEqualTo("classId", document1.getString("id")).orderBy("classId").get()
                                                         .addOnCompleteListener(task2 -> {
                                                             if (task2.isSuccessful()) {
                                                                 for (QueryDocumentSnapshot document2 : task2.getResult()) {

@@ -80,7 +80,7 @@ public class StudentScheduleFragment extends Fragment {
                                                                 // Lấy thông tin từ courses_detail
                                                                 String startTime = courseDoc.getString("timeStart");
                                                                 String endTime = courseDoc.getString("timeEnd");
-                                                                String dayOfWeek = courseDoc.getString("dayofWeek");
+                                                                String dayOfWeek = courseDoc.getString("dayOfWeek");
                                                                 String time = courseDoc.getString("time");
                                                                 String room = courseDoc.getString("room");
 

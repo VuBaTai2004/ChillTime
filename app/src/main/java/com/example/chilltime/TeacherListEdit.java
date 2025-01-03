@@ -70,6 +70,8 @@ public class TeacherListEdit extends AppCompatActivity {
                 updatedData.put("th", String.valueOf(practiceGrade));
                 updatedData.put("gk", String.valueOf(midtermGrade));
                 updatedData.put("ck", String.valueOf(termGrade));
+                updatedData.put("classId", classId); // Thêm classId vào dữ liệu mới
+                updatedData.put("studentId", studentId); // Thêm studentId vào dữ liệu mới
 
                 db.collection("points")
                         .whereEqualTo("classId", classId)
@@ -77,6 +79,7 @@ public class TeacherListEdit extends AppCompatActivity {
                         .get()
                         .addOnSuccessListener(queryDocumentSnapshots -> {
                             if (!queryDocumentSnapshots.isEmpty()) {
+                                // Nếu tìm thấy dữ liệu, cập nhật dữ liệu hiện có
                                 String documentId = queryDocumentSnapshots.getDocuments().get(0).getId();
                                 db.collection("points").document(documentId)
                                         .update(updatedData)
@@ -94,7 +97,22 @@ public class TeacherListEdit extends AppCompatActivity {
                                         })
                                         .addOnFailureListener(e -> Toast.makeText(this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                             } else {
-                                Toast.makeText(this, "Không tìm thấy dữ liệu để cập nhật!", Toast.LENGTH_SHORT).show();
+                                // Nếu không tìm thấy dữ liệu, thêm mới dữ liệu
+                                db.collection("points")
+                                        .add(updatedData)
+                                        .addOnSuccessListener(documentReference -> {
+                                            Toast.makeText(this, "Thêm mới thành công!", Toast.LENGTH_SHORT).show();
+
+                                            // Trả kết quả về
+                                            Intent resultIntent = new Intent();
+                                            resultIntent.putExtra("updatedProgress", progressGrade);
+                                            resultIntent.putExtra("updatedPractice", practiceGrade);
+                                            resultIntent.putExtra("updatedMidterm", midtermGrade);
+                                            resultIntent.putExtra("updatedTerm", termGrade);
+                                            setResult(RESULT_OK, resultIntent);
+                                            finish();
+                                        })
+                                        .addOnFailureListener(e -> Toast.makeText(this, "Thêm mới thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                             }
                         })
                         .addOnFailureListener(e -> Toast.makeText(this, "Lỗi khi lấy dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show());

@@ -15,7 +15,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class AdminAddStudentIntoClass extends AppCompatActivity {
@@ -80,6 +82,15 @@ public class AdminAddStudentIntoClass extends AppCompatActivity {
 
             for (StudentProfile student : selectedStudents) {
                 db.collection("courses_detail").document(classId).collection("student_list").document(student.getId()).set(student);
+                db.collection("students").whereEqualTo("id", student.getId()).get()
+                        .addOnCompleteListener(task -> {
+                           for (QueryDocumentSnapshot document : task.getResult()) {
+                               Map<String,String> obj = new HashMap<>();
+                               obj.put("classId", classId);
+                               db.collection("students").document(document.getId()).collection("class_list")
+                                       .document(classId).set(obj);
+                           }
+                        });
             }
             Intent intent = new Intent(this, AdminOpenClass.class);
             intent.putExtra("classId", classId);

@@ -91,7 +91,7 @@ public class AdminOpenClass extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         students.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            db.collection("students").whereEqualTo("id", document.getId()).get()
+                            db.collection("students").whereEqualTo("id", document.getId()).orderBy("id").get()
                                     .addOnCompleteListener(studentTask -> {
                                         if (studentTask.isSuccessful()) {
                                             for (QueryDocumentSnapshot studentDoc : studentTask.getResult()) {

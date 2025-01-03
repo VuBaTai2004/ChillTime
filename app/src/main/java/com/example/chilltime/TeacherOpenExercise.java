@@ -83,7 +83,7 @@ public class TeacherOpenExercise extends AppCompatActivity {
                         exercises.clear();
                         for(QueryDocumentSnapshot document : task.getResult()){
                             String title = document.getString("title");
-                            String time = document.getString("deadline");
+                            String time = document.getString("time");
                             String message = document.getString("content");
                             exercises.add(new Exercise(title, time, message));
                             Log.d("FirestoreDebug", "Number of documents: " + task.getResult().size());

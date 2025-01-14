@@ -117,7 +117,7 @@ public class StudentTranscriptFragment extends Fragment {
     }
 
     private String calculateSemesterName(String timeStart) {
-        if (timeStart == null) return "Unknown Semester";
+        if (timeStart == null) return "Học kì chưa xác định";
 
         try {
             // Định dạng ngày tháng theo "dd/MM/yyyy"
@@ -134,7 +134,7 @@ public class StudentTranscriptFragment extends Fragment {
             return (month >= 8) ? "HK1 " + year : "HK2 " + (year - 1);
         } catch (Exception e) {
             Log.e(TAG, "Error parsing timeStart", e);
-            return "Unknown Semester";
+            return "Học kì chưa xác định";
         }
     }
 
